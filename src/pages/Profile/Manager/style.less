@@ -1,0 +1,36 @@
+.one-page-profile-list {
+  min-height: calc(100vh - 344px) !important;
+
+  .one-profile-table {
+    margin-top: 16px;
+
+    .ant-table-expanded-row .ant-table-cell {
+      padding-bottom: 0;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .one-resource-title {
+      border-bottom: 1px solid rgba(@border-color-base, 0.3);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+
+    .one-resource-row {
+      border-bottom: 1px solid rgba(@border-color-base, 0.3);
+
+      &:last-of-type {
+        margin-bottom: 0 !important;
+        border-bottom: none;
+      }
+
+      .ant-radio-wrapper {
+        padding: 0 16px;
+      }
+    }
+  }
+}
+
+.dark .ant-table-expanded-row .ant-table-cell {
+  background: #1d1d1d !important;
+}

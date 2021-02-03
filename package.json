@@ -1,0 +1,75 @@
+{
+  "name": "ant-design-dashboard-ts",
+  "description": "Dashboard frontend Ant Design project",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Eliton Freitas",
+    "email": "elitonfreitas@gmail.com",
+    "url": "https://github.com/elitonfreitas"
+  },
+  "dependencies": {
+    "antd": "^4.9.4",
+    "axios": "^0.21.1",
+    "crypto-js": "^4.0.0",
+    "i18next": "^19.8.4",
+    "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.32",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-i18next": "^11.8.5",
+    "react-router-dom": "^5.2.0",
+    "secure-web-storage": "^1.0.2",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "NODE_ENV=development craco start",
+    "build": "NODE_ENV=production craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^6.0.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/crypto-js": "^4.0.1",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.53",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router-dom": "^5.1.7",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "craco-antd": "^1.19.0",
+    "craco-less": "^1.17.1",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-import-resolver-typescript": "^2.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "git-commit-msg-linter": "^3.0.0",
+    "prettier": "^2.2.1",
+    "react-scripts": "4.0.1",
+    "terser-webpack-plugin": "^5.1.1",
+    "typescript": "^4.0.3",
+    "webpack-bundle-analyzer": "^4.4.0",
+    "webpackbar": "^5.0.0-3"
+  }
+}

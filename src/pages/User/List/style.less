@@ -1,0 +1,30 @@
+.one-page-user-list {
+  min-height: calc(100vh - 344px) !important;
+
+  .one-table-actions {
+    position: absolute;
+    display: inline-block;
+    margin-top: 6px;
+    z-index: 1;
+
+    &.relative {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .ant-btn {
+      margin-right: 16px;
+    }
+  }
+
+  .search-icon {
+    & svg {
+      width: 1.6em !important;
+      height: 1.6em !important;
+    }
+
+    &.active {
+      color: @primary-color;
+    }
+  }
+}
