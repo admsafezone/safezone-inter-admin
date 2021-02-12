@@ -1,6 +1,6 @@
-import { FC, ReactElement, useContext } from 'react';
+import { FC, ReactElement } from 'react';
 import Spin from 'antd/es/spin';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import './style.less';
 
 interface LoaderProps {
@@ -9,7 +9,7 @@ interface LoaderProps {
 }
 
 const OneLoader: FC<LoaderProps> = (props: LoaderProps): ReactElement => {
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const { show = false, text = t('Loading...') } = props;
   return (
     <div className={show ? 'one-loader' : 'one-loader hidden'}>

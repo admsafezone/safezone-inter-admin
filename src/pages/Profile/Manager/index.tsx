@@ -1,4 +1,4 @@
-import { FC, Key, useContext, useEffect, useState } from 'react';
+import { FC, Key, useEffect, useState } from 'react';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Layout from 'antd/es/layout';
@@ -18,7 +18,7 @@ import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import OneButton from 'components/atoms/OneButton';
 import { Profile, Resource } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
@@ -28,7 +28,7 @@ const { Content } = Layout;
 const { Column } = Table;
 
 const ProfileManager: FC = (): JSX.Element => {
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(false);
   const [resources, setResources] = useState<Resource[]>([]);

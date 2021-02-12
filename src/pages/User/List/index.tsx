@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Button from 'antd/es/button';
 import Col from 'antd/es/col';
 import Input from 'antd/es/input';
@@ -17,7 +17,7 @@ import OneButton from 'components/atoms/OneButton';
 import { Profile, User } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import UserCreate from 'pages/User/Create';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
@@ -28,7 +28,7 @@ const { Content } = Layout;
 const { Column } = Table;
 
 const UserList: FC = (): JSX.Element => {
-  const { t, options } = useContext(AppContext);
+  const { t, options } = useAppContext();
   const [users, setUsers] = useState<User[]>([]);
   const [userEdit, setUserEdit] = useState<User>();
   const [createVisible, setCreateVisible] = useState(false);
@@ -46,7 +46,7 @@ const UserList: FC = (): JSX.Element => {
   const getUsers = async (page: Pager = pager, filter: FilterItem[] = filters) => {
     setLoading(true);
     const params = queryBuilder(page, filter);
-    const response = await defaultService.get(`${Constants.api.USERS}?${params}`, { list: [], pager: [] });
+    const response = await defaultService.get(`${Constants.api.USERS}/?${params}`, { list: [], pager: [] });
 
     await setUsers(response?.list);
     setPager({ ...response?.pager, sortBy: page.sortBy });

@@ -1,9 +1,9 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 import Layout from 'antd/es/layout';
 
 import OneLogo from 'components/atoms/OneLogo';
 import OneMenu from 'components/molecules/OneMenu';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
 import OneHeader from 'components/molecules/OneHeader';
 import Routes from '../../../routes';
@@ -14,7 +14,7 @@ import './style.less';
 const { Sider, Footer } = Layout;
 
 const OneSiderBar: FC = (): JSX.Element => {
-  const { options } = useContext(AppContext);
+  const { options } = useAppContext();
   const [collapsed, setCollapsed] = useState(false);
 
   function toggle() {

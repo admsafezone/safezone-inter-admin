@@ -1,11 +1,11 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Layout from 'antd/es/layout';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 
 const { Content } = Layout;
 
 const Dashboard: FC = (props): JSX.Element => {
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   return <Content {...props}>{t('Welcome')}</Content>;
 };
 

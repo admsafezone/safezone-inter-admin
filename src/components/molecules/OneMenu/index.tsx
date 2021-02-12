@@ -1,8 +1,8 @@
-import { FC, Key, ReactElement, useContext, useState } from 'react';
+import { FC, Key, ReactElement, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Menu from 'antd/es/menu';
 import { checkACL } from 'utils/AclUtils';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import { MenuItem } from '../../../routes/menu';
 import './style.less';
 import Constants from 'utils/Constants';
@@ -14,7 +14,7 @@ export interface OneMenuProps {
 
 const OneMenu: FC<OneMenuProps> = ({ theme, menus }: OneMenuProps): ReactElement => {
   const history = useHistory();
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const menuKeys: Key[] = [];
   const [openKey, setOpenKey] = useState<string[]>(['menu-1']);
 

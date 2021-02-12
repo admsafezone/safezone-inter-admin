@@ -1,9 +1,9 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Drawer from 'antd/es/drawer';
 import Form from 'antd/es/form';
 import Radio from 'antd/es/radio';
 import Select from 'antd/es/select';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import { Lang } from 'i18n';
 import './style.less';
 
@@ -15,7 +15,7 @@ interface OneThemeConfigProps {
 }
 
 const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: OneThemeConfigProps): JSX.Element => {
-  const { options, changeOptions, t } = useContext(AppContext);
+  const { options, changeOptions, t } = useAppContext();
 
   return (
     <Drawer

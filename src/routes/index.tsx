@@ -1,11 +1,11 @@
-import { FC, ReactElement, useContext } from 'react';
+import { FC, ReactElement } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Layout from 'antd/es/layout';
 import OnePageHeader from '../components/atoms/OnePageHeader';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
 import { MenuItem } from './menu';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 
 const { Content } = Layout;
 
@@ -15,7 +15,7 @@ interface RoutesProps {
 }
 
 const Routes: FC<RoutesProps> = ({ collapsed, menus }: RoutesProps): ReactElement => {
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
 
   function mapMenu(item: MenuItem, i: string, routes: MenuItem[] = []): any {
     const routesList: MenuItem[] = [

@@ -1,6 +1,6 @@
-import { FC, ReactElement, useContext, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import Select, { SelectProps, SelectValue } from 'antd/es/select';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
 
@@ -18,7 +18,7 @@ interface OneSelectProps extends SelectProps<SelectValue> {
 
 const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   const { dataItems = [], apiURL, keyAttr, valueAttr, labelAttr, useCache, noDefaultOption, ...rest } = props;
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
 

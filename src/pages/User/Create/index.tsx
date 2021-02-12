@@ -1,4 +1,4 @@
-import { FC, ReactElement, useContext, useEffect, useState } from 'react';
+import { FC, ReactElement, useEffect, useState } from 'react';
 import Alert from 'antd/es/alert';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
@@ -9,7 +9,7 @@ import Typography from 'antd/es/typography';
 import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
 import { Profile, User } from 'interfaces';
@@ -27,7 +27,7 @@ interface ArticleCreateProps {
 
 const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
   const { visible, setVisible, user, setUser, reload } = props;
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);

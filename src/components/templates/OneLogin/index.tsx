@@ -1,4 +1,4 @@
-import { FC, ReactElement, useContext, useState } from 'react';
+import { FC, ReactElement, useState } from 'react';
 import Form from 'antd/es/form';
 import Alert from 'antd/es/alert';
 import Button from 'antd/es/button';
@@ -8,7 +8,7 @@ import Col from 'antd/es/col';
 import Image from 'antd/es/image';
 import Input from 'antd/es/input';
 import defaultService from 'services/defaultService';
-import AppContext from 'contexts/AppContext';
+import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
 import { tokenDecode } from 'utils/AclUtils';
 import { User } from 'interfaces';
@@ -25,7 +25,7 @@ interface LoginProps {
 }
 
 const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
-  const { t } = useContext(AppContext);
+  const { t } = useAppContext();
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   const onFinish = async (values: Login) => {
