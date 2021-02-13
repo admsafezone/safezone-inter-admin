@@ -23,12 +23,12 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   const [data, setData] = useState<any[]>([]);
 
   const setCache = (data: any[]) => {
-    sls.setItem(apiURL, JSON.stringify(data));
+    sls.setItem(apiURL, data);
   };
 
   const getCache = () => {
-    const cacheData = sls.getItem(apiURL) || 'false';
-    return JSON.parse(cacheData);
+    const cacheData = sls.getItem(apiURL) || false;
+    return cacheData;
   };
 
   const getData = async () => {

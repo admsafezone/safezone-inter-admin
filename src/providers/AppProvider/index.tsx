@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { ThemeOptions, User } from 'interfaces';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from 'i18n';
 
 export interface Theme {
+  company?: any;
   user?: User;
   options: ThemeOptions;
   t(key: string): string;
@@ -14,9 +15,11 @@ export interface Theme {
   changeLogged(user?: User): void;
 }
 
-const loggedUser = JSON.parse(sls.getItem(Constants.storage.USER) || 'null');
+const userCompany = sls.getItem(Constants.storage.COMPANY) || null;
+const loggedUser = sls.getItem(Constants.storage.USER) || null;
 
 export const AppContext = createContext<Theme>({
+  company: userCompany,
   user: loggedUser,
   options: {
     theme: 'light',
@@ -29,6 +32,7 @@ export const AppContext = createContext<Theme>({
 });
 
 export const AppProvider = ({ children }: any) => {
+  const [company, setCompany] = useState<any>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(
     user?.options || { theme: 'light', componentSize: 'middle', lang: 'pt_br' },
@@ -55,8 +59,24 @@ export const AppProvider = ({ children }: any) => {
     }
   }
 
+  const getCompany = async () => {
+    const response = await defaultService.get(
+      `${Constants.api.COMPANIES}/${user?.company?.id}?select=name theme identifier`,
+    );
+    sls.setItem(Constants.storage.COMPANY, response);
+    setCompany(response);
+  };
+
+  useEffect(() => {
+    if (user) {
+      getCompany();
+    }
+  }, [user]);
+
   return (
-    <AppContext.Provider value={{ user, options, t, changeOptions, changeLogged }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ user, company, options, t, changeOptions, changeLogged }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

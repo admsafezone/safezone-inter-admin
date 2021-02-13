@@ -11,11 +11,10 @@ interface OneAvatarProps {
 }
 
 const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => {
-  const { changeLogged } = useAppContext();
+  const { company, changeLogged } = useAppContext();
   const { onClick } = props;
-  const user = JSON.parse(sls.getItem(Constants.storage.USER) || '{"name": "", image: "", profiles: []}');
-  const { name, image, profiles } = user;
-  const profileName = profiles.join(', ');
+  const user = sls.getItem(Constants.storage.USER) || { name: '', image: '' };
+  const { name, image } = user;
 
   const logout = () => {
     sls.clear();
@@ -25,8 +24,8 @@ const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => 
   return (
     <>
       <div className="profile" onClick={onClick}>
-        <h2>{name}</h2>
-        <p>{profileName}</p>
+        <h2>{company?.name}</h2>
+        <p>{name}</p>
         <Avatar className="profile-thumb" src={image || ''} size={40} />
       </div>
       <div className="profile-logout">
