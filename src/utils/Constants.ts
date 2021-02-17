@@ -11,6 +11,7 @@ const Constants = {
   api: {
     AUTH: 'auth',
     USERS: 'users',
+    COMPANIES: 'companies',
     PROFILES: 'profiles',
     RESOURCES: 'resources',
   },
@@ -19,6 +20,7 @@ const Constants = {
   },
   acl: {
     USERS: 'users',
+    COMPANIES: 'companies',
     PROFILES: 'profiles',
   },
   permissions: {

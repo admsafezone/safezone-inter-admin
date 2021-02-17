@@ -3,6 +3,7 @@ import UserOutlined from '@ant-design/icons/UserOutlined';
 import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
 import Dashboard from '../pages/Dashboard';
+import CompanyList from '../pages/Company/List';
 import UserList from 'pages/User/List';
 import ProfileManager from 'pages/Profile/Manager';
 
@@ -26,6 +27,15 @@ const menus: MenuItem[] = [
     component: Dashboard,
     exact: true,
     icon: DashboardOutlined,
+  },
+  {
+    path: '/company',
+    title: 'Company',
+    subTitle: 'Manager system company',
+    icon: UserOutlined,
+    component: CompanyList,
+    exact: true,
+    aclResource: 'users',
   },
   {
     path: '/users',

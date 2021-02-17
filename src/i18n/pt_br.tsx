@@ -59,6 +59,15 @@ export default {
     'Type the new profile name': 'Digite o nome do novo perfil',
     'Are you sure to delete these users?': 'Você tem certeza que deseja deletar esses usuários?',
 
+    // COMPANY
+    Company: 'Empresa',
+    Companies: 'Empresas',
+    Domains: 'Dominios',
+    'New company': 'Novo perfil',
+    'Manager companies profiles and ACL configurations': 'Gerenciar perfis de usuários e configurações de ACL',
+    'Type the new company name': 'Digite o nome do novo perfil',
+    'Are you sure to delete this company?': 'Você tem certeza que deseja deletar esses usuários?',
+
     // LOGIN
     Welcome: 'Bem-vindo',
     Username: 'Nome de usuário',
