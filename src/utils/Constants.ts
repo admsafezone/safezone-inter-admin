@@ -1,12 +1,13 @@
 const Constants = {
   app: {
-    appName: process.env.REACT_APP_NAME || 'Ant Admin',
+    appName: process.env.REACT_APP_NAME || 'Safezone',
   },
   storage: {
-    TOKEN: 'ANT-DASHBOARD-TOKEN',
-    LANG: 'ANT-DASHBOARD-LANG',
-    LOGGED: 'ANT-DASHBOARD-LOGGED',
-    USER: 'ANT-DASHBOARD-USER',
+    TOKEN: 'SAFEZONE-TOKEN',
+    LANG: 'SAFEZONE-LANG',
+    LOGGED: 'SAFEZONE-LOGGED',
+    USER: 'SAFEZONE-USER',
+    COMPANY: 'SAFEZONE-COMPANY',
   },
   api: {
     AUTH: 'auth',
@@ -14,6 +15,7 @@ const Constants = {
     COMPANIES: 'companies',
     PROFILES: 'profiles',
     RESOURCES: 'resources',
+    COMPANIES: 'companies',
   },
   message: {
     INVALID_TOKEN: 'Invalid token',
@@ -22,6 +24,7 @@ const Constants = {
     USERS: 'users',
     COMPANIES: 'companies',
     PROFILES: 'profiles',
+    COMPANIES: 'companies',
   },
   permissions: {
     R: 'r',

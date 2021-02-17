@@ -24,6 +24,19 @@ export interface Profile {
   updatedAt?: Date;
 }
 
+export interface Company {
+  _id: string;
+  id: string;
+  name: string;
+  identifier: string;
+  active: boolean;
+  domains: string[];
+  origins: string[];
+  theme?: any;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
 export interface User {
   _id: string;
   name: string;
@@ -31,6 +44,7 @@ export interface User {
   active: boolean;
   profiles: any[];
   options?: ThemeOptions;
+  company?: Company;
   createdAt?: Date;
   updatedAt?: Date;
 }
