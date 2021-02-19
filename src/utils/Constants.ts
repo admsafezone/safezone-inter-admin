@@ -15,7 +15,6 @@ const Constants = {
     COMPANIES: 'companies',
     PROFILES: 'profiles',
     RESOURCES: 'resources',
-    COMPANIES: 'companies',
   },
   message: {
     INVALID_TOKEN: 'Invalid token',
@@ -24,7 +23,6 @@ const Constants = {
     USERS: 'users',
     COMPANIES: 'companies',
     PROFILES: 'profiles',
-    COMPANIES: 'companies',
   },
   permissions: {
     R: 'r',
