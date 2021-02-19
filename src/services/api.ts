@@ -27,15 +27,18 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   function (response) {
-    const message = response && response.data ? response.data.message : '';
+    return response;
+  },
+  function (error) {
+    const message = error.response && error.response.data ? error.response.data.message : [];
+
     if (message.includes(Constants.message.INVALID_TOKEN)) {
       sls.removeItem(Constants.storage.TOKEN);
       sls.removeItem(Constants.storage.LOGGED);
       sls.removeItem(Constants.storage.LANG);
+      window.location.href = window.location.origin;
     }
-    return response;
-  },
-  function (error) {
+
     return Promise.reject(error);
   },
 );
