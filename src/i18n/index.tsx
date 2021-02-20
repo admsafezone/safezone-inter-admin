@@ -18,6 +18,13 @@ i18n.use(initReactI18next).init({
   },
 });
 
+export const getCurrentLang = (type = 'web'): string => {
+  if (type === 'api') {
+    return i18n.language.replace('_', '-');
+  }
+  return i18n.language;
+};
+
 export const antLang = {
   pt_br: pt_BR,
   en: en_US,

@@ -11,6 +11,7 @@ const Constants = {
   },
   api: {
     AUTH: 'auth',
+    REFRESH: 'refresh',
     USERS: 'users',
     COMPANIES: 'companies',
     PROFILES: 'profiles',

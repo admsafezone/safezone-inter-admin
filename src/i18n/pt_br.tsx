@@ -1,6 +1,7 @@
 export default {
   translation: {
     //GLOBAS
+    'Invalid token': 'Token inválido',
     'Change theme': 'Mudar o tema',
     Submit: 'Enviar',
     Select: 'Selecione',
