@@ -17,7 +17,6 @@ const refreshToken = async () => {
   try {
     const response = await api.post(Constants.api.REFRESH);
     const { data } = response.data;
-    console.log(data);
     sls.setItem(Constants.storage.TOKEN, data);
     return data.token;
   } catch (error) {
@@ -46,11 +45,12 @@ api.interceptors.response.use(
   async function (error) {
     const message = error.response && error.response.data ? error.response.data.message : [];
 
-    if (message.includes(i18n.t(Constants.message.INVALID_TOKEN))) {
+    if (message.includes(i18n.t(Constants.message.EXPIRED_TOKEN))) {
       const newToken = await refreshToken();
 
       if (!newToken) {
         sls.removeItem(Constants.storage.TOKEN);
+        sls.removeItem(Constants.storage.USER);
         sls.removeItem(Constants.storage.LOGGED);
         sls.removeItem(Constants.storage.LANG);
         window.location.href = window.location.origin;

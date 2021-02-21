@@ -18,7 +18,7 @@ const Constants = {
     RESOURCES: 'resources',
   },
   message: {
-    INVALID_TOKEN: 'Invalid token',
+    EXPIRED_TOKEN: 'jwt expired',
   },
   acl: {
     USERS: 'users',
