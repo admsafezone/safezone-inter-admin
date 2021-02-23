@@ -1,4 +1,5 @@
 import { Lang } from 'i18n';
+import { Company } from './Company';
 
 export type AppTheme = 'light' | 'dark' | undefined;
 export type ComponentSize = 'large' | 'middle' | 'small' | undefined;
@@ -20,19 +21,6 @@ export interface Profile {
   _id: number;
   name: string;
   acl: any;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
-export interface Company {
-  _id: string;
-  id: string;
-  name: string;
-  identifier: string;
-  active: boolean;
-  domains: string[];
-  origins: string[];
-  theme?: any;
   createdAt?: Date;
   updatedAt?: Date;
 }

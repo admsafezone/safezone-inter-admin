@@ -189,7 +189,7 @@ const UserList: FC = (): JSX.Element => {
         </Row>
       </Content>
 
-      <Content className="one-page-user-list">
+      <Content className="one-page-list">
         <div className={pager.total ? 'one-table-actions' : 'one-table-actions relative'}>
           {!!usersToDelete.length && checkACL(Constants.acl.USERS, Constants.permissions.M) && (
             <Popconfirm
@@ -199,7 +199,7 @@ const UserList: FC = (): JSX.Element => {
               cancelText={t('No')}
               icon={<ExclamationCircleOutlined />}
             >
-              <OneButton type="primary" className="one-delete-user" icon={<DeleteOutlined />}>
+              <OneButton type="primary" className="one-delete" icon={<DeleteOutlined />}>
                 {t('Delete')}
               </OneButton>
             </Popconfirm>

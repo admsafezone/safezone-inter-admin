@@ -62,12 +62,16 @@ export default {
 
     // COMPANY
     Company: 'Empresa',
+    'New company': 'Nova empresa',
     Companies: 'Empresas',
     Domains: 'Dominios',
-    'New company': 'Novo perfil',
-    'Manager companies profiles and ACL configurations': 'Gerenciar perfis de usuários e configurações de ACL',
+    'Emails accepted': 'E-mails aceitos',
+    'Manager company and configurations': 'Gerenciar empresas e suas configurações',
     'Type the new company name': 'Digite o nome do novo perfil',
-    'Are you sure to delete this company?': 'Você tem certeza que deseja deletar esses usuários?',
+    'Are you sure you want to delete these companies? All data related to them is permanently deleted!':
+      'Você tem certeza que deseja deletar essas empresas? Todos os dados relacionados a elas são definitivamente apagados!',
+    'Attention! This subdomain cannot be modified later':
+      'Ateção! Este  subdomínio não poderá ser modificado posteriormente',
 
     // LOGIN
     Welcome: 'Bem-vindo',

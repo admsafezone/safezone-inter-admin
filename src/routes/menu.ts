@@ -31,7 +31,7 @@ const menus: MenuItem[] = [
   {
     path: '/company',
     title: 'Company',
-    subTitle: 'Manager system company',
+    subTitle: 'Manager company and configurations',
     icon: UserOutlined,
     component: CompanyList,
     exact: true,

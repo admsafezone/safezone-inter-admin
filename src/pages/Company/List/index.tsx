@@ -14,11 +14,12 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import ClearOutlined from '@ant-design/icons/ClearOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import OneButton from 'components/atoms/OneButton';
-import { Profile, User } from 'interfaces';
+import OnePageTitle from 'components/atoms/OnePageTitle';
+import { Company } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
 import { useAppContext } from 'providers/AppProvider';
-import UserCreate from 'pages/User/Create';
+import CompanyCreate from 'pages/Company/Create';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
@@ -29,8 +30,8 @@ const { Column } = Table;
 
 const CompanyList: FC = (): JSX.Element => {
   const { t, options } = useAppContext();
-  const [companies, setCompanies] = useState<User[]>([]);
-  const [userEdit, setUserEdit] = useState<User>();
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [companyEdit, setCompanyEdit] = useState<Company>();
   const [createVisible, setCreateVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterItem[]>([]);
@@ -63,7 +64,7 @@ const CompanyList: FC = (): JSX.Element => {
   const deleteCompanies = async () => {
     if (companiesToDelete.length) {
       setLoading(true);
-      await defaultService.delete(Constants.api.USERS, companiesToDelete);
+      await defaultService.delete(Constants.api.COMPANIES, companiesToDelete);
       setCompaniesToDelete([]);
       await getCompanies();
     }
@@ -117,7 +118,7 @@ const CompanyList: FC = (): JSX.Element => {
       <Column
         title={t(title)}
         dataIndex={key}
-        width={180}
+        width={150}
         sorter={sorter}
         filteredValue={values}
         filterIcon={() => <SearchOutlined className={values[0] ? 'search-icon active' : 'search-icon'} />}
@@ -168,6 +169,8 @@ const CompanyList: FC = (): JSX.Element => {
 
   return (
     <>
+      <OnePageTitle title={t('Company')} />
+
       <Content>
         <Row>
           {checkACL(Constants.acl.COMPANIES, Constants.permissions.W) ? (
@@ -176,11 +179,11 @@ const CompanyList: FC = (): JSX.Element => {
                 icon={<PlusOutlined />}
                 type="primary"
                 onClick={() => {
-                  setUserEdit(undefined);
+                  setCompanyEdit(undefined);
                   setCreateVisible(true);
                 }}
               >
-                {t('New user')}
+                {t('New company')}
               </OneButton>
             </Col>
           ) : (
@@ -189,17 +192,17 @@ const CompanyList: FC = (): JSX.Element => {
         </Row>
       </Content>
 
-      <Content className="one-page-user-list">
+      <Content className="one-page-list">
         <div className={pager.total ? 'one-table-actions' : 'one-table-actions relative'}>
           {!!companiesToDelete.length && checkACL(Constants.acl.COMPANIES, Constants.permissions.M) && (
             <Popconfirm
-              title={t('Are you sure to delete these users?')}
+              title={t('Are you sure to delete these companies?')}
               onConfirm={() => deleteCompanies()}
               okText={t('Yes')}
               cancelText={t('No')}
               icon={<ExclamationCircleOutlined />}
             >
-              <OneButton type="primary" className="one-delete-user" icon={<DeleteOutlined />}>
+              <OneButton type="primary" className="one-delete" icon={<DeleteOutlined />}>
                 {t('Delete')}
               </OneButton>
             </Popconfirm>
@@ -233,14 +236,23 @@ const CompanyList: FC = (): JSX.Element => {
               : undefined
           }
         >
-          {columnWithSearch('Name', 'name', true, 'r', 'i')}
-          {columnWithSearch('Email', 'email', true, 'r', 'i')}
+          {columnWithSearch(t('Name'), 'name', true, 'r', 'i')}
+          {columnWithSearch(t('Identifier'), 'identifier', true, 'r', 'i')}
+
           <Column
-            title={t('Profiles')}
-            dataIndex="profiles"
-            width={90}
-            render={(_: string, item: User) =>
-              item.profiles ? item.profiles.map((p: Profile) => (p.name ? p.name : p)).join(', ') : ''
+            title={t('Domains')}
+            dataIndex="origins"
+            width={200}
+            render={(_: string, item: Company) =>
+              item.origins ? item.origins.map((domain: string) => domain).join(', ') : ''
+            }
+          />
+          <Column
+            title={t('Emails accepted')}
+            dataIndex="domains"
+            width={150}
+            render={(_: string, item: Company) =>
+              item.domains ? item.domains.map((domain: string) => domain).join(', ') : ''
             }
           />
           <Column
@@ -253,21 +265,21 @@ const CompanyList: FC = (): JSX.Element => {
               { text: t('Yes'), value: true },
               { text: t('No'), value: false },
             ]}
-            render={(_: string, item: User) => (item.active ? t('Yes') : t('No'))}
+            render={(_: string, item: Company) => (item.active ? t('Yes') : t('No'))}
           />
           <Column
             title={t('Created At')}
             dataIndex="createdAt"
             width={90}
             sorter={true}
-            render={(_: string, item: User) => formatDate(item.createdAt)}
+            render={(_: string, item: Company) => formatDate(item.createdAt)}
           />
           <Column
             title={t('Updated At')}
             dataIndex="updatedAt"
             width={90}
             sorter={true}
-            render={(_: string, item: User) => formatDate(item.updatedAt)}
+            render={(_: string, item: Company) => formatDate(item.updatedAt)}
           />
           {checkACL(Constants.acl.COMPANIES, Constants.permissions.W) ? (
             <Column
@@ -276,11 +288,11 @@ const CompanyList: FC = (): JSX.Element => {
               width={50}
               fixed={'right'}
               align={'center'}
-              render={(_: string, item: User) => (
+              render={(_: string, item: Company) => (
                 <OneButton
                   onClick={() => {
                     setCreateVisible(true);
-                    setUserEdit(item);
+                    setCompanyEdit(item);
                   }}
                   icon={<EditOutlined />}
                   type="primary"
@@ -292,12 +304,12 @@ const CompanyList: FC = (): JSX.Element => {
         </Table>
       </Content>
 
-      <UserCreate
+      <CompanyCreate
         visible={createVisible}
         reload={reloadCompanies}
-        setUser={setUserEdit}
+        setCompany={setCompanyEdit}
         setVisible={setCreateVisible}
-        user={userEdit}
+        company={companyEdit}
       />
     </>
   );

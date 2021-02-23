@@ -7,6 +7,7 @@ import Typography from 'antd/es/typography';
 import Col from 'antd/es/col';
 import Image from 'antd/es/image';
 import Input from 'antd/es/input';
+import OnePageTitle from 'components/atoms/OnePageTitle';
 import defaultService from 'services/defaultService';
 import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
@@ -43,6 +44,8 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
 
   return (
     <div className="one-login-wrapper">
+      <OnePageTitle title={t('Sign in')} />
+
       <Form className="one-login" name="login" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
         <div className="one-login-logo">
           <Image src={logo} />
