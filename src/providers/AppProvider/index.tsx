@@ -10,7 +10,7 @@ export interface Theme {
   company?: any;
   user?: User;
   options: ThemeOptions;
-  t(key: string): string;
+  t(key: string, options?: any): string;
   changeOptions(options: ThemeOptions): void;
   changeLogged(user?: User): void;
 }

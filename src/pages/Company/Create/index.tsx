@@ -12,13 +12,13 @@ import Tabs from 'antd/es/tabs';
 import Typography from 'antd/es/typography';
 import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 import OneLoader from 'components/atoms/OneLoader';
+import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
 import { objectToFields, fieldsToObject } from 'utils/DateUtils';
 import { Company } from 'interfaces';
 import './style.less';
-import ThemeOptions from '../ThemeOptions';
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -234,7 +234,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
 
             <Col md={12}>
               <Form.Item label={t('Active company')} name="active">
-                <Switch checked={company?.active} />
+                <Switch defaultChecked={company?.active} />
               </Form.Item>
             </Col>
 
@@ -246,7 +246,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
               <Row gutter={24}>
                 <Col md={8}>
                   <Form.Item label={t('Username from name and surname')} name="options.autoUsername">
-                    <Switch checked={company?.options?.autoUsername} />
+                    <Switch defaultChecked={company?.options?.autoUsername} />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
@@ -256,7 +256,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 </Col>
                 <Col md={8}>
                   <Form.Item label={t('Username visible mask')} name="options.maskOptions.alwaysShowMask">
-                    <Switch checked={company?.options?.maskOptions?.alwaysShowMask} />
+                    <Switch defaultChecked={company?.options?.maskOptions?.alwaysShowMask} />
                   </Form.Item>
                 </Col>
               </Row>
@@ -267,17 +267,17 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
               <Row gutter={24}>
                 <Col md={8}>
                   <Form.Item label={t('Password force use lowercase')} name="options.passwordOptions.lowercase">
-                    <Switch checked={company?.options?.passwordOptions?.lowercase} />
+                    <Switch defaultChecked={company?.options?.passwordOptions?.lowercase} />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
                   <Form.Item label={t('Password force use uppercase')} name="options.passwordOptions.uppercase">
-                    <Switch checked={company?.options?.passwordOptions?.uppercase} />
+                    <Switch defaultChecked={company?.options?.passwordOptions?.uppercase} />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
                   <Form.Item label={t('Password force use number')} name="options.maskOptions.number">
-                    <Switch checked={company?.options?.passwordOptions?.number} />
+                    <Switch defaultChecked={company?.options?.passwordOptions?.number} />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
@@ -308,8 +308,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                     rules={[{ required: true, message: t('Please select site theme mode') }]}
                   >
                     <Radio.Group>
-                      <Radio value={'light'}>Light</Radio>
-                      <Radio value={'dark'}>Dark</Radio>
+                      <Radio value={'light'}>{t('Light')}</Radio>
+                      <Radio value={'dark'}>{t('Dark')}</Radio>
                     </Radio.Group>
                   </Form.Item>
                 </Col>
@@ -321,11 +321,11 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 size="large"
                 type="card"
               >
-                <TabPane tab="Light theme config" key="light" forceRender>
+                <TabPane tab={t('Light theme config')} key="light" forceRender>
                   <ThemeOptions mode="light" />
                 </TabPane>
 
-                <TabPane tab="Dark theme config" key="dark" forceRender>
+                <TabPane tab={t('Dark theme config')} key="dark" forceRender>
                   <ThemeOptions mode="dark" />
                 </TabPane>
               </Tabs>

@@ -258,7 +258,7 @@ const CompanyList: FC = (): JSX.Element => {
           <Column
             title={t('Active')}
             dataIndex="active"
-            width={90}
+            width={60}
             filteredValue={getFilterValues('active')}
             filterMultiple={false}
             filters={[

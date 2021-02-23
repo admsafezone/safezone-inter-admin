@@ -16,7 +16,9 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode }: ThemeOptionsProps) => {
 
   return (
     <>
-      <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Images options')}</h3>
+      <h2 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>
+        {t('Images for $t({{mode}})', { mode })}
+      </h2>
       <Row gutter={24}>
         <Col md={8}>
           <Form.Item
@@ -31,7 +33,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode }: ThemeOptionsProps) => {
           <Form.Item
             label={t('Top background url')}
             name={`${prefixName}.backgroundTop`}
-            rules={[{ required: true, type: 'url', message: t('Please type the background top url') }]}
+            rules={[{ type: 'url', message: t('Please type the background top url') }]}
           >
             <Input placeholder="https://s3.bucket.aws.com/image.png" type="url" />
           </Form.Item>
@@ -40,14 +42,16 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode }: ThemeOptionsProps) => {
           <Form.Item
             label={t('Boby background url')}
             name={`${prefixName}.background`}
-            rules={[{ required: true, type: 'url', message: t('Please type the background body url') }]}
+            rules={[{ type: 'url', message: t('Please type the background body url') }]}
           >
             <Input placeholder="https://s3.bucket.aws.com/image.png" type="url" />
           </Form.Item>
         </Col>
       </Row>
 
-      <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Colors options')}</h3>
+      <h2 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>
+        {t('Colors for $t({{mode}}) theme', { mode })}
+      </h2>
       <Row gutter={24}>
         <Col md={8}>
           <Form.Item
