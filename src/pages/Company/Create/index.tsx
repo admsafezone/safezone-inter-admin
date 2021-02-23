@@ -42,9 +42,9 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   const [form] = Form.useForm();
   const szDomain = process.env.REACT_APP_DOMAIN;
 
-  function normalizeValues(data) {
+  function normalizeValues(data): Company {
     const keys = Object.keys(data);
-    const result = {};
+    const result: any = {};
 
     keys.forEach((key) => {
       setAttributeValue(result, key, data[key]);
@@ -66,14 +66,23 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   }
 
   const save = async () => {
+    setLoading(true);
+
     try {
       const values = await form.validateFields();
       const data = normalizeValues(values);
 
-      setLoading(true);
+      if (!data?.theme?.light || !data?.theme?.dark) {
+        setMessageType('error');
+        setMessages([t('Please fill in all theme required fields')]);
+        setLoading(false);
+        return;
+      }
+
       let result = {
         error: [],
       };
+      let response;
 
       if (company) {
         const dataPut: any = {};
@@ -85,9 +94,9 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
           }
         }
 
-        result = await defaultService.put(`${Constants.api.COMPANIES}/${company._id}`, dataPut);
+        result = response = await defaultService.put(`${Constants.api.COMPANIES}/${company._id}`, dataPut);
       } else {
-        result = await defaultService.post(Constants.api.COMPANIES, data);
+        result = response = await defaultService.post(Constants.api.COMPANIES, data);
       }
 
       if (result.error && result.error.length) {
@@ -97,15 +106,21 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
         const successMessage = company ? t('Company updated successfuly') : t('New company created successfuly');
         setMessages([successMessage]);
         setMessageType('success');
-        form.resetFields();
-        setCompanyDomain('');
-        setCompany();
+
+        if (!company) {
+          setCompany(response);
+          form.resetFields();
+          setCompanyDomain('');
+        }
         setIsSaved(true);
       }
       setLoading(false);
     } catch (error) {
-      setLoading(false);
+      setMessageType('error');
+      setMessages([t('Please fill in all required fields')]);
     }
+
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -137,8 +152,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
         zIndex={1005}
         style={{ top: 20 }}
         onCancel={() => {
-          setCompany(undefined);
           setVisible(false);
+          setCompany(undefined);
           reload(isSaved);
         }}
         onOk={() => save()}
@@ -322,12 +337,17 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 </Col>
               </Row>
 
-              <Tabs defaultActiveKey={company?.theme?.mode}>
-                <TabPane tab="Light theme options" key="light">
+              <Tabs
+                defaultActiveKey={company?.theme?.mode}
+                tabBarStyle={{ fontWeight: 'bold' }}
+                size="large"
+                type="card"
+              >
+                <TabPane tab="Light theme config" key="light" forceRender>
                   <ThemeOptions mode="light" />
                 </TabPane>
 
-                <TabPane tab="Dark theme options" key="dark">
+                <TabPane tab="Dark theme config" key="dark" forceRender>
                   <ThemeOptions mode="dark" />
                 </TabPane>
               </Tabs>

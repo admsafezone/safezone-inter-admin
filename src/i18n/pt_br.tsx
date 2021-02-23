@@ -66,8 +66,12 @@ export default {
     Companies: 'Empresas',
     Domains: 'Dominios',
     'Emails accepted': 'E-mails aceitos',
+    'Please fill in all required fields': 'Por favor, preencha todos os campos obrigatórios',
+    'Please fill in all theme required fields': 'Por favor, preencha todos os campos obrigatórios referentes ao tema',
     'Manager company and configurations': 'Gerenciar empresas e suas configurações',
-    'Type the new company name': 'Digite o nome do novo perfil',
+    'Type the new company name': 'Digite o nome da nova empresa',
+    'Company updated successfuly': 'Empresa atualizada com sucesso',
+    'New company created successfuly': 'Nova empresa criada com sucesso',
     'Are you sure you want to delete these companies? All data related to them is permanently deleted!':
       'Você tem certeza que deseja deletar essas empresas? Todos os dados relacionados a elas são definitivamente apagados!',
     'Attention! This subdomain cannot be modified later':
