@@ -15,7 +15,7 @@ import OneLoader from 'components/atoms/OneLoader';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
-import { getAttributeValue, setAttributeValue } from 'utils/DateUtils';
+import { objectToFields, fieldsToObject } from 'utils/DateUtils';
 import { Company } from 'interfaces';
 import './style.less';
 import ThemeOptions from '../ThemeOptions';
@@ -42,35 +42,12 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   const [form] = Form.useForm();
   const szDomain = process.env.REACT_APP_DOMAIN;
 
-  function normalizeValues(data): Company {
-    const keys = Object.keys(data);
-    const result: any = {};
-
-    keys.forEach((key) => {
-      setAttributeValue(result, key, data[key]);
-    });
-
-    return result;
-  }
-
-  function valueToObject(company) {
-    const values = form.getFieldsValue();
-    const keys = Object.keys(values);
-    const result = {};
-
-    keys.forEach((key) => {
-      result[key] = getAttributeValue(company, key);
-    });
-
-    return result;
-  }
-
   const save = async () => {
     setLoading(true);
 
     try {
       const values = await form.validateFields();
-      const data = normalizeValues(values);
+      const data = fieldsToObject(values);
 
       if (!data?.theme?.light || !data?.theme?.dark) {
         setMessageType('error');
@@ -129,7 +106,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
     setMessages([]);
 
     if (company) {
-      const flatCompany = valueToObject(company);
+      const fields = form.getFieldsValue();
+      const flatCompany = objectToFields(company, fields);
       form.setFieldsValue(flatCompany);
       setCompanyDomain(`${company.identifier}.${szDomain}`);
     } else {

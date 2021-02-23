@@ -26,4 +26,26 @@ const setAttributeValue = (obj: any, path: string, value: any) => {
   obj[a[i]] = value;
 };
 
-export { formatDate, getAttributeValue, setAttributeValue };
+const fieldsToObject = (data) => {
+  const keys = Object.keys(data);
+  const result: any = {};
+
+  keys.forEach((key) => {
+    setAttributeValue(result, key, data[key]);
+  });
+
+  return result;
+};
+
+const objectToFields = (object, objectPath) => {
+  const keys = Object.keys(objectPath);
+  const result = {};
+
+  keys.forEach((key) => {
+    result[key] = getAttributeValue(object, key);
+  });
+
+  return result;
+};
+
+export { formatDate, getAttributeValue, setAttributeValue, fieldsToObject, objectToFields };
