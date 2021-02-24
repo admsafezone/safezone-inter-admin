@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { ThemeOptions, User } from 'interfaces';
+import { Company, ThemeOptions, User } from 'interfaces';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
 import Constants from 'utils/Constants';
 import { useTranslation } from 'react-i18next';
-import i18n from 'i18n';
+import i18n, { setLanguages } from 'i18n';
 
 export interface Theme {
-  company?: any;
+  company?: Company;
   user?: User;
   options: ThemeOptions;
   t(key: string, options?: any): string;
@@ -32,7 +32,7 @@ export const AppContext = createContext<Theme>({
 });
 
 export const AppProvider = ({ children }: any) => {
-  const [company, setCompany] = useState<any>(userCompany);
+  const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(
     user?.options || { theme: 'light', componentSize: 'middle', lang: 'pt_br' },
@@ -52,12 +52,12 @@ export const AppProvider = ({ children }: any) => {
     }
   };
 
-  function changeLogged(_user?: User) {
+  const changeLogged = (_user?: User) => {
     setUser(_user);
     if (_user) {
       setOptions(_user?.options || options);
     }
-  }
+  };
 
   const getCompany = async () => {
     const response = await defaultService.get(
@@ -67,10 +67,49 @@ export const AppProvider = ({ children }: any) => {
     setCompany(response);
   };
 
+  const _normalizeLanguages = (languages) => {
+    if (!languages || !languages.length) {
+      return null;
+    }
+
+    const result = { langs: {}, defaultLang: options.lang };
+
+    for (const language of languages) {
+      if (language.translation) {
+        const { general, admin } = language.translation;
+        result.langs[language.lowerCode] = { translation: { ...general, ...admin } };
+      } else {
+        result.langs[language.lowerCode] = { translation: {} };
+      }
+    }
+
+    return result;
+  };
+
+  const getLanguages = async () => {
+    let languages = sls.getItem(Constants.storage.LANGUAGES);
+
+    if (!languages) {
+      const response = await defaultService.get(`${Constants.api.LANGUAGES}/start`);
+
+      if (Object.keys(response).length) {
+        sls.setItem(Constants.storage.LANGUAGES, response);
+        languages = response;
+      }
+    }
+
+    languages = _normalizeLanguages(languages);
+    if (languages) {
+      setLanguages(languages.langs, languages.defaultLang);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       getCompany();
     }
+
+    getLanguages();
   }, [user]);
 
   return (

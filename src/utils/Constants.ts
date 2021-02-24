@@ -8,13 +8,17 @@ const Constants = {
     LOGGED: 'SAFEZONE-LOGGED',
     USER: 'SAFEZONE-USER',
     COMPANY: 'SAFEZONE-COMPANY',
+    LANGUAGES: 'SAFEZONE-LANGUAGES',
   },
   api: {
     AUTH: 'auth',
+    ACTIVITIES: 'activities',
     REFRESH: 'refresh',
     USERS: 'users',
     COMPANIES: 'companies',
     PROFILES: 'profiles',
+    PARAMS: 'params',
+    LANGUAGES: 'languages',
     RESOURCES: 'resources',
   },
   message: {
@@ -24,6 +28,7 @@ const Constants = {
     USERS: 'users',
     COMPANIES: 'companies',
     PROFILES: 'profiles',
+    ACTIVITIES: 'activities',
   },
   permissions: {
     R: 'r',

@@ -1,25 +1,26 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import en_us from './en';
+
 import pt_BR from 'antd/es/locale/pt_BR';
 import en_US from 'antd/es/locale/en_US';
 
-import pt_br from './pt_br';
-import en from './en';
+export const setLanguages = (langs = { en_us }, defaultLang = 'en_us', fallbackLng = 'en_us') => {
+  i18n.use(initReactI18next).init({
+    resources: langs,
+    lng: defaultLang,
+    fallbackLng,
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
-export type Lang = 'en' | 'pt_br';
-
-i18n.use(initReactI18next).init({
-  resources: { en, pt_br },
-  lng: 'pt_br',
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
-});
+  return i18n;
+};
 
 export const getCurrentLang = (type = 'web'): string => {
-  if (type === 'api') {
+  if (i18n.language && type === 'api') {
     return i18n.language.replace('_', '-');
   }
   return i18n.language;
@@ -27,7 +28,9 @@ export const getCurrentLang = (type = 'web'): string => {
 
 export const antLang = {
   pt_br: pt_BR,
-  en: en_US,
+  en_us: en_US,
 };
+
+setLanguages();
 
 export default i18n;

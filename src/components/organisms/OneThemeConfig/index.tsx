@@ -3,9 +3,10 @@ import Drawer from 'antd/es/drawer';
 import Form from 'antd/es/form';
 import Radio from 'antd/es/radio';
 import Select from 'antd/es/select';
+import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
-import { Lang } from 'i18n';
 import './style.less';
+import Constants from 'utils/Constants';
 
 const { Option } = Select;
 
@@ -51,10 +52,16 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
           </Radio.Group>
         </Form.Item>
         <Form.Item label={t('Language')}>
-          <Select onSelect={(value: Lang) => changeOptions({ ...options, lang: value })} defaultValue={options.lang}>
-            <Option value="pt_br">{t('Portuguese')}</Option>
-            <Option value="en">{t('English')}</Option>
-          </Select>
+          <OneSelect
+            apiURL={`${Constants.api.LANGUAGES}/?select=name lowerCode`}
+            labelAttr="name"
+            valueAttr="lowerCode"
+            defaultValue={options.lang}
+            onSelect={(value: any) => changeOptions({ ...options, lang: value })}
+            showArrow
+            noDefaultOption
+            useCache
+          />
         </Form.Item>
         <Form.Item label={t('Default page items number')}>
           <Select

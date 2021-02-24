@@ -1,4 +1,3 @@
-import { Lang } from 'i18n';
 import { Company } from './Company';
 
 export type AppTheme = 'light' | 'dark' | undefined;
@@ -7,7 +6,7 @@ export type ComponentSize = 'large' | 'middle' | 'small' | undefined;
 export interface ThemeOptions {
   theme: AppTheme;
   componentSize: ComponentSize;
-  lang: Lang;
+  lang: string;
   pagerLimit?: number;
 }
 

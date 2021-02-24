@@ -1,11 +1,12 @@
 import { ElementType } from 'react';
-import UserOutlined from '@ant-design/icons/UserOutlined';
-import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
-import Dashboard from '../pages/Dashboard';
+import ActivityList from 'pages/Activity/List';
 import CompanyList from '../pages/Company/List';
-import UserList from 'pages/User/List';
+import Dashboard from '../pages/Dashboard';
 import ProfileManager from 'pages/Profile/Manager';
+import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
+import UserList from 'pages/User/List';
 
 export interface MenuItem {
   path: string;
@@ -29,13 +30,22 @@ const menus: MenuItem[] = [
     icon: DashboardOutlined,
   },
   {
+    path: '/activity',
+    title: 'Activities',
+    subTitle: 'Manager activity for web site',
+    icon: UserOutlined,
+    component: ActivityList,
+    exact: true,
+    aclResource: 'activities',
+  },
+  {
     path: '/company',
     title: 'Company',
     subTitle: 'Manager company and configurations',
     icon: UserOutlined,
     component: CompanyList,
     exact: true,
-    aclResource: 'users',
+    aclResource: 'companies',
   },
   {
     path: '/users',
