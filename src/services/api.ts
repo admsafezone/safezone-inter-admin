@@ -8,8 +8,8 @@ const { token } = sls.getItem(Constants.storage.TOKEN) || {};
 const api: AxiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_ROOT,
   headers: {
-    Authorization: token,
-    locale: getCurrentLang('api'),
+    Authorization: `Bearer ${token}`,
+    locale: getCurrentLang(),
   },
 });
 
@@ -28,9 +28,12 @@ const refreshToken = async () => {
 api.interceptors.request.use(
   function (config) {
     const { token } = sls.getItem(Constants.storage.TOKEN) || {};
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    config.headers.locale = getCurrentLang();
+
     return config;
   },
   function (error) {

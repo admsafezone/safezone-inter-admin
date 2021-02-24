@@ -72,14 +72,14 @@ export const AppProvider = ({ children }: any) => {
       return null;
     }
 
-    const result = { langs: {}, defaultLang: options.lang };
+    const result = { resources: {}, defaultLang: options.lang };
 
     for (const language of languages) {
       if (language.translation) {
         const { general, admin } = language.translation;
-        result.langs[language.lowerCode] = { translation: { ...general, ...admin } };
+        result.resources[language.lowerCode] = { translation: { ...general, ...admin } };
       } else {
-        result.langs[language.lowerCode] = { translation: {} };
+        result.resources[language.lowerCode] = { translation: {} };
       }
     }
 
@@ -99,8 +99,9 @@ export const AppProvider = ({ children }: any) => {
     }
 
     languages = _normalizeLanguages(languages);
+
     if (languages) {
-      setLanguages(languages.langs, languages.defaultLang);
+      setLanguages(languages.resources, languages.defaultLang);
     }
   };
 
