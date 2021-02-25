@@ -13,13 +13,14 @@ const Constants = {
   api: {
     AUTH: 'auth',
     ACTIVITIES: 'activities',
-    REFRESH: 'refresh',
-    USERS: 'users',
     COMPANIES: 'companies',
-    PROFILES: 'profiles',
-    PARAMS: 'params',
     LANGUAGES: 'languages',
+    MEDIA: 'media',
+    PARAMS: 'params',
+    PROFILES: 'profiles',
+    REFRESH: 'refresh',
     RESOURCES: 'resources',
+    USERS: 'users',
   },
   message: {
     EXPIRED_TOKEN: 'jwt expired',

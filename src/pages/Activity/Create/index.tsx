@@ -29,12 +29,18 @@ interface ArticleCreateProps {
 
 const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
   const { visible, setVisible, activity, setActivity, reload } = props;
-  const { t } = useAppContext();
+  const { t, options } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [images, setImages] = useState([]);
   const [messages, setMessages] = useState<string[]>([]);
   const [messageType, setMessageType] = useState<'error' | 'success' | 'warning' | 'info' | undefined>('error');
   const [form] = Form.useForm();
+
+  const getImages = async () => {
+    const response = await defaultService.get(`${Constants.api.MEDIA}/?select=url type`, []);
+    setImages(response);
+  };
 
   const save = async () => {
     try {
@@ -84,6 +90,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   };
 
   useEffect(() => {
+    getImages();
     setIsSaved(false);
     form.resetFields();
 
@@ -104,7 +111,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
             <ProjectOutlined /> {activity ? t('Edit activity') : t('New activity')}
           </Title>
         }
-        width={'60vw'}
+        width={'70vw'}
         visible={visible}
         zIndex={1005}
         style={{ top: 20 }}
@@ -113,6 +120,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           reload(isSaved);
           setActivity(undefined);
         }}
+        maskClosable={false}
         onOk={() => save()}
         okText={t('Save')}
       >
@@ -157,7 +165,11 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
             </Col>
             <Col md={24}>
               <Form.Item label={t('Content')} name="content">
-                <OneTextEditor placeholder={t('Activity content')} />
+                <OneTextEditor
+                  placeholder={t('Activity content')}
+                  media={{ items: images }}
+                  style={{ border: '1px solid #d9d9d9', borderRadius: '2px', minHeight: '800px' }}
+                />
               </Form.Item>
             </Col>
 
@@ -184,9 +196,16 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                 label={t('Language')}
                 name="lang"
                 required
-                rules={[{ required: true, message: t('Please type the activity language') }]}
+                rules={[{ required: true, message: t('Please select the type of activity') }]}
               >
-                <Input placeholder={t('Type the activity language')} />
+                <OneSelect
+                  apiURL={`${Constants.api.LANGUAGES}/?select=name lowerCode`}
+                  labelAttr="name"
+                  valueAttr="lowerCode"
+                  defaultValue={activity?.lang || options.lang || ''}
+                  showArrow
+                  useCache
+                />
               </Form.Item>
             </Col>
 
@@ -199,7 +218,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
           <Col md={24}>
             <Form.Item label={t('Aditional data')} name="data">
-              <Input.TextArea placeholder={t('Activity adtional data')} rows={15} />
+              <Input.TextArea placeholder={t('Activity aditional data')} rows={15} />
             </Form.Item>
           </Col>
         </Form>
