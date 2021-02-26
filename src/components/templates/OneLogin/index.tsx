@@ -27,9 +27,11 @@ interface LoginProps {
 
 const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
   const { t } = useAppContext();
+  const [loading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
 
   const onFinish = async (values: Login) => {
+    setLoading(true);
     const response = await defaultService.post(Constants.api.AUTH, values);
 
     if (response.error) {
@@ -40,6 +42,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
       sls.setItem(Constants.storage.USER, decoded.user);
       onLogin(decoded.user);
     }
+    setLoading(false);
   };
 
   return (
@@ -93,7 +96,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             {t('Submit')}
           </Button>
         </Form.Item>

@@ -32,15 +32,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   const { t, options } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [images, setImages] = useState([]);
   const [messages, setMessages] = useState<string[]>([]);
   const [messageType, setMessageType] = useState<'error' | 'success' | 'warning' | 'info' | undefined>('error');
   const [form] = Form.useForm();
-
-  const getImages = async () => {
-    const response = await defaultService.get(`${Constants.api.MEDIA}/?select=url type`, []);
-    setImages(response);
-  };
 
   const save = async () => {
     try {
@@ -90,7 +84,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   };
 
   useEffect(() => {
-    getImages();
     setIsSaved(false);
     form.resetFields();
 
@@ -123,6 +116,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         maskClosable={false}
         onOk={() => save()}
         okText={t('Save')}
+        cancelText={t('Close')}
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>
@@ -167,7 +161,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               <Form.Item label={t('Content')} name="content">
                 <OneTextEditor
                   placeholder={t('Activity content')}
-                  media={{ items: images }}
                   style={{ border: '1px solid #d9d9d9', borderRadius: '2px', minHeight: '800px' }}
                 />
               </Form.Item>
