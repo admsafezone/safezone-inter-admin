@@ -103,6 +103,17 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
     setLoading(false);
   };
 
+  const updateField = (key: string, value?: string) => {
+    if (value) {
+      const allFields = form.getFieldsValue();
+      allFields[key] = value;
+      form.resetFields();
+      form.setFieldsValue(allFields);
+    } else {
+      setGaleryField(key);
+    }
+  };
+
   useEffect(() => {
     setIsSaved(false);
     form.resetFields();
@@ -314,11 +325,11 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 type="card"
               >
                 <TabPane tab={t('Light theme config')} key="light" forceRender>
-                  <ThemeOptions mode="light" setGaleryVisible={setGaleryVisible} setGaleryField={setGaleryField} />
+                  <ThemeOptions mode="light" updateField={updateField} setGaleryVisible={setGaleryVisible} />
                 </TabPane>
 
                 <TabPane tab={t('Dark theme config')} key="dark" forceRender>
-                  <ThemeOptions mode="dark" setGaleryVisible={setGaleryVisible} setGaleryField={setGaleryField} />
+                  <ThemeOptions mode="dark" updateField={updateField} setGaleryVisible={setGaleryVisible} />
                 </TabPane>
               </Tabs>
             </Col>
@@ -327,16 +338,10 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       </Modal>
 
       <OneMediaGalery
-        onSelectMedia={(url, fieldName) => {
-          const allFields = form.getFieldsValue();
-          allFields[fieldName] = url;
-          form.resetFields();
-          form.setFieldsValue(allFields);
-          setGaleryVisible(false);
-        }}
+        updateField={updateField}
+        setVisible={setGaleryVisible}
         fieldName={galeryField}
         visible={galeryVisible}
-        setVisible={setGaleryVisible}
       />
     </>
   );

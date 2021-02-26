@@ -12,20 +12,20 @@ import api from 'services/api';
 import './style.less';
 
 interface OneUploadInputProps extends InputProps {
-  setGaleryVisible?(visible: boolean): void;
-  setGaleryField?(fieldName?: string): void;
+  updateField(key: string, value?: string): void;
+  setGaleryVisible(visible: boolean): void;
 }
 
 const OneUploadInput: FC<OneUploadInputProps> = ({
   value,
   setGaleryVisible,
-  setGaleryField,
+  updateField,
   ...props
 }: OneUploadInputProps) => {
   const { t } = useAppContext();
-  const [localValue, setLocalValue] = useState(value);
   const [loading, setLoading] = useState(false);
   const { token } = sls.getItem(Constants.storage.TOKEN);
+  const fieldname = props.id || props.name || '';
 
   const onChangeHandler = (info) => {
     switch (info.file.status) {
@@ -39,7 +39,7 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
 
       case 'done':
       default:
-        setLocalValue(info.file.response?.data?.url);
+        updateField(fieldname, info.file.response?.data?.url);
         setLoading(false);
         break;
     }
@@ -48,20 +48,18 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
   return (
     <Input.Group>
       <Input
+        {...props}
         type="url"
         className="one-upload-input"
-        value={localValue}
-        defaultValue={value}
-        {...props}
+        value={value}
         readOnly={loading}
-        onChange={(e) => setLocalValue(e.target.value)}
         suffix={
           <>
             <Button
               type="primary"
               onClick={() => {
-                if (setGaleryVisible) setGaleryVisible(true);
-                if (setGaleryField) setGaleryField(props.id);
+                setGaleryVisible(true);
+                updateField(fieldname);
               }}
               icon={<PictureOutlined />}
               style={{ marginRight: '4px' }}

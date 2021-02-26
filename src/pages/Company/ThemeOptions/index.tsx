@@ -8,11 +8,11 @@ import OneUploadInput from 'components/atoms/OneUploadInput';
 
 interface ThemeOptionsProps {
   mode: string;
+  updateField(key: string, value?: string): void;
   setGaleryVisible(visible: boolean): void;
-  setGaleryField(field: string): void;
 }
 
-const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, setGaleryField }: ThemeOptionsProps) => {
+const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateField }: ThemeOptionsProps) => {
   const { t } = useAppContext();
   const prefixName = `theme.${mode}`;
 
@@ -31,7 +31,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, setGalery
             <OneUploadInput
               placeholder="https://bucket.s3.amazonaws.com/image.png"
               setGaleryVisible={setGaleryVisible}
-              setGaleryField={setGaleryField}
+              updateField={updateField}
             />
           </Form.Item>
         </Col>
@@ -44,7 +44,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, setGalery
             <OneUploadInput
               placeholder="https://bucket.s3.amazonaws.com/image.png"
               setGaleryVisible={setGaleryVisible}
-              setGaleryField={setGaleryField}
+              updateField={updateField}
             />
           </Form.Item>
         </Col>
@@ -57,7 +57,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, setGalery
             <OneUploadInput
               placeholder="https://bucket.s3.amazonaws.com/image.png"
               setGaleryVisible={setGaleryVisible}
-              setGaleryField={setGaleryField}
+              updateField={updateField}
             />
           </Form.Item>
         </Col>

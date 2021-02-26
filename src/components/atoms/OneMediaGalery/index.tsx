@@ -11,14 +11,14 @@ import './style.less';
 const { Title } = Typography;
 
 interface OneMediaGaleryProps {
-  onSelectMedia(url: string, fieldName: string): void;
+  updateField(key: string, value: string): void;
   fieldName: string;
   setVisible(visible: boolean): void;
   visible: boolean;
 }
 
 const OneMediaGalery: FC<OneMediaGaleryProps> = ({
-  onSelectMedia,
+  updateField,
   fieldName,
   setVisible,
   visible,
@@ -33,7 +33,14 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
 
   const renderMadia = (media: Media) => {
     return (
-      <div className="one-media-galery-wrapper" onClick={() => onSelectMedia(media.url, fieldName)}>
+      <div
+        key={media.id}
+        className="one-media-galery-wrapper"
+        onClick={() => {
+          updateField(fieldName, media.url);
+          setVisible(false);
+        }}
+      >
         <div
           className="one-media-galery-img"
           key={media.id}
@@ -48,7 +55,7 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
 
   useEffect(() => {
     getMedias();
-  }, []);
+  }, [fieldName]);
 
   return (
     <>
@@ -59,7 +66,7 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
           </Title>
         }
         width={'60vw'}
-        bodyStyle={{ height: '750px' }}
+        bodyStyle={{ height: '750px', overflowY: 'auto' }}
         visible={visible}
         zIndex={1005}
         centered
