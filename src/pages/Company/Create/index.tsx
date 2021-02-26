@@ -15,6 +15,7 @@ import OneLoader from 'components/atoms/OneLoader';
 import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
+import OneMediaGalery from 'components/atoms/OneMediaGalery';
 import Constants from 'utils/Constants';
 import { objectToFields, fieldsToObject } from 'utils/DateUtils';
 import { Company } from 'interfaces';
@@ -35,6 +36,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   const { visible, setVisible, company, setCompany, reload } = props;
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
+  const [galeryVisible, setGaleryVisible] = useState(false);
+  const [galeryField, setGaleryField] = useState('');
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [messages, setMessages] = useState<string[]>([]);
   const [companyDomain, setCompanyDomain] = useState<string>('');
@@ -61,7 +64,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       };
       let response;
 
-      if (company) {
+      if (company && company._id) {
         const dataPut: any = {};
         const keys = Object.keys(data);
 
@@ -137,18 +140,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
         onOk={() => save()}
         okText={t('Save')}
       >
-        <Form
-          layout="vertical"
-          form={form}
-          initialValues={{
-            name: '',
-            email: '',
-            active: true,
-            password: '',
-            confirmPassword: '',
-            profiles: [],
-          }}
-        >
+        <Form layout="vertical" form={form}>
           <Row gutter={24}>
             <Col md={24}>
               {messages.length
@@ -322,17 +314,30 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 type="card"
               >
                 <TabPane tab={t('Light theme config')} key="light" forceRender>
-                  <ThemeOptions mode="light" />
+                  <ThemeOptions mode="light" setGaleryVisible={setGaleryVisible} setGaleryField={setGaleryField} />
                 </TabPane>
 
                 <TabPane tab={t('Dark theme config')} key="dark" forceRender>
-                  <ThemeOptions mode="dark" />
+                  <ThemeOptions mode="dark" setGaleryVisible={setGaleryVisible} setGaleryField={setGaleryField} />
                 </TabPane>
               </Tabs>
             </Col>
           </Row>
         </Form>
       </Modal>
+
+      <OneMediaGalery
+        onSelectMedia={(url, fieldName) => {
+          const allFields = form.getFieldsValue();
+          allFields[fieldName] = url;
+          form.resetFields();
+          form.setFieldsValue(allFields);
+          setGaleryVisible(false);
+        }}
+        fieldName={galeryField}
+        visible={galeryVisible}
+        setVisible={setGaleryVisible}
+      />
     </>
   );
 };

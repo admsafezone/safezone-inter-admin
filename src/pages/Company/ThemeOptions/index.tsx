@@ -1,16 +1,18 @@
 import { FC } from 'react';
-import { useAppContext } from 'providers/AppProvider';
-import OneInputColor from 'components/atoms/OneInputColor';
 import Row from 'antd/es/row';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
-import Input from 'antd/es/input';
+import { useAppContext } from 'providers/AppProvider';
+import OneInputColor from 'components/atoms/OneInputColor';
+import OneUploadInput from 'components/atoms/OneUploadInput';
 
 interface ThemeOptionsProps {
   mode: string;
+  setGaleryVisible(visible: boolean): void;
+  setGaleryField(field: string): void;
 }
 
-const ThemeOptions: FC<ThemeOptionsProps> = ({ mode }: ThemeOptionsProps) => {
+const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, setGaleryField }: ThemeOptionsProps) => {
   const { t } = useAppContext();
   const prefixName = `theme.${mode}`;
 
@@ -20,31 +22,43 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode }: ThemeOptionsProps) => {
         {t('Images for $t({{mode}})', { mode })}
       </h2>
       <Row gutter={24}>
-        <Col md={8}>
+        <Col md={24}>
           <Form.Item
             label={t('Logo url')}
             name={`${prefixName}.logo`}
             rules={[{ required: true, type: 'url', message: t('Please type the logo url') }]}
           >
-            <Input placeholder="https://s3.bucket.aws.com/image.png" type="url" />
+            <OneUploadInput
+              placeholder="https://bucket.s3.amazonaws.com/image.png"
+              setGaleryVisible={setGaleryVisible}
+              setGaleryField={setGaleryField}
+            />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={24}>
           <Form.Item
             label={t('Top background url')}
             name={`${prefixName}.backgroundTop`}
             rules={[{ type: 'url', message: t('Please type the background top url') }]}
           >
-            <Input placeholder="https://s3.bucket.aws.com/image.png" type="url" />
+            <OneUploadInput
+              placeholder="https://bucket.s3.amazonaws.com/image.png"
+              setGaleryVisible={setGaleryVisible}
+              setGaleryField={setGaleryField}
+            />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={24}>
           <Form.Item
             label={t('Boby background url')}
             name={`${prefixName}.background`}
             rules={[{ type: 'url', message: t('Please type the background body url') }]}
           >
-            <Input placeholder="https://s3.bucket.aws.com/image.png" type="url" />
+            <OneUploadInput
+              placeholder="https://bucket.s3.amazonaws.com/image.png"
+              setGaleryVisible={setGaleryVisible}
+              setGaleryField={setGaleryField}
+            />
           </Form.Item>
         </Col>
       </Row>

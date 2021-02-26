@@ -5,17 +5,12 @@ import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
 import { useAppContext } from 'providers/AppProvider';
 import BraftEditor, { DraftEditorProps } from 'braft-editor';
+import { Media } from 'interfaces';
 import 'braft-editor/dist/index.css';
 
 const validFiles = process.env.REACT_APP_MEDIA_TYPE
   ? process.env.REACT_APP_MEDIA_TYPE.split(';')
   : ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif'];
-
-interface Media {
-  id: string;
-  url: string;
-  type: string;
-}
 
 const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorProps) => {
   const { t } = useAppContext();
