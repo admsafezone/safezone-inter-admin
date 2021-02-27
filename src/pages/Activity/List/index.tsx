@@ -14,6 +14,7 @@ import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import ClearOutlined from '@ant-design/icons/ClearOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import OneButton from 'components/atoms/OneButton';
+import OnePageTitle from 'components/atoms/OnePageTitle';
 import { Activity } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
@@ -168,6 +169,8 @@ const ActivityList: FC = (): JSX.Element => {
 
   return (
     <>
+      <OnePageTitle title={t('Activity')} />
+
       <Content>
         <Row>
           {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) ? (

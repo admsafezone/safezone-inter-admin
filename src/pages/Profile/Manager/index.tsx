@@ -17,6 +17,7 @@ import WarningOutlined from '@ant-design/icons/WarningOutlined';
 import ClearOutlined from '@ant-design/icons/ClearOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import OneButton from 'components/atoms/OneButton';
+import OnePageTitle from 'components/atoms/OnePageTitle';
 import { Profile, Resource } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { useAppContext } from 'providers/AppProvider';
@@ -126,6 +127,8 @@ const ProfileManager: FC = (): JSX.Element => {
 
   return (
     <>
+      <OnePageTitle title={t('Profiles')} />
+
       <Content>
         <Row>
           {checkACL(Constants.acl.PROFILES, Constants.permissions.W) ? (
