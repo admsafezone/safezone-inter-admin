@@ -171,7 +171,13 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 label={t('Password')}
                 name="password"
                 required={!user}
-                rules={[{ required: !user, min: 6, message: t('Please type the user password with min 6 caracters') }]}
+                rules={[
+                  {
+                    required: !user,
+                    min: 6,
+                    message: t('Please type the user password with min {{min}} caracters', { min: 6 }),
+                  },
+                ]}
               >
                 <Input placeholder={t('User password')} type="password" />
               </Form.Item>
@@ -211,8 +217,8 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
               <Form.Item
                 label={t('Company')}
                 name="company"
-                // required
-                // rules={[{ required: true, message: t('Please select the user company') }]}
+                required
+                rules={[{ required: true, message: t('Please select the user company') }]}
               >
                 <OneSelect
                   apiURL={`${Constants.api.COMPANIES}/?select=_id name`}
