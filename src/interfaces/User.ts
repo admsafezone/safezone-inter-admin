@@ -29,6 +29,7 @@ export interface User {
   name: string;
   email: string;
   active: boolean;
+  confirmed: boolean;
   profiles: any[];
   options?: ThemeOptions;
   company?: Company;

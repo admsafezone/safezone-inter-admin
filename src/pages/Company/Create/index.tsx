@@ -1,10 +1,10 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Alert from 'antd/es/alert';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
 import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
+import message from 'antd/es/message';
 import Radio from 'antd/es/radio';
 import Select from 'antd/es/select';
 import Switch from 'antd/es/switch';
@@ -39,11 +39,10 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   const [galeryVisible, setGaleryVisible] = useState(false);
   const [galeryField, setGaleryField] = useState('');
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [messages, setMessages] = useState<string[]>([]);
   const [companyDomain, setCompanyDomain] = useState<string>('');
-  const [messageType, setMessageType] = useState<'error' | 'success' | 'warning' | 'info' | undefined>('error');
   const [form] = Form.useForm();
   const szDomain = process.env.REACT_APP_DOMAIN;
+  const messageDuration = 5;
 
   const save = async () => {
     setLoading(true);
@@ -53,16 +52,12 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       const data = fieldsToObject(values);
 
       if (!data?.theme?.light || !data?.theme?.dark) {
-        setMessageType('error');
-        setMessages([t('Please fill in all theme required fields')]);
+        message.error(t('Please fill in all theme required fields'), messageDuration);
         setLoading(false);
         return;
       }
 
-      let result = {
-        error: [],
-      };
-      let response;
+      let result;
 
       if (company && company._id) {
         const dataPut: any = {};
@@ -74,21 +69,19 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
           }
         }
 
-        result = response = await defaultService.put(`${Constants.api.COMPANIES}/${company._id}`, dataPut);
+        result = await defaultService.put(`${Constants.api.COMPANIES}/${company._id}`, dataPut);
       } else {
-        result = response = await defaultService.post(Constants.api.COMPANIES, data);
+        result = await defaultService.post(Constants.api.COMPANIES, data);
       }
 
-      if (result.error && result.error.length) {
-        setMessages(result.error);
-        setMessageType('error');
+      if (result?.error && result.error.length) {
+        result.error.map((err) => message.error(err));
       } else {
         const successMessage = company ? t('Company updated successfuly') : t('New company created successfuly');
-        setMessages([successMessage]);
-        setMessageType('success');
+        message.success(successMessage, messageDuration);
 
         if (!company) {
-          setCompany(response);
+          setCompany(result);
           form.resetFields();
           setCompanyDomain('');
         }
@@ -96,8 +89,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       }
       setLoading(false);
     } catch (error) {
-      setMessageType('error');
-      setMessages([t('Please fill in all required fields')]);
+      message.error(t('Please fill in all required fields'), messageDuration);
     }
 
     setLoading(false);
@@ -117,7 +109,6 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   useEffect(() => {
     setIsSaved(false);
     form.resetFields();
-    setMessages([]);
 
     if (company) {
       const fields = form.getFieldsValue();
@@ -153,28 +144,6 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>
-            <Col md={24}>
-              {messages.length
-                ? messages.map((error: string, i: number) => {
-                    return (
-                      <Alert
-                        key={Math.random()}
-                        message={error}
-                        showIcon
-                        closable
-                        type={messageType}
-                        style={{ marginBottom: '12px' }}
-                        afterClose={() => {
-                          const newErros = [...messages];
-                          newErros.splice(i, 1);
-                          setMessages(newErros);
-                        }}
-                      />
-                    );
-                  })
-                : ''}
-            </Col>
-
             <Col md={12}>
               <Form.Item
                 label={t('Name')}

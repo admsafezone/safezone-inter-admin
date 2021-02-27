@@ -45,10 +45,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       }
 
       setLoading(true);
-      let result = {
-        error: [],
-      };
-      let response;
+      let result;
 
       if (activity) {
         const dataPut: any = {};
@@ -60,9 +57,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           }
         }
 
-        result = response = await defaultService.put(`${Constants.api.ACTIVITIES}/${activity._id}`, dataPut);
+        result = await defaultService.put(`${Constants.api.ACTIVITIES}/${activity._id}`, dataPut);
       } else {
-        result = response = await defaultService.post(Constants.api.ACTIVITIES, data);
+        result = await defaultService.post(Constants.api.ACTIVITIES, data);
       }
 
       if (result.error && result.error.length) {
@@ -75,7 +72,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         setIsSaved(true);
 
         if (!activity) {
-          setActivity(response);
+          setActivity(result);
         }
       }
     } catch (error) {}

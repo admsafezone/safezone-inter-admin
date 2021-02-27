@@ -1,18 +1,19 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Alert from 'antd/es/alert';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
+import message from 'antd/es/message';
 import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
 import Typography from 'antd/es/typography';
+import Switch from 'antd/es/switch';
 import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
-import { Profile, User } from 'interfaces';
+import { User } from 'interfaces';
 import './style.less';
 
 const { Title } = Typography;
@@ -30,17 +31,13 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [messages, setMessages] = useState<string[]>([]);
-  const [messageType, setMessageType] = useState<'error' | 'success' | 'warning' | 'info' | undefined>('error');
   const [form] = Form.useForm();
 
   const save = async () => {
     try {
       const data = await form.validateFields();
       setLoading(true);
-      let result = {
-        error: [],
-      };
+      let result;
 
       if (user) {
         const dataPut: any = {};
@@ -58,14 +55,14 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
       }
 
       if (result.error && result.error.length) {
-        setMessages(result.error);
-        setMessageType('error');
+        result.error.map((err) => message.error(err));
       } else {
         const successMessage = user ? t('User updated successfuly') : t('New user registred successfuly');
-        setMessages([successMessage]);
-        setMessageType('success');
-        form.resetFields();
+        message.success(successMessage);
         setIsSaved(true);
+        reload(true);
+
+        setTimeout(() => setVisible(false), 500);
       }
       setLoading(false);
     } catch (error) {
@@ -84,11 +81,10 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
   useEffect(() => {
     setIsSaved(false);
     form.resetFields();
-    setMessages([]);
 
     if (user) {
-      const userToEdit = { ...user };
-      userToEdit.profiles = user.profiles.map((p: Profile) => p._id);
+      const userToEdit = { ...user, ...{ company: user.company?._id || user.company } };
+      userToEdit.profiles = user.profiles.map((p: any) => p?._id || p);
       form.setFieldsValue(userToEdit);
     }
   }, [visible, user]);
@@ -113,47 +109,24 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
           reload(isSaved);
         }}
         onOk={() => save()}
+        okButtonProps={{ loading, disabled: loading }}
       >
         <Form
           layout="vertical"
           form={form}
           initialValues={{
             name: '',
+            surname: '',
+            username: '',
             email: '',
-            active: true,
             password: '',
             confirmPassword: '',
             profiles: [],
+            company: '',
           }}
         >
           <Row gutter={24}>
-            <Col md={24}>
-              {messages.length
-                ? messages.map((error: string, i: number) => {
-                    return (
-                      <Alert
-                        key={Math.random()}
-                        message={error}
-                        showIcon
-                        closable
-                        type={messageType}
-                        style={{ marginBottom: '12px' }}
-                        afterClose={() => {
-                          const newErros = [...messages];
-                          newErros.splice(i, 1);
-                          setMessages(newErros);
-                        }}
-                      />
-                    );
-                  })
-                : ''}
-            </Col>
-
-            <Form.Item name="active" hidden>
-              <Input />
-            </Form.Item>
-
-            <Col md={12}>
+            <Col md={8}>
               <Form.Item
                 label={t('Name')}
                 name="name"
@@ -163,7 +136,27 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 <Input placeholder={t('Type the user name')} />
               </Form.Item>
             </Col>
-            <Col md={12}>
+            <Col md={8}>
+              <Form.Item
+                label={t('Surname')}
+                name="surname"
+                required
+                rules={[{ required: true, message: t('Please type the user surname') }]}
+              >
+                <Input placeholder={t('Type the user surname')} />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item
+                label={t('Username')}
+                name="username"
+                required
+                rules={[{ required: true, message: t('Please type the username') }]}
+              >
+                <Input placeholder={t('Type the username')} />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
               <Form.Item
                 label={t('Email')}
                 name="email"
@@ -173,7 +166,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 <Input placeholder={t('User email')} type="email" />
               </Form.Item>
             </Col>
-            <Col md={12}>
+            <Col md={8}>
               <Form.Item
                 label={t('Password')}
                 name="password"
@@ -183,7 +176,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 <Input placeholder={t('User password')} type="password" />
               </Form.Item>
             </Col>
-            <Col md={12}>
+            <Col md={8}>
               <Form.Item
                 label={t('Confirm password')}
                 name="confirmPassword"
@@ -196,7 +189,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 <Input placeholder={t('Confirm password')} type="password" />
               </Form.Item>
             </Col>
-            <Col md={12}>
+            <Col md={8}>
               <Form.Item
                 label={t('Profiles')}
                 name="profiles"
@@ -204,7 +197,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 rules={[{ required: true, message: t('Please select the user profiles') }]}
               >
                 <OneSelect
-                  apiURL={`${Constants.api.PROFILES}/?select=_id name`}
+                  apiURL={`${Constants.api.PROFILES}/?select=_id name&filter=admin:b;true`}
                   labelAttr="name"
                   valueAttr="_id"
                   mode="multiple"
@@ -212,6 +205,32 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                   showArrow
                   useCache
                 />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item
+                label={t('Company')}
+                name="company"
+                // required
+                // rules={[{ required: true, message: t('Please select the user company') }]}
+              >
+                <OneSelect
+                  apiURL={`${Constants.api.COMPANIES}/?select=_id name`}
+                  labelAttr="name"
+                  valueAttr="_id"
+                  showArrow
+                  useCache
+                />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item label={t('Active user')} name="active">
+                <Switch defaultChecked={user?.active} />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item label={t('Confirmed user')} name="confirmed">
+                <Switch defaultChecked={user?.confirmed} />
               </Form.Item>
             </Col>
           </Row>
