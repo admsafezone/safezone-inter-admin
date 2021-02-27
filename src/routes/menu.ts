@@ -40,7 +40,7 @@ const menus: MenuItem[] = [
   },
   {
     path: '/company',
-    title: 'Company',
+    title: 'Companies',
     subTitle: 'Manager company and configurations',
     icon: UserOutlined,
     component: CompanyList,
@@ -58,7 +58,7 @@ const menus: MenuItem[] = [
   },
   {
     path: '/profiles',
-    title: 'Profile',
+    title: 'Profiles',
     subTitle: 'Manager user profiles and ACL configurations',
     icon: ProfileOutlined,
     component: ProfileManager,
