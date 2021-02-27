@@ -19,6 +19,7 @@ export interface Resource {
 export interface Profile {
   _id: number;
   name: string;
+  admin: boolean;
   acl: any;
   createdAt?: Date;
   updatedAt?: Date;

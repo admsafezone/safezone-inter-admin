@@ -1,4 +1,5 @@
 import { FC, Key, useEffect, useState } from 'react';
+import Checkbox from 'antd/es/checkbox';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Layout from 'antd/es/layout';
@@ -63,7 +64,7 @@ const ProfileManager: FC = (): JSX.Element => {
           acls[`acl.${resource}`] = editedResource[p][resource];
         }
         const profile = profiles.find((_p: Profile) => _p._id === Number(p));
-        return { _id: Number(p), ...acls, name: profile?.name };
+        return { _id: Number(p), ...acls, name: profile?.name, admin: profile?.admin };
       });
 
       await defaultService.put(Constants.api.PROFILES, data);
@@ -81,11 +82,8 @@ const ProfileManager: FC = (): JSX.Element => {
       const newId: Key = maxId + 1;
       const acl = {};
       resources.forEach((r: Resource) => (acl[`acl.${r.aclResource}`] = r.defaultPermission));
-      const profileToAdd = {
-        _id: newId,
-        name: newProfile,
-        acl: {},
-      };
+      const profileToAdd: Profile = { _id: newId, name: newProfile, admin: false, acl: {} };
+
       setProfiles([profileToAdd, ...profiles]);
       await setEditedResource({ [newId]: acl });
       setExpandedRow([newId]);
@@ -273,7 +271,31 @@ const ProfileManager: FC = (): JSX.Element => {
             rowExpandable: () => checkACL(Constants.acl.PROFILES, Constants.permissions.R),
           }}
         >
-          <Column title={t('Name')} dataIndex="name" width={200} />
+          <Column title={t('Name')} dataIndex="name" width={300} />
+
+          <Column
+            title={t('Admin access')}
+            dataIndex="admin"
+            align="center"
+            render={(_: string, item: Profile) => (
+              <Checkbox
+                checked={item.admin}
+                onChange={(e) => {
+                  setProfiles(
+                    profiles.map((profile) => {
+                      if (profile._id === item._id) {
+                        profile.admin = e.target.checked;
+                      }
+                      return profile;
+                    }),
+                  );
+                  const editedResource = { [item._id]: {} };
+                  editedResource[item._id]['profiles'] = item.acl.profiles;
+                  setEditedResource({ ...editedResource });
+                }}
+              />
+            )}
+          />
           <Column
             title={t('Created At')}
             dataIndex="createdAt"
