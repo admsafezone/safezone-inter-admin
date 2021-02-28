@@ -189,9 +189,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                 rules={[{ required: true, message: t('Please select the type of activity') }]}
               >
                 <OneSelect
-                  apiURL={`${Constants.api.LANGUAGES}/?select=name lowerCode`}
+                  apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
                   labelAttr="name"
-                  valueAttr="lowerCode"
+                  valueAttr="lang"
                   defaultValue={activity?.lang || options.lang || ''}
                   showArrow
                   useCache

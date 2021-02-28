@@ -30,6 +30,7 @@ const Constants = {
     COMPANIES: 'companies',
     PROFILES: 'profiles',
     ACTIVITIES: 'activities',
+    LANGUAGES: 'languages',
   },
   permissions: {
     R: 'r',

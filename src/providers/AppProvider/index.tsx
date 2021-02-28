@@ -67,30 +67,11 @@ export const AppProvider = ({ children }: any) => {
     setCompany(response);
   };
 
-  const _normalizeLanguages = (languages) => {
-    if (!languages || !languages.length) {
-      return null;
-    }
-
-    const result = { resources: {}, defaultLang: options.lang };
-
-    for (const language of languages) {
-      if (language.translation) {
-        const { general, admin } = language.translation;
-        result.resources[language.lowerCode] = { translation: { ...general, ...admin } };
-      } else {
-        result.resources[language.lowerCode] = { translation: {} };
-      }
-    }
-
-    return result;
-  };
-
   const getLanguages = async () => {
     let languages = sls.getItem(Constants.storage.LANGUAGES);
 
     if (!languages) {
-      const response = await defaultService.get(`${Constants.api.LANGUAGES}/start`);
+      const response = await defaultService.get(`${Constants.api.LANGUAGES}/start/?origin=admin`);
 
       if (Object.keys(response).length) {
         sls.setItem(Constants.storage.LANGUAGES, response);
@@ -98,10 +79,11 @@ export const AppProvider = ({ children }: any) => {
       }
     }
 
-    languages = _normalizeLanguages(languages);
+    const resources: any = {};
+    languages.forEach((language) => (resources[language.lang] = language.translation[language.lang]));
 
     if (languages) {
-      setLanguages(languages.resources, languages.defaultLang);
+      setLanguages(resources, options.lang);
     }
   };
 

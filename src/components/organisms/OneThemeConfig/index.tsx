@@ -53,9 +53,9 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
         </Form.Item>
         <Form.Item label={t('Language')}>
           <OneSelect
-            apiURL={`${Constants.api.LANGUAGES}/?select=name lowerCode`}
+            apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
             labelAttr="name"
-            valueAttr="lowerCode"
+            valueAttr="lang"
             defaultValue={options.lang}
             onSelect={(value: any) => changeOptions({ ...options, lang: value })}
             showArrow

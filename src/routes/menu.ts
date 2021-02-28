@@ -7,6 +7,7 @@ import ProfileManager from 'pages/Profile/Manager';
 import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import UserList from 'pages/User/List';
+import LanguageList from 'pages/Language/List';
 
 export interface MenuItem {
   path: string;
@@ -30,7 +31,7 @@ const menus: MenuItem[] = [
     icon: DashboardOutlined,
   },
   {
-    path: '/activity',
+    path: '/activities',
     title: 'Activities',
     subTitle: 'Manager activity for web site',
     icon: UserOutlined,
@@ -39,7 +40,7 @@ const menus: MenuItem[] = [
     aclResource: 'activities',
   },
   {
-    path: '/company',
+    path: '/companies',
     title: 'Companies',
     subTitle: 'Manager company and configurations',
     icon: UserOutlined,
@@ -62,6 +63,15 @@ const menus: MenuItem[] = [
     subTitle: 'Manager user profiles and ACL configurations',
     icon: ProfileOutlined,
     component: ProfileManager,
+    exact: true,
+    aclResource: 'profiles',
+  },
+  {
+    path: '/languages',
+    title: 'Languages',
+    subTitle: 'Manager site language translation',
+    icon: ProfileOutlined,
+    component: LanguageList,
     exact: true,
     aclResource: 'profiles',
   },
