@@ -17,15 +17,16 @@ export interface Theme {
 
 const userCompany = sls.getItem(Constants.storage.COMPANY) || null;
 const loggedUser = sls.getItem(Constants.storage.USER) || null;
+const userOptions = sls.getItem(Constants.storage.OPTIONS) || {
+  theme: 'light',
+  componentSize: 'middle',
+  lang: 'pt_br',
+};
 
 export const AppContext = createContext<Theme>({
   company: userCompany,
   user: loggedUser,
-  options: {
-    theme: 'light',
-    componentSize: 'middle',
-    lang: 'pt_br',
-  },
+  options: userOptions,
   t: () => '',
   changeOptions: () => {},
   changeLogged: () => {},
@@ -34,15 +35,15 @@ export const AppContext = createContext<Theme>({
 export const AppProvider = ({ children }: any) => {
   const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
-  const [options, setOptions] = useState<ThemeOptions>(
-    loggedUser?.options || { theme: 'light', componentSize: 'middle', lang: 'pt_br' },
-  );
+  const [options, setOptions] = useState<ThemeOptions>(userOptions);
   const { t } = useTranslation();
 
   const changeOptions = async (_options: ThemeOptions) => {
     setOptions(_options || options);
+    sls.setItem(Constants.storage.OPTIONS, _options);
 
     if (_options.lang) {
+      console.log(_options);
       sls.setItem(Constants.storage.LANG);
       await i18n.changeLanguage(_options.lang);
     }
@@ -68,33 +69,32 @@ export const AppProvider = ({ children }: any) => {
   };
 
   const getLanguages = async () => {
-    let languages = sls.getItem(Constants.storage.LANGUAGES);
+    let languages = sls.getItem(Constants.storage.LANGUAGES) || [];
 
-    if (!languages) {
+    if (!languages.length) {
       const response = await defaultService.get(`${Constants.api.LANGUAGES}/start/?origin=admin`);
 
       if (Object.keys(response).length) {
         sls.setItem(Constants.storage.LANGUAGES, response);
-        languages = response;
+        languages = response || [];
       }
     }
 
     const resources: any = {};
     languages.forEach((language) => (resources[language.lang] = language.translation[language.lang]));
 
-    if (languages) {
+    if (Object.keys(resources).length) {
       setLanguages(resources, options.lang);
     }
   };
 
   useEffect(() => {
-    getLanguages();
-
     if (user) {
       getCompany();
-      setOptions(user?.options || options);
     }
-  }, [user]);
+
+    getLanguages();
+  }, [, user]);
 
   return (
     <AppContext.Provider value={{ user, company, options, t, changeOptions, changeLogged }}>
