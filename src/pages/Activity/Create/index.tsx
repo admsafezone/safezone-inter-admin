@@ -1,8 +1,8 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Alert from 'antd/es/alert';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
+import message from 'antd/es/message';
 import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
 import Switch from 'antd/es/switch';
@@ -32,8 +32,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   const { t, options } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [messages, setMessages] = useState<string[]>([]);
-  const [messageType, setMessageType] = useState<'error' | 'success' | 'warning' | 'info' | undefined>('error');
   const [form] = Form.useForm();
 
   const save = async () => {
@@ -63,12 +61,10 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       }
 
       if (result.error && result.error.length) {
-        setMessages(result.error);
-        setMessageType('error');
+        result.error.map((err) => message.error(err));
       } else {
         const successMessage = activity ? t('Activity updated successfuly') : t('New activity registred successfuly');
-        setMessages([successMessage]);
-        setMessageType('success');
+        message.success(successMessage);
         setIsSaved(true);
 
         if (!activity) {
@@ -86,8 +82,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
     if (activity) {
       form.setFieldsValue(activity);
-    } else {
-      setMessages([]);
     }
   }, [visible, activity]);
 
@@ -111,34 +105,13 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           setActivity(undefined);
         }}
         maskClosable={false}
+        cancelText={t('Close')}
         onOk={() => save()}
         okText={t('Save')}
-        cancelText={t('Close')}
+        okButtonProps={{ loading, disabled: loading }}
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>
-            <Col md={24}>
-              {messages.length
-                ? messages.map((error: string, i: number) => {
-                    return (
-                      <Alert
-                        key={Math.random()}
-                        message={error}
-                        showIcon
-                        closable
-                        type={messageType}
-                        style={{ marginBottom: '12px' }}
-                        afterClose={() => {
-                          const newErros = [...messages];
-                          newErros.splice(i, 1);
-                          setMessages(newErros);
-                        }}
-                      />
-                    );
-                  })
-                : ''}
-            </Col>
-
             <Col md={24}>
               <Form.Item
                 label={t('Title')}

@@ -1,6 +1,7 @@
 import { FC, ReactElement } from 'react';
-import Avatar from 'antd/es/avatar';
 import Button from 'antd/es/button';
+import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
+import SettingOutlined from '@ant-design/icons/SettingOutlined';
 import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
 import { sls } from 'utils/StorageUtils';
@@ -11,10 +12,10 @@ interface OneAvatarProps {
 }
 
 const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => {
-  const { company, changeLogged } = useAppContext();
+  const { t, company, changeLogged } = useAppContext();
   const { onClick } = props;
-  const user = sls.getItem(Constants.storage.USER) || { name: '', image: '' };
-  const { name, image } = user;
+  const user = sls.getItem(Constants.storage.USER) || { name: '' };
+  const { name } = user;
 
   const logout = () => {
     sls.clear();
@@ -23,15 +24,16 @@ const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => 
 
   return (
     <>
-      <div className="profile" onClick={onClick}>
+      <div className="profile">
         <h2>{company?.name}</h2>
         <p>{name}</p>
-        <Avatar className="profile-thumb" src={image || ''} size={40} />
+        <div className="profile-thumb">{name.substring(0, 1).toUpperCase()}</div>
       </div>
-      <div className="profile-logout">
-        <Button type="link" onClick={logout}>
-          Logout
+      <div className="profile-actions">
+        <Button type="link" onClick={logout} icon={<LogoutOutlined />}>
+          {t('Logout')}
         </Button>
+        <Button type="link" onClick={onClick} icon={<SettingOutlined />} />
       </div>
     </>
   );

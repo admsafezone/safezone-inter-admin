@@ -5,11 +5,27 @@
   padding: 0 24px;
   cursor: pointer;
   transition: color 0.3s;
-  margin-left: 244px;
+  margin-left: 245px;
   transition: all 100ms;
-}
 
-.one-header-layout .trigger.collapsed,
-.dark .one-header-layout .trigger.collapsed {
-  margin-left: 74px !important;
+  &.collapsed {
+    margin-left: 80px !important;
+  }
+
+  &.ant-btn-sm {
+    margin-left: 270px !important;
+
+    &.collapsed {
+      margin-left: 100px !important;
+    }
+  }
+
+  &.ant-btn-lg {
+    margin-left: 260px !important;
+    margin-top: -5px;
+
+    &.collapsed {
+      margin-left: 94px !important;
+    }
+  }
 }

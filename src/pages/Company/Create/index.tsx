@@ -141,6 +141,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
         }}
         onOk={() => save()}
         okText={t('Save')}
+        okButtonProps={{ loading, disabled: loading }}
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>

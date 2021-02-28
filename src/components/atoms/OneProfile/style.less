@@ -1,35 +1,45 @@
 .profile {
-  position: absolute;
-  right: 92px;
+  position: relative;
+  right: 160px;
   top: 0px;
   text-align: right;
-  width: 250px;
-  display: inline-block;
+  line-height: 1.6em;
+  float: right;
 
   .profile-thumb {
+    display: block;
     color: @primary-color;
     background-color: rgba(@primary-color, 0.2);
-    margin-top: -5px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.7em;
+    font-weight: bold;
+    margin-top: 10px;
+    border-radius: 50%;
+    float: right;
   }
 
   h2 {
     position: absolute;
     right: 50px;
-    margin-top: -5px;
-    font-size: 20px;
+    top: 12px;
+    padding: 0 !important;
+    font-size: 1.4em;
   }
 
   p {
     position: absolute;
     right: 50px;
-    top: 10px;
-    font-size: 11px;
+    top: 30px;
+    font-size: 13px;
     color: @primary-color;
   }
 }
 
-.profile-logout {
+.profile-actions {
   position: absolute;
   display: inline-block;
-  right: 12px;
+  right: 24px;
 }
