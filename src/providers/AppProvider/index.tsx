@@ -35,7 +35,7 @@ export const AppProvider = ({ children }: any) => {
   const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(
-    user?.options || { theme: 'light', componentSize: 'middle', lang: 'pt_br' },
+    loggedUser?.options || { theme: 'light', componentSize: 'middle', lang: 'pt_br' },
   );
   const { t } = useTranslation();
 
@@ -43,7 +43,7 @@ export const AppProvider = ({ children }: any) => {
     setOptions(_options || options);
 
     if (_options.lang) {
-      sls.setItem(Constants.storage.LANG, _options.lang.replaceAll('_', '-'));
+      sls.setItem(Constants.storage.LANG);
       await i18n.changeLanguage(_options.lang);
     }
 
@@ -55,7 +55,7 @@ export const AppProvider = ({ children }: any) => {
   const changeLogged = (_user?: User) => {
     setUser(_user);
     if (_user) {
-      setOptions(_user?.options || options);
+      changeOptions(_user?.options || options);
     }
   };
 
@@ -88,11 +88,12 @@ export const AppProvider = ({ children }: any) => {
   };
 
   useEffect(() => {
+    getLanguages();
+
     if (user) {
       getCompany();
+      setOptions(user?.options || options);
     }
-
-    getLanguages();
   }, [user]);
 
   return (

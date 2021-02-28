@@ -39,7 +39,9 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
     } else {
       sls.setItem(Constants.storage.TOKEN, response);
       const decoded = tokenDecode(response.token);
-      sls.setItem(Constants.storage.USER, decoded.user);
+      const { user, sub } = decoded;
+      user._id = sub;
+      sls.setItem(Constants.storage.USER, user);
       onLogin(decoded.user);
     }
     setLoading(false);
