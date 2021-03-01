@@ -130,9 +130,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             <ProjectOutlined /> {company ? t('Edit company') : t('New company')}
           </Title>
         }
-        width={'60vw'}
+        width={'70vw'}
         visible={visible}
-        zIndex={1005}
         style={{ top: 20 }}
         onCancel={() => {
           setVisible(false);

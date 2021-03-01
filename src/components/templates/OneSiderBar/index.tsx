@@ -33,7 +33,7 @@ const OneSiderBar: FC = (): JSX.Element => {
         collapsedWidth={81}
         style={{
           position: 'fixed',
-          zIndex: 1002,
+          zIndex: 1000,
           height: '100vh',
         }}
       >

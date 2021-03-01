@@ -101,7 +101,6 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
         }
         width={'60vw'}
         visible={visible}
-        zIndex={1005}
         style={{ top: 20 }}
         onCancel={() => {
           setUser(undefined);

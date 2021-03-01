@@ -28,7 +28,7 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
       visible={visible}
       width={350}
       style={{
-        zIndex: 1003,
+        zIndex: 1000,
       }}
     >
       <Form layout="vertical">

@@ -22,43 +22,31 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
         {t('Images for $t({{mode}})', { mode })}
       </h2>
       <Row gutter={24}>
-        <Col md={24}>
+        <Col md={8}>
           <Form.Item
             label={t('Logo url')}
             name={`${prefixName}.logo`}
-            rules={[{ required: true, type: 'url', message: t('Please type the logo url') }]}
+            rules={[{ required: true, message: t('Please type the logo url') }]}
           >
-            <OneUploadInput
-              placeholder="https://bucket.s3.amazonaws.com/image.png"
-              setGaleryVisible={setGaleryVisible}
-              updateField={updateField}
-            />
+            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col md={8}>
           <Form.Item
             label={t('Top background url')}
             name={`${prefixName}.backgroundTop`}
             rules={[{ type: 'url', message: t('Please type the background top url') }]}
           >
-            <OneUploadInput
-              placeholder="https://bucket.s3.amazonaws.com/image.png"
-              setGaleryVisible={setGaleryVisible}
-              updateField={updateField}
-            />
+            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
         </Col>
-        <Col md={24}>
+        <Col md={8}>
           <Form.Item
             label={t('Boby background url')}
             name={`${prefixName}.background`}
             rules={[{ type: 'url', message: t('Please type the background body url') }]}
           >
-            <OneUploadInput
-              placeholder="https://bucket.s3.amazonaws.com/image.png"
-              setGaleryVisible={setGaleryVisible}
-              updateField={updateField}
-            />
+            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
         </Col>
       </Row>

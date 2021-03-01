@@ -1,3 +1,23 @@
-.one-upload-input.ant-input-affix-wrapper {
-  padding: 0 0 0 12px;
+.one-input-upload {
+  .ant-image {
+    border: 1px solid #ccc;
+    overflow: hidden;
+
+    .one-upload-preview {
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+  }
+
+  .one-upload-button {
+    margin-bottom: 18px;
+  }
+}
+
+.ant-image-preview-operations {
+  .ant-image-preview-operations-operation:nth-child(4),
+  .ant-image-preview-operations-operation:nth-child(5) {
+    display: none;
+  }
 }

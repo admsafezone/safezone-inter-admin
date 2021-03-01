@@ -161,7 +161,6 @@ const LanguageCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         }
         width={'70vw'}
         visible={visible}
-        zIndex={1005}
         style={{ top: 20 }}
         onCancel={() => {
           setLanguage(undefined);

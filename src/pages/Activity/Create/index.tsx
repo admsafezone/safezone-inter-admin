@@ -11,6 +11,8 @@ import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
 import OneTextEditor from 'components/atoms/OneTextEditor';
+import OneUploadInput from 'components/atoms/OneUploadInput';
+import OneMediaGalery from 'components/atoms/OneMediaGalery';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
@@ -30,6 +32,8 @@ interface ArticleCreateProps {
 const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
   const { visible, setVisible, activity, setActivity, reload } = props;
   const { t, options } = useAppContext();
+  const [galeryVisible, setGaleryVisible] = useState(false);
+  const [galeryField, setGaleryField] = useState('');
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [form] = Form.useForm();
@@ -76,6 +80,17 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
     setLoading(false);
   };
 
+  const updateField = (key: string, value?: string) => {
+    if (value) {
+      const allFields = form.getFieldsValue();
+      allFields[key] = value;
+      form.resetFields();
+      form.setFieldsValue(allFields);
+    } else {
+      setGaleryField(key);
+    }
+  };
+
   useEffect(() => {
     setIsSaved(false);
     form.resetFields();
@@ -97,7 +112,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         }
         width={'70vw'}
         visible={visible}
-        zIndex={1005}
         style={{ top: 20 }}
         onCancel={() => {
           setVisible(false);
@@ -112,7 +126,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>
-            <Col md={24}>
+            <Col md={16}>
               <Form.Item
                 label={t('Title')}
                 name="title"
@@ -121,12 +135,17 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               >
                 <Input placeholder={t('Type the activity title')} />
               </Form.Item>
-            </Col>
-            <Col md={24}>
               <Form.Item label={t('Description')} name="description">
                 <Input.TextArea placeholder={t('Activity description')} rows={3} />
               </Form.Item>
             </Col>
+
+            <Col md={8}>
+              <Form.Item label={t('Cover image')} name="image">
+                <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
+              </Form.Item>
+            </Col>
+
             <Col md={24}>
               <Form.Item label={t('Content')} name="content">
                 <OneTextEditor
@@ -186,6 +205,13 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           </Col>
         </Form>
       </Modal>
+
+      <OneMediaGalery
+        updateField={updateField}
+        setVisible={setGaleryVisible}
+        fieldName={galeryField}
+        visible={galeryVisible}
+      />
     </>
   );
 };

@@ -25,7 +25,7 @@ const OneHeader: FC<OneFeaherProps> = ({ collapsed, toggle }: OneFeaherProps): R
       className="one-header-layout"
       style={{
         position: 'fixed',
-        zIndex: 1000,
+        zIndex: 999,
         width: '100vw',
         padding: 0,
       }}
