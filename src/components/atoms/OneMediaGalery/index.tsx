@@ -113,7 +113,7 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <PictureOutlined /> {t('Media galery')}
+            <PictureOutlined /> {t('Media gallery')}
           </Title>
         }
         className="one-media-galery"

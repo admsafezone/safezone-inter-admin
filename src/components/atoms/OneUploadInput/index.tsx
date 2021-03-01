@@ -62,7 +62,7 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
           icon={<PictureOutlined />}
           style={{ marginRight: '4px' }}
         >
-          {t('Galery')}
+          {t('Gallery')}
         </Button>
       </Space>
     </div>
