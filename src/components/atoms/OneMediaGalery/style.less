@@ -6,6 +6,7 @@
     border-radius: 4px;
 
     .one-media-galery-img {
+      position: relative;
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
@@ -13,9 +14,55 @@
       height: 160px;
       cursor: pointer;
 
+      .one-media-check-image {
+        display: none;
+      }
+
       &:hover {
-        opacity: 0.75;
+        opacity: 0.7;
+      }
+
+      &.selected {
+        &::after {
+          content: '-';
+          position: absolute;
+          display: inline-block;
+          background-color: rgba(#460e81, 0.6);
+          color: transparent;
+          width: 160px;
+          height: 160px;
+          top: 0;
+          left: 0;
+        }
+
+        .one-media-check-image {
+          position: absolute;
+          display: block;
+          font-size: 2.2em;
+          top: 65px;
+          left: 65px;
+          color: #fff;
+          z-index: 1001;
+        }
+
+        .one-media-delete-image {
+          color: #fff;
+        }
+      }
+
+      .one-media-delete-image {
+        position: relative;
+        color: @primary-color;
+        left: 137px;
+        top: 5px;
+        font-size: 1.3em;
+        z-index: 1001;
+        cursor: pointer;
       }
     }
+  }
+
+  .one-galery-upload {
+    float: left !important;
   }
 }

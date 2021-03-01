@@ -96,7 +96,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   };
 
   const updateField = (key: string, value?: string) => {
-    if (value) {
+    if (value !== undefined) {
       const allFields = form.getFieldsValue();
       allFields[key] = value;
       form.resetFields();

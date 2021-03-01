@@ -1,12 +1,15 @@
 .one-input-upload {
   .ant-image {
-    border: 1px solid #ccc;
     overflow: hidden;
 
     .one-upload-preview {
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
+
+      &.no-image {
+        border: 1px dashed #ccc;
+      }
     }
   }
 

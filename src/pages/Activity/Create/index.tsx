@@ -81,7 +81,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   };
 
   const updateField = (key: string, value?: string) => {
-    if (value) {
+    if (value !== undefined) {
       const allFields = form.getFieldsValue();
       allFields[key] = value;
       form.resetFields();
