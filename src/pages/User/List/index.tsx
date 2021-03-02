@@ -118,7 +118,7 @@ const UserList: FC = (): JSX.Element => {
       <Column
         title={t(title)}
         dataIndex={key}
-        width={180}
+        width={150}
         sorter={sorter}
         filteredValue={values}
         filterIcon={() => <SearchOutlined className={values[0] ? 'search-icon active' : 'search-icon'} />}
@@ -245,6 +245,16 @@ const UserList: FC = (): JSX.Element => {
             width={90}
             render={(_: string, item: User) => item.profiles.map((p: Profile) => (p.name ? p.name : p)).join(', ')}
           />
+
+          {checkACL(Constants.acl.USERS, Constants.permissions.M) && (
+            <Column
+              title={t('Company')}
+              dataIndex="company"
+              width={110}
+              render={(_: string, item: User) => item.company?.name}
+            />
+          )}
+
           <Column
             title={t('Active')}
             dataIndex="active"

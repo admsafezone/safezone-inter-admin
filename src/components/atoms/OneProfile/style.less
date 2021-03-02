@@ -5,6 +5,7 @@
   text-align: right;
   line-height: 1.6em;
   float: right;
+  min-width: 250px;
 
   .profile-thumb {
     display: block;
@@ -26,7 +27,7 @@
     right: 50px;
     top: 12px;
     padding: 0 !important;
-    font-size: 1.4em;
+    font-size: 1.3em;
   }
 
   p {
@@ -38,36 +39,31 @@
   }
 }
 
-.one-layout {
-  &.dark {
-    .h2,
-    p,
-    .ant-btn-link,
-    .profile-thumb {
-      color: @text-color-dark;
-    }
-    .profile-thumb {
-      background-color: rgba(@text-color-dark, 0.2);
-    }
-  }
-}
-
-.one-layout.top-bar {
-  &.top-dark {
-    .h2,
-    p,
-    .ant-btn-link,
-    .profile-thumb {
-      color: @text-color-dark;
-    }
-    .profile-thumb {
-      background-color: rgba(@text-color-dark, 0.2);
-    }
-  }
-}
-
 .profile-actions {
   position: absolute;
   display: inline-block;
   right: 24px;
+}
+
+.one-layout {
+  &.dark,
+  &.top-dark {
+    .profile {
+      h2,
+      p,
+      .ant-btn-link,
+      .profile-thumb {
+        color: @text-color-dark;
+      }
+      .profile-thumb {
+        background-color: rgba(@text-color-dark, 0.2);
+      }
+    }
+
+    .profile-actions {
+      .ant-btn-link {
+        color: @text-color-dark !important;
+      }
+    }
+  }
 }

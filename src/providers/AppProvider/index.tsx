@@ -73,7 +73,7 @@ export const AppProvider = ({ children }: any) => {
 
   const getCompany = async () => {
     const response = await defaultService.get(
-      `${Constants.api.COMPANIES}/${user?.company?._id}?select=name theme identifier`,
+      `${Constants.api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
     );
     sls.setItem(Constants.storage.COMPANY, response);
     setCompany(response);

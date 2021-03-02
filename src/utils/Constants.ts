@@ -32,6 +32,7 @@ const Constants = {
     PROFILES: 'profiles',
     ACTIVITIES: 'activities',
     LANGUAGES: 'languages',
+    DEFAULT: 'default',
   },
   permissions: {
     R: 'r',

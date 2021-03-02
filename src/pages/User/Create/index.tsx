@@ -13,6 +13,7 @@ import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
+import { checkACL } from 'utils/AclUtils';
 import { User } from 'interfaces';
 import './style.less';
 
@@ -28,7 +29,7 @@ interface ArticleCreateProps {
 
 const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
   const { visible, setVisible, user, setUser, reload } = props;
-  const { t } = useAppContext();
+  const { t, company } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [form] = Form.useForm();
@@ -83,7 +84,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
     form.resetFields();
 
     if (user) {
-      const userToEdit = { ...user, ...{ company: user.company?._id || user.company } };
+      const userToEdit = { ...user, ...{ company: user.company?._id || user.company || company?._id } };
       userToEdit.profiles = user.profiles.map((p: any) => p?._id || p);
       form.setFieldsValue(userToEdit);
     }
@@ -121,7 +122,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
             password: '',
             confirmPassword: '',
             profiles: [],
-            company: '',
+            company: !user ? company?._id : '',
           }}
         >
           <Row gutter={24}>
@@ -194,40 +195,52 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
                 <Input placeholder={t('Confirm password')} type="password" />
               </Form.Item>
             </Col>
-            <Col md={8}>
-              <Form.Item
-                label={t('Profiles')}
-                name="profiles"
-                required
-                rules={[{ required: true, message: t('Please select the user profiles') }]}
-              >
-                <OneSelect
-                  apiURL={`${Constants.api.PROFILES}/?select=_id name&filter=admin:b;true`}
-                  labelAttr="name"
-                  valueAttr="_id"
-                  mode="multiple"
-                  noDefaultOption
-                  showArrow
-                  useCache
-                />
+
+            {checkACL(Constants.acl.USERS, Constants.permissions.M) && (
+              <Col md={8}>
+                <Form.Item
+                  label={t('Profiles')}
+                  name="profiles"
+                  required
+                  rules={[{ required: true, message: t('Please select the user profiles') }]}
+                >
+                  <OneSelect
+                    apiURL={`${Constants.api.PROFILES}/?select=_id name&filter=admin:b;true`}
+                    labelAttr="name"
+                    valueAttr="_id"
+                    mode="multiple"
+                    noDefaultOption
+                    showArrow
+                    useCache
+                    placeholder={t('Select')}
+                  />
+                </Form.Item>
+              </Col>
+            )}
+
+            {checkACL(Constants.acl.USERS, Constants.permissions.M) ? (
+              <Col md={8}>
+                <Form.Item
+                  label={t('Company')}
+                  name="company"
+                  required
+                  rules={[{ required: true, message: t('Please select the user company') }]}
+                >
+                  <OneSelect
+                    apiURL={`${Constants.api.COMPANIES}/?select=_id name`}
+                    labelAttr="name"
+                    valueAttr="_id"
+                    showArrow
+                    useCache
+                    placeholder={t('Select')}
+                  />
+                </Form.Item>
+              </Col>
+            ) : (
+              <Form.Item name="company">
+                <Input hidden />
               </Form.Item>
-            </Col>
-            <Col md={8}>
-              <Form.Item
-                label={t('Company')}
-                name="company"
-                required
-                rules={[{ required: true, message: t('Please select the user company') }]}
-              >
-                <OneSelect
-                  apiURL={`${Constants.api.COMPANIES}/?select=_id name`}
-                  labelAttr="name"
-                  valueAttr="_id"
-                  showArrow
-                  useCache
-                />
-              </Form.Item>
-            </Col>
+            )}
             <Col md={8}>
               <Form.Item label={t('Active user')} name="active">
                 <Switch defaultChecked={user?.active} />

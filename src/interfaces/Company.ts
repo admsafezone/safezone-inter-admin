@@ -30,6 +30,7 @@ export interface Company {
   origins: string[];
   theme?: Theme;
   options?: any;
+  like?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

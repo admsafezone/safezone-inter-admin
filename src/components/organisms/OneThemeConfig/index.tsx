@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Drawer from 'antd/es/drawer';
 import Form from 'antd/es/form';
 import Radio from 'antd/es/radio';
@@ -6,6 +6,9 @@ import Select from 'antd/es/select';
 import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
+import defaultService from 'services/defaultService';
+import { checkACL, tokenDecode } from 'utils/AclUtils';
+import { sls } from 'utils/StorageUtils';
 import layoutSiderBar from 'assets/layout-sider-bar.svg';
 import layoutTopBar from 'assets/layout-top-bar.svg';
 import layoutTopBarDark from 'assets/layout-top-bar-dark.svg';
@@ -14,7 +17,28 @@ import './style.less';
 const { Option } = Select;
 
 const OneThemeConfig: FC = (): JSX.Element => {
-  const { options, changeOptions, t, toggleConfigTheme, configThemeVisible } = useAppContext();
+  const { options, user, changeOptions, t, toggleConfigTheme, configThemeVisible } = useAppContext();
+  const [value, setValue] = useState(user?.company?.identifier);
+
+  const onChangeCompany = async (identifier) => {
+    setValue(identifier);
+    const config = {
+      url: `${defaultService.api.defaults.baseURL}/${Constants.api.REFRESH}`,
+      method: 'post',
+      headers: { ...defaultService.api.defaults.headers, identifier },
+    };
+    const response = await defaultService.request(config);
+    sls.setItem(Constants.storage.TOKEN, response);
+    const decoded = tokenDecode(response.token);
+    const { user, sub } = decoded;
+    user._id = sub;
+    sls.setItem(Constants.storage.USER, user);
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    setValue(user?.company?.identifier);
+  }, [user]);
 
   return (
     <Drawer
@@ -30,6 +54,24 @@ const OneThemeConfig: FC = (): JSX.Element => {
       }}
     >
       <Form layout="vertical">
+        {checkACL(Constants.acl.DEFAULT, Constants.permissions.M) || user?.company?.like ? (
+          <Form.Item label={t('Session company')}>
+            <OneSelect
+              apiURL={`${Constants.api.COMPANIES}/?select=identifier name`}
+              labelAttr="name"
+              valueAttr="identifier"
+              showArrow
+              noDefaultOption
+              useCache
+              value={value}
+              onChange={(value) => onChangeCompany(value)}
+              placeholder={t('Company')}
+            />
+          </Form.Item>
+        ) : (
+          ''
+        )}
+
         <Form.Item label={t('Components size')}>
           <Radio.Group
             onChange={(event) => changeOptions({ ...options, componentSize: event.target.value })}

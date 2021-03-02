@@ -173,7 +173,8 @@ const CompanyList: FC = (): JSX.Element => {
 
       <Content>
         <Row>
-          {checkACL(Constants.acl.COMPANIES, Constants.permissions.W) ? (
+          {checkACL(Constants.acl.COMPANIES, Constants.permissions.W) &&
+          checkACL(Constants.acl.DEFAULT, Constants.permissions.M) ? (
             <Col span={24} style={{ textAlign: 'right' }}>
               <OneButton
                 icon={<PlusOutlined />}

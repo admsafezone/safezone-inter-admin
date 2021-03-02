@@ -17,6 +17,7 @@ import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import OneMediaGalery from 'components/atoms/OneMediaGalery';
 import Constants from 'utils/Constants';
+import { checkACL } from 'utils/AclUtils';
 import { objectToFields, fieldsToObject } from 'utils/DateUtils';
 import { Company } from 'interfaces';
 import './style.less';
@@ -190,7 +191,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
 
             <Col md={12}>
               <Form.Item
-                label={t('Domains')}
+                label={t('Domains accepted')}
                 name="origins"
                 required={true}
                 rules={[{ required: true, message: t('Please type the company domain origins') }]}
@@ -200,6 +201,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   showArrow={false}
                   placeholder={`/.*${szDomain}/, company.${szDomain}`}
                   dropdownStyle={{ display: 'none' }}
+                  disabled={!checkACL(Constants.acl.COMPANIES, Constants.permissions.M)}
                 />
               </Form.Item>
             </Col>
