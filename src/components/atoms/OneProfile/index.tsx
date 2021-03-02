@@ -1,4 +1,5 @@
 import { FC, ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import Button from 'antd/es/button';
 import LogoutOutlined from '@ant-design/icons/LogoutOutlined';
 import SettingOutlined from '@ant-design/icons/SettingOutlined';
@@ -10,10 +11,12 @@ import './style.less';
 const OneProfile: FC = (): ReactElement => {
   const { t, company, changeLogged, toggleConfigTheme } = useAppContext();
   const user = sls.getItem(Constants.storage.USER) || { name: '' };
+  const history = useHistory();
   const { name } = user;
 
   const logout = () => {
     sls.clear();
+    history.push('/');
     changeLogged();
   };
 

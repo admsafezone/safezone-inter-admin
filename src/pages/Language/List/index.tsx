@@ -16,8 +16,8 @@ import LanguageCreate from 'pages/Language/Create';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
-import './style.less';
 import { Language } from 'interfaces';
+import './style.less';
 
 const { Content } = Layout;
 const { Column } = Table;
