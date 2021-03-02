@@ -12,6 +12,8 @@ export const RouterProvider = () => {
     switch (options.layout) {
       case 'top-bar':
         return <OneTopBar />;
+      case 'top-bar top-dark':
+        return <OneTopBar />;
       case 'sider-bar':
       default:
         return <OneSiderBar />;

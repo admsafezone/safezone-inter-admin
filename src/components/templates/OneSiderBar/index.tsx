@@ -22,7 +22,7 @@ const OneSiderBar: FC = (): JSX.Element => {
   }
 
   return (
-    <Layout className={`one-layout ${options.theme} ${collapsed ? 'collapsed' : ''}`}>
+    <Layout className={`one-layout ${options.theme} ${options?.layout} ${collapsed ? 'collapsed' : ''}`}>
       <Sider
         className="one-sider-bar-left"
         theme={options.theme}

@@ -14,13 +14,14 @@ const { Footer } = Layout;
 
 const OneTopBar: FC = (): JSX.Element => {
   const { options } = useAppContext();
+  const theme = options.layout === 'top-bar top-dark' ? 'dark' : options.theme;
 
   return (
-    <Layout className={`one-layout top-bar ${options.theme}`}>
+    <Layout className={`one-layout ${options.theme} ${options?.layout}`}>
       <Layout className="one-content-layout">
         <OneHeader>
           <OneLogo appName={Constants.app.appName} logo={logo} />
-          <OneMenu theme={options.theme} menus={menus} mode="horizontal" />
+          <OneMenu theme={theme} menus={menus} mode="horizontal" />
         </OneHeader>
 
         <Routes menus={menus} />

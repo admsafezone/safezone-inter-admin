@@ -38,6 +38,34 @@
   }
 }
 
+.one-layout {
+  &.dark {
+    .h2,
+    p,
+    .ant-btn-link,
+    .profile-thumb {
+      color: @text-color-dark;
+    }
+    .profile-thumb {
+      background-color: rgba(@text-color-dark, 0.2);
+    }
+  }
+}
+
+.one-layout.top-bar {
+  &.top-dark {
+    .h2,
+    p,
+    .ant-btn-link,
+    .profile-thumb {
+      color: @text-color-dark;
+    }
+    .profile-thumb {
+      background-color: rgba(@text-color-dark, 0.2);
+    }
+  }
+}
+
 .profile-actions {
   position: absolute;
   display: inline-block;

@@ -8,6 +8,7 @@ import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
 import layoutSiderBar from 'assets/layout-sider-bar.svg';
 import layoutTopBar from 'assets/layout-top-bar.svg';
+import layoutTopBarDark from 'assets/layout-top-bar-dark.svg';
 import './style.less';
 
 const { Option } = Select;
@@ -60,6 +61,9 @@ const OneThemeConfig: FC = (): JSX.Element => {
             </Radio>
             <Radio value="top-bar">
               <img src={layoutTopBar} className="layout-icon" />
+            </Radio>
+            <Radio value="top-bar top-dark">
+              <img src={layoutTopBarDark} className="layout-icon" />
             </Radio>
           </Radio.Group>
         </Form.Item>
