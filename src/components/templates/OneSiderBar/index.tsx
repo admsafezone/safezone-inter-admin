@@ -22,7 +22,7 @@ const OneSiderBar: FC = (): JSX.Element => {
   }
 
   return (
-    <Layout className={`one-layout ${options.theme}`}>
+    <Layout className={`one-layout ${options.theme} ${collapsed ? 'collapsed' : ''}`}>
       <Sider
         className="one-sider-bar-left"
         theme={options.theme}
@@ -42,7 +42,7 @@ const OneSiderBar: FC = (): JSX.Element => {
       </Sider>
       <Layout className="one-bar-layout">
         <OneHeader collapsed={collapsed} toggle={toggle} />
-        <Routes collapsed={collapsed} menus={menus} />
+        <Routes menus={menus} />
         <Footer
           className="one-footer-layout"
           style={{

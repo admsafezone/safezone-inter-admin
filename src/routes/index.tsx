@@ -10,11 +10,10 @@ import { useAppContext } from 'providers/AppProvider';
 const { Content } = Layout;
 
 interface RoutesProps {
-  collapsed?: boolean;
   menus: MenuItem[];
 }
 
-const Routes: FC<RoutesProps> = ({ collapsed, menus }: RoutesProps): ReactElement => {
+const Routes: FC<RoutesProps> = ({ menus }: RoutesProps): ReactElement => {
   const { t } = useAppContext();
 
   function mapMenu(item: MenuItem, i: string, routes: MenuItem[] = []): any {
@@ -36,13 +35,7 @@ const Routes: FC<RoutesProps> = ({ collapsed, menus }: RoutesProps): ReactElemen
             path={path}
             exact={!!item.exact}
             component={() => (
-              <Content
-                className="one-layout-content"
-                style={{
-                  marginTop: 90,
-                  marginLeft: collapsed ? 104 : 274,
-                }}
-              >
+              <Content className="one-layout-content">
                 {!item.noHeader && <OnePageHeader title={t(item.title || '')} subTitle={t(item.subTitle || '')} />}
                 <Component />
               </Content>

@@ -13,6 +13,8 @@ export interface Theme {
   t(key: string, options?: any): string;
   changeOptions(options: ThemeOptions): void;
   changeLogged(user?: User): void;
+  toggleConfigTheme(): void;
+  configThemeVisible?: boolean;
 }
 
 const userCompany = sls.getItem(Constants.storage.COMPANY) || null;
@@ -21,6 +23,8 @@ const userOptions = sls.getItem(Constants.storage.OPTIONS) || {
   theme: 'light',
   componentSize: 'middle',
   lang: 'pt_br',
+  pagerLimit: 50,
+  layout: 'sider-bar',
 };
 
 export const AppContext = createContext<Theme>({
@@ -30,12 +34,15 @@ export const AppContext = createContext<Theme>({
   t: () => '',
   changeOptions: () => {},
   changeLogged: () => {},
+  toggleConfigTheme: () => {},
+  configThemeVisible: false,
 });
 
 export const AppProvider = ({ children }: any) => {
   const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(userOptions);
+  const [configThemeVisible, setConfigThemeVisible] = useState(false);
   const { t } = useTranslation();
 
   const changeOptions = async (_options: ThemeOptions) => {
@@ -58,6 +65,10 @@ export const AppProvider = ({ children }: any) => {
     if (_user) {
       changeOptions(_user?.options || options);
     }
+  };
+
+  const toggleConfigTheme = () => {
+    setConfigThemeVisible(!configThemeVisible);
   };
 
   const getCompany = async () => {
@@ -97,7 +108,9 @@ export const AppProvider = ({ children }: any) => {
   }, [, user]);
 
   return (
-    <AppContext.Provider value={{ user, company, options, t, changeOptions, changeLogged }}>
+    <AppContext.Provider
+      value={{ user, company, options, t, changeOptions, changeLogged, toggleConfigTheme, configThemeVisible }}
+    >
       {children}
     </AppContext.Provider>
   );

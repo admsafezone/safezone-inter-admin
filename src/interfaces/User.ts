@@ -8,6 +8,7 @@ export interface ThemeOptions {
   componentSize: ComponentSize;
   lang: string;
   pagerLimit?: number;
+  layout?: string;
 }
 
 export interface Resource {

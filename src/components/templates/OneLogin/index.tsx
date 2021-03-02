@@ -99,7 +99,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
 
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            {t('Submit')}
+            {t('Enter')}
           </Button>
         </Form.Item>
       </Form>

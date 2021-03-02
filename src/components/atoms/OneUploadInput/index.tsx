@@ -5,7 +5,7 @@ import Image from 'antd/es/image';
 import Space from 'antd/es/space';
 import PictureOutlined from '@ant-design/icons/PictureOutlined';
 import { useAppContext } from 'providers/AppProvider';
-import emptyImage from 'assets/placeholder-image.png';
+import emptyImage from 'assets/placeholder-image.svg';
 import './style.less';
 
 interface OneUploadInputProps extends InputProps {

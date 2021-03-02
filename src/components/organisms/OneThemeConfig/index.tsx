@@ -5,18 +5,15 @@ import Radio from 'antd/es/radio';
 import Select from 'antd/es/select';
 import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
-import './style.less';
 import Constants from 'utils/Constants';
+import layoutSiderBar from 'assets/layout-sider-bar.svg';
+import layoutTopBar from 'assets/layout-top-bar.svg';
+import './style.less';
 
 const { Option } = Select;
 
-interface OneThemeConfigProps {
-  visible: boolean;
-  toggleVisible(visible: boolean): void;
-}
-
-const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: OneThemeConfigProps): JSX.Element => {
-  const { options, changeOptions, t } = useAppContext();
+const OneThemeConfig: FC = (): JSX.Element => {
+  const { options, changeOptions, t, toggleConfigTheme, configThemeVisible } = useAppContext();
 
   return (
     <Drawer
@@ -24,8 +21,8 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
       title={t('System constomization')}
       placement="right"
       closable={true}
-      onClose={() => toggleVisible(visible)}
-      visible={visible}
+      onClose={() => toggleConfigTheme()}
+      visible={configThemeVisible}
       width={350}
       style={{
         zIndex: 1000,
@@ -42,15 +39,31 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
             <Radio value="small">{t('Small')}</Radio>
           </Radio.Group>
         </Form.Item>
+
         <Form.Item label={t('Theme')}>
           <Radio.Group
             onChange={(event) => changeOptions({ ...options, theme: event.target.value })}
             value={options.theme}
           >
             <Radio value="light">{t('Light')}</Radio>
-            <Radio value="dark">{t('dark')}</Radio>
+            <Radio value="dark">{t('Dark')}</Radio>
           </Radio.Group>
         </Form.Item>
+
+        <Form.Item label={t('Layout')}>
+          <Radio.Group
+            onChange={(event) => changeOptions({ ...options, layout: event.target.value })}
+            value={options.layout}
+          >
+            <Radio value="sider-bar">
+              <img src={layoutSiderBar} className="layout-icon" />
+            </Radio>
+            <Radio value="top-bar">
+              <img src={layoutTopBar} className="layout-icon" />
+            </Radio>
+          </Radio.Group>
+        </Form.Item>
+
         <Form.Item label={t('Language')}>
           <OneSelect
             apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
@@ -63,6 +76,7 @@ const OneThemeConfig: FC<OneThemeConfigProps> = ({ visible, toggleVisible }: One
             useCache
           />
         </Form.Item>
+
         <Form.Item label={t('Default page items number')}>
           <Select
             onSelect={(value: number) => changeOptions({ ...options, pagerLimit: value })}

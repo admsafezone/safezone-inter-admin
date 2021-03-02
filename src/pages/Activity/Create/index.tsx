@@ -1,4 +1,5 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
+import Button from 'antd/es/button';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
@@ -13,8 +14,10 @@ import OneSelect from 'components/atoms/OneSelect';
 import OneTextEditor from 'components/atoms/OneTextEditor';
 import OneUploadInput from 'components/atoms/OneUploadInput';
 import OneMediaGalery from 'components/atoms/OneMediaGalery';
+import AdditionalData from '../Additional';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
+import { setAttributeValue } from 'utils/DateUtils';
 import Constants from 'utils/Constants';
 import { Activity } from 'interfaces';
 import './style.less';
@@ -35,6 +38,8 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   const [galeryVisible, setGaleryVisible] = useState(false);
   const [galeryField, setGaleryField] = useState('');
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState('');
+  const [hiddenContent, setHiddenContent] = useState(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [form] = Form.useForm();
 
@@ -44,6 +49,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
       if (data.content) {
         data.content = data.content.toHTML();
+      }
+      if (data.data && data.data.header) {
+        data.data.header = data.data.header.toHTML();
       }
 
       setLoading(true);
@@ -83,9 +91,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
   const updateField = (key: string, value?: string) => {
     if (value !== undefined) {
       const allFields = form.getFieldsValue();
-      allFields[key] = value;
+      const data = setAttributeValue(allFields, key.replace(/_/g, '.'), value);
       form.resetFields();
-      form.setFieldsValue(allFields);
+      form.setFieldsValue(data);
     } else {
       setGaleryField(key);
     }
@@ -97,6 +105,13 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
     if (activity) {
       form.setFieldsValue(activity);
+      setType(activity.type);
+    } else {
+      setType('');
+    }
+
+    if (visible) {
+      setHiddenContent(false);
     }
   }, [visible, activity]);
 
@@ -136,7 +151,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                 <Input placeholder={t('Type the activity title')} />
               </Form.Item>
               <Form.Item label={t('Description')} name="description">
-                <Input.TextArea placeholder={t('Activity description')} rows={3} />
+                <Input.TextArea placeholder={t('Activity description')} rows={4} />
               </Form.Item>
             </Col>
 
@@ -147,10 +162,21 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
             </Col>
 
             <Col md={24}>
-              <Form.Item label={t('Content')} name="content">
+              <Form.Item
+                name="content"
+                className={`one-activity-content ${hiddenContent ? 'hide-content' : ''}`}
+                label={
+                  <>
+                    {t('Content')}
+                    <Button type="link" onClick={() => setHiddenContent(!hiddenContent)}>
+                      {t('Hide')}
+                    </Button>
+                  </>
+                }
+              >
                 <OneTextEditor
                   placeholder={t('Activity content')}
-                  style={{ border: '1px solid #d9d9d9', borderRadius: '2px', minHeight: '800px' }}
+                  contentStyle={{ border: '1px solid #d9d9d9', borderRadius: '2px', height: '800px' }}
                 />
               </Form.Item>
             </Col>
@@ -169,6 +195,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                   defaultValue={activity?.type || ''}
                   showArrow
                   useCache
+                  onSelect={(value) => setType(`${value}`)}
                 />
               </Form.Item>
             </Col>
@@ -199,9 +226,12 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           </Row>
 
           <Col md={24}>
-            <Form.Item label={t('Aditional data')} name="data">
-              <Input.TextArea placeholder={t('Activity aditional data')} rows={15} />
-            </Form.Item>
+            <AdditionalData
+              type={type}
+              data={activity?.data}
+              updateField={updateField}
+              setGaleryVisible={setGaleryVisible}
+            />
           </Col>
         </Form>
       </Modal>

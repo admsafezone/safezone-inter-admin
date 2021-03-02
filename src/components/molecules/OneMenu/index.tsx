@@ -10,9 +10,10 @@ import Constants from 'utils/Constants';
 export interface OneMenuProps {
   theme: 'light' | 'dark' | undefined;
   menus: Array<MenuItem>;
+  mode?: 'inline' | 'horizontal' | 'vertical' | 'vertical-left' | 'vertical-right' | undefined;
 }
 
-const OneMenu: FC<OneMenuProps> = ({ theme, menus }: OneMenuProps): ReactElement => {
+const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactElement => {
   const history = useHistory();
   const { t } = useAppContext();
   const menuKeys: Key[] = [];
@@ -81,7 +82,7 @@ const OneMenu: FC<OneMenuProps> = ({ theme, menus }: OneMenuProps): ReactElement
   return (
     <Menu
       theme={theme}
-      mode="inline"
+      mode={mode || 'inline'}
       defaultSelectedKeys={['menu-0']}
       openKeys={openKey}
       onOpenChange={onOpenChange}

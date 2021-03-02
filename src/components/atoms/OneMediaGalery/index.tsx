@@ -134,7 +134,6 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
             </Button>
             <Button
               type="primary"
-              // disabled={!selectMadia}
               onClick={() => {
                 updateField(fieldName, selectMadia?.url || '');
                 setVisible(false);

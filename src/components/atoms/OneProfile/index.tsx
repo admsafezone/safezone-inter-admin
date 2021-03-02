@@ -7,13 +7,8 @@ import Constants from 'utils/Constants';
 import { sls } from 'utils/StorageUtils';
 import './style.less';
 
-interface OneAvatarProps {
-  onClick: () => void;
-}
-
-const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => {
-  const { t, company, changeLogged } = useAppContext();
-  const { onClick } = props;
+const OneProfile: FC = (): ReactElement => {
+  const { t, company, changeLogged, toggleConfigTheme } = useAppContext();
   const user = sls.getItem(Constants.storage.USER) || { name: '' };
   const { name } = user;
 
@@ -33,7 +28,7 @@ const OneProfile: FC<OneAvatarProps> = (props: OneAvatarProps): ReactElement => 
         <Button type="link" onClick={logout} icon={<LogoutOutlined />}>
           {t('Logout')}
         </Button>
-        <Button type="link" onClick={onClick} icon={<SettingOutlined />} />
+        <Button type="link" onClick={toggleConfigTheme} icon={<SettingOutlined />} />
       </div>
     </>
   );
