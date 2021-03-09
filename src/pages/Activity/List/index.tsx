@@ -12,7 +12,10 @@ import SearchOutlined from '@ant-design/icons/SearchOutlined';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
 import ClearOutlined from '@ant-design/icons/ClearOutlined';
+import DiffOutlined from '@ant-design/icons/DiffOutlined';
+import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
+import CopyOutlined from '@ant-design/icons/CopyOutlined';
 import OneButton from 'components/atoms/OneButton';
 import OnePageTitle from 'components/atoms/OnePageTitle';
 import { Activity } from 'interfaces';
@@ -27,6 +30,7 @@ import './style.less';
 
 const { Content } = Layout;
 const { Column } = Table;
+const defaultIdentifier = process.env.REACT_APP_DEFAULT_IDENTIFIER || 'admin';
 
 const ActivityList: FC = (): JSX.Element => {
   const { t, options } = useAppContext();
@@ -36,6 +40,7 @@ const ActivityList: FC = (): JSX.Element => {
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [reload, setReload] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [pager, setPager] = useState<Pager>({
     current: 1,
     limit: Number(options?.pagerLimit || process.env.REACT_APP_PAGER_SIZE || 20),
@@ -47,7 +52,11 @@ const ActivityList: FC = (): JSX.Element => {
   const getActivities = async (page: Pager = pager, filter: FilterItem[] = filters) => {
     setLoading(true);
     const params = queryBuilder(page, filter);
-    const response = await defaultService.get(`${Constants.api.ACTIVITIES}/?${params}`, { list: [], pager: [] });
+    const response = await defaultService.get(
+      `${Constants.api.ACTIVITIES}/?${params}`,
+      { list: [], pager: [] },
+      { headers: { identifier } },
+    );
 
     await setActivities(response?.list);
     setPager({ ...response?.pager, sortBy: page.sortBy });
@@ -109,7 +118,7 @@ const ActivityList: FC = (): JSX.Element => {
 
   useEffect(() => {
     getActivities();
-  }, [, reload]);
+  }, [, reload, identifier]);
 
   const columnWithSearch = (title, key, sorter, type = '', options = '') => {
     const values = getFilterValues(key) || [];
@@ -173,7 +182,7 @@ const ActivityList: FC = (): JSX.Element => {
 
       <Content>
         <Row>
-          {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) ? (
+          {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) ? (
             <Col span={24} style={{ textAlign: 'right' }}>
               <OneButton
                 icon={<PlusOutlined />}
@@ -193,6 +202,31 @@ const ActivityList: FC = (): JSX.Element => {
       </Content>
 
       <Content className="one-page-list">
+        {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) &&
+          !checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) && (
+            <Col span={24}>
+              <OneButton
+                icon={<CheckCircleOutlined />}
+                type={identifier ? 'default' : 'primary'}
+                onClick={() => {
+                  setIdentifier('');
+                }}
+                style={{ marginRight: '12px' }}
+              >
+                {t('My activities')}
+              </OneButton>
+              <OneButton
+                icon={<DiffOutlined />}
+                type={identifier ? 'primary' : 'default'}
+                onClick={() => {
+                  setIdentifier(defaultIdentifier);
+                }}
+              >
+                {t('Activity templates')}
+              </OneButton>
+            </Col>
+          )}
+
         <div className={pager.total ? 'one-table-actions' : 'one-table-actions relative'}>
           {!!activitiesToDelete.length && checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) && (
             <Popconfirm
@@ -273,7 +307,7 @@ const ActivityList: FC = (): JSX.Element => {
           />
           {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) ? (
             <Column
-              title={t('Edit')}
+              title={identifier ? t('Copy') : t('Edit')}
               dataIndex={'edit'}
               width={50}
               fixed={'right'}
@@ -284,7 +318,7 @@ const ActivityList: FC = (): JSX.Element => {
                     setCreateVisible(true);
                     setActivityEdit(item);
                   }}
-                  icon={<EditOutlined />}
+                  icon={identifier ? <CopyOutlined /> : <EditOutlined />}
                   type="primary"
                   shape="circle"
                 ></OneButton>
@@ -300,6 +334,7 @@ const ActivityList: FC = (): JSX.Element => {
         setActivity={setActivityEdit}
         setVisible={setCreateVisible}
         activity={activityEdit}
+        copy={!!identifier}
       />
     </>
   );

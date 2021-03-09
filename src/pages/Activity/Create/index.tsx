@@ -27,13 +27,14 @@ const { Title } = Typography;
 interface ArticleCreateProps {
   activity?: Activity;
   visible: boolean;
+  copy?: boolean;
   setVisible(status: boolean): void;
   setActivity(activity?: Activity): void;
   reload(reload: boolean): void;
 }
 
 const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
-  const { visible, setVisible, activity, setActivity, reload } = props;
+  const { visible, setVisible, activity, setActivity, reload, copy } = props;
   const { t, options } = useAppContext();
   const [galeryVisible, setGaleryVisible] = useState(false);
   const [galeryField, setGaleryField] = useState('');
@@ -57,7 +58,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       setLoading(true);
       let result;
 
-      if (activity) {
+      if (activity && !copy) {
         const dataPut: any = {};
         const keys = Object.keys(data);
 
@@ -122,7 +123,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <ProjectOutlined /> {activity ? t('Edit activity') : t('New activity')}
+            <ProjectOutlined /> {activity ? (copy ? t('Copy activity') : t('Edit activity')) : t('New activity')}
           </Title>
         }
         width={'70vw'}
@@ -136,7 +137,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         maskClosable={false}
         cancelText={t('Close')}
         onOk={() => save()}
-        okText={t('Save')}
+        okText={copy ? t('Save copy') : t('Save')}
         okButtonProps={{ loading, disabled: loading }}
       >
         <Form layout="vertical" form={form}>
