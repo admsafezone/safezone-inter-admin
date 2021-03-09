@@ -14,6 +14,7 @@ import Constants from 'utils/Constants';
 import { tokenDecode } from 'utils/AclUtils';
 import { User } from 'interfaces';
 import { sls } from 'utils/StorageUtils';
+import { getCurrentLang } from 'i18n';
 import logo from 'assets/logo.svg';
 import './style.less';
 
@@ -32,7 +33,16 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
 
   const onFinish = async (values: Login) => {
     setLoading(true);
-    const response = await defaultService.post(Constants.api.AUTH, values);
+    const requestConfig = {
+      url: `${defaultService.api.defaults.baseURL}/${Constants.api.AUTH}`,
+      data: values,
+      method: 'post',
+      headers: {
+        locale: getCurrentLang(),
+        Authorization: '',
+      },
+    };
+    const response = await defaultService.request(requestConfig);
 
     if (response.error) {
       setErrorMessages(response.error);
