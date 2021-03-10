@@ -26,7 +26,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
           <Form.Item
             label={t('Logo url')}
             name={`${prefixName}.logo`}
-            rules={[{ required: true, message: t('Please type the logo url') }]}
+            rules={[{ required: true, message: t('Please select the logo url') }]}
           >
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
@@ -35,7 +35,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
           <Form.Item
             label={t('Top background url')}
             name={`${prefixName}.backgroundTop`}
-            rules={[{ type: 'url', message: t('Please type the background top url') }]}
+            rules={[{ type: 'url', message: t('Please select the background top url') }]}
           >
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
@@ -44,7 +44,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
           <Form.Item
             label={t('Boby background url')}
             name={`${prefixName}.background`}
-            rules={[{ type: 'url', message: t('Please type the background body url') }]}
+            rules={[{ type: 'url', message: t('Please select the background body url') }]}
           >
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>

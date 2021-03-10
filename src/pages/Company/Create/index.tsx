@@ -281,16 +281,16 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                       <Form.Item
                         label={t('Max number of site activities')}
                         name="options.activity.limit"
-                        rules={[{ required: true, message: t('Please type the max number of activities') }]}
+                        rules={[{ required: true, message: t('Please type the max number of site activities') }]}
                       >
-                        <Input type="number" placeholder={t('Type the max number of activities')} />
+                        <Input type="number" placeholder={t('Type the max number of site activities')} />
                       </Form.Item>
                     </Col>
                   </Row>
                 </>
               ) : (
-                <Form.Item name="options.activity.limit">
-                  <Input hidden />
+                <Form.Item name="options.activity.limit" hidden>
+                  <Input type="hidden" />
                 </Form.Item>
               )}
             </Col>
