@@ -270,6 +270,29 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   </Form.Item>
                 </Col>
               </Row>
+
+              {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) ? (
+                <>
+                  <h2 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>
+                    {t('Activities options')}
+                  </h2>
+                  <Row gutter={24}>
+                    <Col md={8}>
+                      <Form.Item
+                        label={t('Max number of site activities')}
+                        name="options.activity.limit"
+                        rules={[{ required: true, message: t('Please type the max number of activities') }]}
+                      >
+                        <Input type="number" placeholder={t('Type the max number of activities')} />
+                      </Form.Item>
+                    </Col>
+                  </Row>
+                </>
+              ) : (
+                <Form.Item name="options.activity.limit">
+                  <Input hidden />
+                </Form.Item>
+              )}
             </Col>
 
             <Col md={24}>
