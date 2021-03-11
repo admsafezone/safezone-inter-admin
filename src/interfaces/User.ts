@@ -29,6 +29,8 @@ export interface Profile {
 export interface User {
   _id: string;
   name: string;
+  surname: string;
+  username: string;
   email: string;
   active: boolean;
   confirmed: boolean;

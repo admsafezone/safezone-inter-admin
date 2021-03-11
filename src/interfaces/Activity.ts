@@ -1,3 +1,5 @@
+import { User } from './User';
+
 export interface Activity {
   _id: string;
   title: string;
@@ -9,6 +11,17 @@ export interface Activity {
   image?: string;
   company?: any;
   data?: any;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface Comment {
+  _id: string;
+  text: string;
+  activity: string;
+  company: string;
+  user: User;
+  active: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -15,6 +15,7 @@ const Constants = {
     AUTH: 'auth',
     ACTIVITIES: 'activities',
     COMPANIES: 'companies',
+    COMMENTS: 'comments',
     LANGUAGES: 'languages',
     MEDIA: 'media',
     PARAMS: 'params',

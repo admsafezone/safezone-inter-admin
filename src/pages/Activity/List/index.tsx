@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, Key, useEffect, useState } from 'react';
 import Button from 'antd/es/button';
 import Col from 'antd/es/col';
 import Input from 'antd/es/input';
@@ -18,6 +18,7 @@ import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlin
 import CopyOutlined from '@ant-design/icons/CopyOutlined';
 import OneButton from 'components/atoms/OneButton';
 import OnePageTitle from 'components/atoms/OnePageTitle';
+import Comments from './Comments';
 import { Activity } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
@@ -42,6 +43,7 @@ const ActivityList: FC = (): JSX.Element => {
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [reload, setReload] = useState('');
   const [identifier, setIdentifier] = useState('');
+  const [expandedRow, setExpandedRow] = useState<Key[]>([0]);
   const [pager, setPager] = useState<Pager>({
     current: 1,
     limit: Number(options?.pagerLimit || process.env.REACT_APP_PAGER_SIZE || 20),
@@ -128,7 +130,7 @@ const ActivityList: FC = (): JSX.Element => {
       <Column
         title={t(title)}
         dataIndex={key}
-        width={180}
+        width={280}
         sorter={sorter}
         filteredValue={values}
         filterIcon={() => <SearchOutlined className={values[0] ? 'search-icon active' : 'search-icon'} />}
@@ -272,10 +274,27 @@ const ActivityList: FC = (): JSX.Element => {
               ? { type: 'checkbox', selectedRowKeys: activitiesToDelete, ...rowSelection }
               : undefined
           }
+          expandable={
+            !checkACL(acl.ACTIVITIES, permissions.F) && !identifier
+              ? {
+                  columnWidth: 40,
+                  expandedRowKeys: expandedRow,
+                  onExpand: (_, record: Activity) => {
+                    const index = expandedRow.indexOf(record._id);
+                    let expended = expandedRow;
+                    if (index !== -1) {
+                      expended.splice(index, 1);
+                    } else {
+                      expended = [...expended, record._id];
+                    }
+                    setExpandedRow(expended);
+                  },
+                  expandedRowRender: (activity: Activity) => <Comments activity={activity} />,
+                }
+              : undefined
+          }
         >
           {columnWithSearch('Title', 'title', true, 'r', 'i')}
-
-          {/* {columnWithSearch('Description', 'description', true, 'r', 'i')} */}
 
           <Column title={t('Type')} dataIndex="type" width={90} />
 
