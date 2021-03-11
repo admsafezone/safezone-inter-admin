@@ -1,0 +1,40 @@
+.dashboard-card {
+    height: 88px;
+    > div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow: ellipsis;
+        padding: 20px;
+        height: 88px;
+    }
+}
+.dashboard-card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E0ECFF;
+    margin-right: 12px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    svg {
+        width: 30px;
+        height: 60px;
+        color: #4791FF   
+    }
+}
+.dashboard-card-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    white-space: nowrap;
+    flex-shrink: 2;
+    strong {
+        font-size: 24px;
+    }
+}
+.dashboard-card-value {
+    color: red;
+}
