@@ -34,6 +34,7 @@ const defaultIdentifier = process.env.REACT_APP_DEFAULT_IDENTIFIER || 'admin';
 
 const ActivityList: FC = (): JSX.Element => {
   const { t, options } = useAppContext();
+  const { acl, permissions, api } = Constants;
   const [activities, setActivities] = useState<Activity[]>([]);
   const [activityEdit, setActivityEdit] = useState<Activity>();
   const [createVisible, setCreateVisible] = useState(false);
@@ -53,7 +54,7 @@ const ActivityList: FC = (): JSX.Element => {
     setLoading(true);
     const params = queryBuilder(page, filter);
     const response = await defaultService.get(
-      `${Constants.api.ACTIVITIES}/?${params}`,
+      `${api.ACTIVITIES}/?${params}`,
       { list: [], pager: [] },
       { headers: { identifier } },
     );
@@ -73,7 +74,7 @@ const ActivityList: FC = (): JSX.Element => {
   const deleteActivities = async () => {
     if (activitiesToDelete.length) {
       setLoading(true);
-      await defaultService.delete(Constants.api.ACTIVITIES, activitiesToDelete);
+      await defaultService.delete(api.ACTIVITIES, activitiesToDelete);
       setActivitiesToDelete([]);
       await getActivities();
     }
@@ -182,7 +183,7 @@ const ActivityList: FC = (): JSX.Element => {
 
       <Content>
         <Row>
-          {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) ? (
+          {checkACL(acl.ACTIVITIES, permissions.M) ? (
             <Col span={24} style={{ textAlign: 'right' }}>
               <OneButton
                 icon={<PlusOutlined />}
@@ -202,33 +203,32 @@ const ActivityList: FC = (): JSX.Element => {
       </Content>
 
       <Content className="one-page-list">
-        {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) &&
-          !checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) && (
-            <Col span={24}>
-              <OneButton
-                icon={<CheckCircleOutlined />}
-                type={identifier ? 'default' : 'primary'}
-                onClick={() => {
-                  setIdentifier('');
-                }}
-                style={{ marginRight: '12px' }}
-              >
-                {t('My activities')}
-              </OneButton>
-              <OneButton
-                icon={<DiffOutlined />}
-                type={identifier ? 'primary' : 'default'}
-                onClick={() => {
-                  setIdentifier(defaultIdentifier);
-                }}
-              >
-                {t('Activity templates')}
-              </OneButton>
-            </Col>
-          )}
+        {checkACL(acl.ACTIVITIES, permissions.W) && !checkACL(acl.ACTIVITIES, permissions.M) && (
+          <Col span={24}>
+            <OneButton
+              icon={<CheckCircleOutlined />}
+              type={identifier ? 'default' : 'primary'}
+              onClick={() => {
+                setIdentifier('');
+              }}
+              style={{ marginRight: '12px' }}
+            >
+              {t('My activities')}
+            </OneButton>
+            <OneButton
+              icon={<DiffOutlined />}
+              type={identifier ? 'primary' : 'default'}
+              onClick={() => {
+                setIdentifier(defaultIdentifier);
+              }}
+            >
+              {t('Activity templates')}
+            </OneButton>
+          </Col>
+        )}
 
         <div className={pager.total ? 'one-table-actions' : 'one-table-actions relative'}>
-          {!!activitiesToDelete.length && checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M) && (
+          {!!activitiesToDelete.length && checkACL(acl.ACTIVITIES, permissions.M) && (
             <Popconfirm
               title={t('Are you sure to delete these activities?')}
               onConfirm={() => deleteActivities()}
@@ -266,7 +266,7 @@ const ActivityList: FC = (): JSX.Element => {
             current: pager.current,
           }}
           rowSelection={
-            checkACL(Constants.acl.ACTIVITIES, Constants.permissions.M)
+            checkACL(acl.ACTIVITIES, permissions.M)
               ? { type: 'checkbox', selectedRowKeys: activitiesToDelete, ...rowSelection }
               : undefined
           }
@@ -305,7 +305,7 @@ const ActivityList: FC = (): JSX.Element => {
             sorter={true}
             render={(_: string, item: Activity) => formatDate(item.updatedAt)}
           />
-          {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.W) ? (
+          {checkACL(acl.ACTIVITIES, permissions.W) ? (
             <Column
               title={identifier ? t('Copy') : t('Edit')}
               dataIndex={'edit'}
