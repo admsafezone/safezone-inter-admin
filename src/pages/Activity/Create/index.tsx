@@ -35,7 +35,7 @@ interface ArticleCreateProps {
 
 const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
   const { visible, setVisible, activity, setActivity, reload, copy } = props;
-  const { t, options } = useAppContext();
+  const { t, options, company } = useAppContext();
   const [galeryVisible, setGaleryVisible] = useState(false);
   const [galeryField, setGaleryField] = useState('');
   const [loading, setLoading] = useState(false);
@@ -70,6 +70,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
         result = await defaultService.put(`${Constants.api.ACTIVITIES}/${activity._id}`, dataPut);
       } else {
+        if (copy) {
+          data.company = company?._id;
+        }
         result = await defaultService.post(Constants.api.ACTIVITIES, data);
       }
 
