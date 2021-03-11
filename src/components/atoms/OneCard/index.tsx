@@ -21,20 +21,6 @@ const OneCard: FC<Props> = (props: Props): ReactElement => {
                 <span>{props.value}%</span>
             </div>
         </Card>
-        // <h1>{JSON.stringify(props)}</h1>
-        // <Card>
-
-        //     <Statistic
-        //         loading={false}
-        //         title={props.title}
-        //         value={props.value}
-        //         precision={0}
-        //         valueStyle={{ color: props.color }}
-        //         prefix={props.icon}
-        //         suffix=""
-        //     />
-        //     {/* <h3>{props.count}</h3> */}
-        // </Card>
     );
 };
 
