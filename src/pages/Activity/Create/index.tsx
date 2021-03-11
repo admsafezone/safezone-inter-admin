@@ -223,7 +223,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
             </Col>
 
             <Col md={8}>
-              <Form.Item label={t('Active')} name="active">
+              <Form.Item label={t('Published')} name="active">
                 <Switch defaultChecked={activity?.active} />
               </Form.Item>
             </Col>

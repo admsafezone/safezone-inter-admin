@@ -183,7 +183,7 @@ const ActivityList: FC = (): JSX.Element => {
 
       <Content>
         <Row>
-          {checkACL(acl.ACTIVITIES, permissions.M) ? (
+          {checkACL(acl.ACTIVITIES, permissions.F) ? (
             <Col span={24} style={{ textAlign: 'right' }}>
               <OneButton
                 icon={<PlusOutlined />}
@@ -203,12 +203,13 @@ const ActivityList: FC = (): JSX.Element => {
       </Content>
 
       <Content className="one-page-list">
-        {checkACL(acl.ACTIVITIES, permissions.W) && !checkACL(acl.ACTIVITIES, permissions.M) && (
+        {checkACL(acl.ACTIVITIES, permissions.M) && !checkACL(acl.ACTIVITIES, permissions.F) && (
           <Col span={24}>
             <OneButton
               icon={<CheckCircleOutlined />}
               type={identifier ? 'default' : 'primary'}
               onClick={() => {
+                setActivities([]);
                 setIdentifier('');
               }}
               style={{ marginRight: '12px' }}
@@ -219,6 +220,7 @@ const ActivityList: FC = (): JSX.Element => {
               icon={<DiffOutlined />}
               type={identifier ? 'primary' : 'default'}
               onClick={() => {
+                setActivities([]);
                 setIdentifier(defaultIdentifier);
               }}
             >
@@ -266,7 +268,7 @@ const ActivityList: FC = (): JSX.Element => {
             current: pager.current,
           }}
           rowSelection={
-            checkACL(acl.ACTIVITIES, permissions.M)
+            checkACL(acl.ACTIVITIES, permissions.F) || (!identifier && checkACL(acl.ACTIVITIES, permissions.M))
               ? { type: 'checkbox', selectedRowKeys: activitiesToDelete, ...rowSelection }
               : undefined
           }

@@ -265,6 +265,7 @@ const ProfileManager: FC = (): JSX.Element => {
                         <Radio value={Constants.permissions.R}>{t('Read')}</Radio>
                         <Radio value={Constants.permissions.W}>{t('Write')}</Radio>
                         <Radio value={Constants.permissions.M}>{t('Manager')}</Radio>
+                        <Radio value={Constants.permissions.F}>{t('Full')}</Radio>
                       </Radio.Group>
                     </Col>
                   </Row>

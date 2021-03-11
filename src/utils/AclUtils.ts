@@ -24,9 +24,10 @@ function checkACL(resource: string, level = 'r'): boolean {
 
   const permissions = decoded.acl;
   const levels: any = {
-    r: ['r', 'w', 'm'],
-    w: ['w', 'm'],
-    m: ['m'],
+    r: ['r', 'w', 'm', 'f'],
+    w: ['w', 'm', 'f'],
+    m: ['m', 'f'],
+    f: ['f'],
   };
 
   return levels[level].includes(permissions[resource]);

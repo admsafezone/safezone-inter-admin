@@ -38,6 +38,7 @@ const Constants = {
     R: 'r',
     W: 'w',
     M: 'm',
+    F: 'f',
     NONE: 'n',
   },
 };
