@@ -18,7 +18,7 @@ export interface Theme {
 }
 
 const userCompany = sls.getItem(Constants.storage.COMPANY) || null;
-const loggedUser = sls.getItem(Constants.storage.USER) || null;
+const loggedUser = { _id: '1', name: 'Robson Ribeiro', email: 'robson@example.com', active: true, confirmed: true, profiles: ['admin', 'customer'] };  // sls.getItem(Constants.storage.USER) || null;
 const userOptions = sls.getItem(Constants.storage.OPTIONS) || {
   theme: 'light',
   componentSize: 'middle',
@@ -32,9 +32,9 @@ export const AppContext = createContext<Theme>({
   user: loggedUser,
   options: userOptions,
   t: () => '',
-  changeOptions: () => {},
-  changeLogged: () => {},
-  toggleConfigTheme: () => {},
+  changeOptions: () => { },
+  changeLogged: () => { },
+  toggleConfigTheme: () => { },
   configThemeVisible: false,
 });
 

@@ -1,6 +1,8 @@
 .dashboard-card {
     height: 88px;
+    border-radius: 10px !important;
     > div {
+        border-radius: 10px;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -15,21 +17,43 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #E0ECFF;
     margin-right: 12px;
     border-radius: 10px;
     flex-shrink: 0;
     svg {
         width: 30px;
         height: 60px;
-        color: #4791FF   
+    }
+    &.total {
+        background-color: #E0ECFF;
+        svg {
+            color: #4791FF;
+        }
+    }
+    &.todo {
+        background-color: #FFF9E1;
+        svg {
+            color: #FFD950;
+        }
+    }
+    &.overdue {
+        background-color: #FFDAE5;
+        svg {
+            color: #FF2366;
+        }
+    }
+    &.completed {
+        background-color: #D4F4E8;
+        svg {
+            color: #02BC77;
+        }
     }
 }
 .dashboard-card-info {
     display: flex;
     flex-direction: column;
-    flex: 1;
     white-space: nowrap;
+    margin-right: auto;
     flex-shrink: 2;
     strong {
         font-size: 24px;

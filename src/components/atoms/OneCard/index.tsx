@@ -6,13 +6,14 @@ interface Props {
     title: string;
     count: number;
     value: number;
-    icon: ReactElement;
+    className?: string;
+    children?: any;
 }
 
 const OneCard: FC<Props> = (props: Props): ReactElement => {
     return (
-        <Card className="dashboard-card">
-            <div className="dashboard-card-icon">{props.icon}</div>
+        <Card className={`dashboard-card`}>
+            <div className={`dashboard-card-icon  ${props.className}`}>{props.children}</div>
             <div className="dashboard-card-info">
                 <span>{props.title}</span>
                 <strong>{props.count}</strong>
