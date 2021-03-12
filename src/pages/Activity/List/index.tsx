@@ -16,8 +16,10 @@ import DiffOutlined from '@ant-design/icons/DiffOutlined';
 import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
 import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
 import CopyOutlined from '@ant-design/icons/CopyOutlined';
+import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import OneButton from 'components/atoms/OneButton';
 import OnePageTitle from 'components/atoms/OnePageTitle';
+import ActivityPreview from './Preview';
 import Comments from './Comments';
 import { Activity } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
@@ -39,6 +41,8 @@ const ActivityList: FC = (): JSX.Element => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [activityEdit, setActivityEdit] = useState<Activity>();
   const [createVisible, setCreateVisible] = useState(false);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [activityPreview, setActivityPreview] = useState<Activity>();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [reload, setReload] = useState('');
@@ -326,6 +330,27 @@ const ActivityList: FC = (): JSX.Element => {
             sorter={true}
             render={(_: string, item: Activity) => formatDate(item.updatedAt)}
           />
+
+          {!identifier && (
+            <Column
+              title={t('Preview')}
+              dataIndex="preview"
+              width={50}
+              align={'center'}
+              render={(_: string, item: Activity) => (
+                <OneButton
+                  icon={<EyeOutlined />}
+                  type="primary"
+                  shape="circle"
+                  onClick={() => {
+                    setActivityPreview(item);
+                    setPreviewVisible(true);
+                  }}
+                ></OneButton>
+              )}
+            />
+          )}
+
           {checkACL(acl.ACTIVITIES, permissions.W) ? (
             <Column
               title={identifier ? t('Copy') : t('Edit')}
@@ -348,6 +373,8 @@ const ActivityList: FC = (): JSX.Element => {
           ) : null}
         </Table>
       </Content>
+
+      <ActivityPreview activity={activityPreview} setVisible={setPreviewVisible} visible={previewVisible} />
 
       <ActivityCreate
         visible={createVisible}
