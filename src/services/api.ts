@@ -6,7 +6,7 @@ import i18n, { getCurrentLang } from 'i18n';
 const { token } = sls.getItem(Constants.storage.TOKEN) || {};
 
 const api: AxiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_ROOT,
+  baseURL: `${process.env.REACT_APP_API_ROOT}/api`,
   headers: {
     Authorization: `Bearer ${token}`,
     locale: getCurrentLang(),

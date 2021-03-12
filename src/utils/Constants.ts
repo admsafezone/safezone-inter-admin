@@ -23,6 +23,7 @@ const Constants = {
     REFRESH: 'refresh',
     RESOURCES: 'resources',
     USERS: 'users',
+    QUEUES: 'queues',
   },
   message: {
     EXPIRED_TOKEN: 'jwt expired',

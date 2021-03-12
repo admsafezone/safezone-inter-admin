@@ -8,6 +8,7 @@ import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
 import UserList from 'pages/User/List';
 import LanguageList from 'pages/Language/List';
+import Queue from 'pages/Queue';
 
 export interface MenuItem {
   path: string;
@@ -74,6 +75,15 @@ const menus: MenuItem[] = [
     component: LanguageList,
     exact: true,
     aclResource: 'profiles',
+  },
+  {
+    path: '/queues',
+    title: 'Queues',
+    subTitle: 'Manager site queues',
+    icon: ProfileOutlined,
+    component: Queue,
+    exact: true,
+    aclResource: 'queues',
   },
   // {
   //   path: '/projects',
