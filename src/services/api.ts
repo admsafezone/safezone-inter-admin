@@ -20,7 +20,6 @@ const refreshToken = async () => {
     sls.setItem(Constants.storage.TOKEN, data);
     return data.token;
   } catch (error) {
-    console.log(error);
     return false;
   }
 };
@@ -29,9 +28,14 @@ api.interceptors.request.use(
   function (config) {
     const { token } = sls.getItem(Constants.storage.TOKEN) || {};
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    if (!config.headers.noToken) {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    } else {
+      config.headers.Authorization = '';
     }
+
     config.headers.locale = getCurrentLang();
 
     return config;
