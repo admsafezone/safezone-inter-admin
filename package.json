@@ -9,6 +9,7 @@
     "url": "https://github.com/elitonfreitas"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.0.21",
     "antd": "^4.13.0",
     "axios": "^0.21.1",
     "braft-editor": "^2.3.9",

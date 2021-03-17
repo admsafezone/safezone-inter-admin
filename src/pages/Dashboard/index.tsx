@@ -2,13 +2,14 @@ import { FC } from 'react';
 import Layout from 'antd/es/layout';
 import { useAppContext } from 'providers/AppProvider';
 import OneCard from '../../components/atoms/OneCard';
-import { Row, Col, Collapse } from 'antd/es';
+import { Row, Col, Collapse, Card } from 'antd/es';
 import './style.less';
 
 import todoTasks from "../../assets/todo-tasks.svg";
 import overdueTasks from "../../assets/overdue-tasks.svg";
 import totalTasks from "../../assets/total-tasks.svg";
 import completedTasks from "../../assets/completed-tasks.svg";
+import { Column } from '@ant-design/charts';
 
 
 const { Content } = Layout;
@@ -36,13 +37,141 @@ const users = [
   }
 ]
 
+const datagraph = [
+  {
+    name: 'Total',
+    year: '2015',
+    value: 45,
+  },
+  {
+    name: 'Total',
+    year: '2016',
+    value: 64,
+  },
+  {
+    name: 'Total',
+    year: '2017',
+    value: 68,
+  },
+  {
+    name: 'Total',
+    year: '2018',
+    value: 83,
+  },
+  {
+    name: 'Total',
+    year: '2019',
+    value: 99,
+  },
+  {
+    name: 'Overdue',
+    year: '2015',
+    value: 15,
+  },
+  {
+    name: 'Overdue',
+    year: '2016',
+    value: 19,
+  },
+  {
+    name: 'Overdue',
+    year: '2017',
+    value: 20,
+  },
+  {
+    name: 'Overdue',
+    year: '2018',
+    value: 17,
+  },
+  {
+    name: 'Overdue',
+    year: '2019',
+    value: 14,
+  },
+  {
+    name: 'Completed',
+    year: '2015',
+    value: 18,
+  },
+  {
+    name: 'Completed',
+    year: '2016',
+    value: 50,
+  },
+  {
+    name: 'Completed',
+    year: '2017',
+    value: 58,
+  },
+  {
+    name: 'Completed',
+    year: '2018',
+    value: 63,
+  },
+  {
+    name: 'Completed',
+    year: '2019',
+    value: 84,
+  },
+  {
+    name: 'To do',
+    year: '2015',
+    value: 30,
+  },
+  {
+    name: 'To do',
+    year: '2016',
+    value: 16,
+  },
+  {
+    name: 'To do',
+    year: '2017',
+    value: 20,
+  },
+  {
+    name: 'To do',
+    year: '2018',
+    value: 33,
+  },
+  {
+    name: 'To do',
+    year: '2019',
+    value: 18,
+  },
+]
+
+
+const configGraph = {
+  data: datagraph,
+  isGroup: true,
+  xField: 'year',
+  yField: 'value',
+  seriesField: 'name',
+  colorField: 'name',
+  color: ['#4791FF', '#FF2366', '#02BC77', '#FFD950'],
+  label: {
+    legend: {
+      layout: 'horizontal',
+      position: 'bottom'
+    },
+    style: {
+      opacity: 0
+    },
+    layout: [
+      { type: 'interval-adjust-position' },
+      { type: 'interval-hide-overlap' },
+      { type: 'adjust-color' },
+    ],
+  },
+};
+
 const Dashboard: FC = (props): JSX.Element => {
   const { t } = useAppContext();
   return (
     <Content {...props} className="one-page-dashboard">
-      <Row gutter={24}>
-        <Col span={18}>
-          <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]}>
+        <Col span={18} lg={18} md={24} sm={24}>
+          <Row gutter={[16, 16]} >
             <Col span={6} lg={6} md={12} sm={24} xs={24}>
               <OneCard className="total" title={t('Total Tasks')} {...data}>
                 <img src={totalTasks} />
@@ -64,15 +193,29 @@ const Dashboard: FC = (props): JSX.Element => {
               </OneCard>
             </Col>
           </Row>
+          <Row style={{ marginTop: 16 }} gutter={[16, 16]}>
+            <Col span={12} md={12} sm={24} xs={24}>
+              <Card className="rounded" size="small" title="Tasks">
+                <Column {...configGraph} />
+              </Card>
+            </Col>
+            <Col span={12} md={12} sm={24} xs={24}>
+              <Card className="rounded" size="small" title="Tasks">
+                <Column {...configGraph} />
+              </Card>
+            </Col>
+          </Row>
         </Col>
-        <Col span={6}>
-          <Collapse defaultActiveKey={['1']} onChange={() => { }}>
-            {users.map(user => (
-              <Panel header={user.name} key={user.id}>
-                <p>{user.info}</p>
-              </Panel>
-            ))}
-          </Collapse>
+        <Col span={6} lg={6} md={24} sm={24}>
+          <Card className="rounded" size="small">
+            <Collapse defaultActiveKey={['1']} onChange={() => { }}>
+              {users.map(user => (
+                <Panel header={user.name} key={user.id}>
+                  <p>{user.info}</p>
+                </Panel>
+              ))}
+            </Collapse>
+          </Card>
         </Col>
       </Row>
 
