@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Collapse from 'antd/es/collapse';
 import Quiz from './Quiz';
+import Test from './Test';
 
 const { Panel } = Collapse;
 
@@ -18,6 +19,15 @@ const AdditionalData: FC<AdditionalProps> = ({ type, data, updateField, setGaler
         <Collapse defaultActiveKey={'1'}>
           <Panel header="Quiz configurations" key="1">
             <Quiz data={data} updateField={updateField} setGaleryVisible={setGaleryVisible} />
+          </Panel>
+        </Collapse>
+      );
+
+    case 'test':
+      return (
+        <Collapse defaultActiveKey={'1'}>
+          <Panel header="Quiz configurations" key="1">
+            <Test data={data} updateField={updateField} setGaleryVisible={setGaleryVisible} />
           </Panel>
         </Collapse>
       );

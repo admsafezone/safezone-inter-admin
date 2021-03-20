@@ -18,6 +18,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
     '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'prettier/prettier': [
       'error',
       {
