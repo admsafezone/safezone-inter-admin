@@ -67,7 +67,6 @@ const LanguageCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       setLoading(true);
       let data = await form.validateFields();
       data = normalizeTranslation(data);
-      console.log(data);
       let result;
 
       if (language?._id) {

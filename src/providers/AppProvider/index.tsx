@@ -50,7 +50,6 @@ export const AppProvider = ({ children }: any) => {
     sls.setItem(Constants.storage.OPTIONS, _options);
 
     if (_options.lang) {
-      console.log(_options);
       sls.setItem(Constants.storage.LANG);
       await i18n.changeLanguage(_options.lang);
     }
