@@ -1,5 +1,5 @@
 import { FC, Key, ReactElement, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import Menu from 'antd/es/menu';
 import { checkACL } from 'utils/AclUtils';
 import { useAppContext } from 'providers/AppProvider';
@@ -15,9 +15,11 @@ export interface OneMenuProps {
 
 const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactElement => {
   const history = useHistory();
+  const location = useLocation();
   const { t } = useAppContext();
   const menuKeys: Key[] = [];
-  const [openKey, setOpenKey] = useState<string[]>(['menu-1']);
+  const defaultSelected = location.pathname ? [`${location.pathname.replace('/', '')}-menu`] : ['-menu'];
+  const [openKey, setOpenKey] = useState<string[]>(defaultSelected);
 
   function getMenuHierarchy(item: string): string[] {
     const itemName = item ? item.split('-') : [];
@@ -56,7 +58,7 @@ const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactE
       },
     ];
     const path = routesList.map((p: MenuItem) => p.path).join('');
-    const key = `menu-${i}`;
+    const key = `${item.path.replace('/', '')}-menu`;
     const Icon: any = item.icon;
 
     if (!item.aclResource || checkACL(item.aclResource, Constants.permissions.R)) {
@@ -83,7 +85,7 @@ const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactE
     <Menu
       theme={theme}
       mode={mode || 'inline'}
-      defaultSelectedKeys={['menu-0']}
+      defaultSelectedKeys={defaultSelected}
       openKeys={openKey}
       onOpenChange={onOpenChange}
       style={{ borderRight: 'none' }}
