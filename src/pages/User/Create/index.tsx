@@ -7,7 +7,7 @@ import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
 import Typography from 'antd/es/typography';
 import Switch from 'antd/es/switch';
-import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
+import UserOutlined from '@ant-design/icons/UserOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
@@ -97,7 +97,7 @@ const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactEle
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <ProjectOutlined /> {user ? t('Edit user') : t('New user')}
+            <UserOutlined /> {user ? t('Edit user') : t('New user')}
           </Title>
         }
         width={'60vw'}

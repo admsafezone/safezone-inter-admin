@@ -1,12 +1,18 @@
 import { ElementType } from 'react';
 import DashboardOutlined from '@ant-design/icons/DashboardOutlined';
-import ActivityList from 'pages/Activity/List';
-import CompanyList from '../pages/Company/List';
-import Dashboard from '../pages/Dashboard';
-import ProfileManager from 'pages/Profile/Manager';
-import ProfileOutlined from '@ant-design/icons/ProfileOutlined';
+import AuditOutlined from '@ant-design/icons/AuditOutlined';
 import UserOutlined from '@ant-design/icons/UserOutlined';
+import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
+import BankOutlined from '@ant-design/icons/BankOutlined';
+import UsergroupAddOutlined from '@ant-design/icons/UsergroupAddOutlined';
+import TranslationOutlined from '@ant-design/icons/TranslationOutlined';
+import OrderedListOutlined from '@ant-design/icons/OrderedListOutlined';
+import ActivityList from 'pages/Activity/List';
+import CompanyList from 'pages/Company/List';
+import Dashboard from 'pages/Dashboard';
+import ProfileManager from 'pages/Profile/Manager';
 import UserList from 'pages/User/List';
+import ReportList from 'pages/Report/List';
 import LanguageList from 'pages/Language/List';
 import Queue from 'pages/Queue';
 
@@ -35,7 +41,7 @@ const menus: MenuItem[] = [
     path: '/activities',
     title: 'Activities',
     subTitle: 'Manager activity for web site',
-    icon: UserOutlined,
+    icon: ProjectOutlined,
     component: ActivityList,
     exact: true,
     aclResource: 'activities',
@@ -44,7 +50,7 @@ const menus: MenuItem[] = [
     path: '/companies',
     title: 'Companies',
     subTitle: 'Manager company and configurations',
-    icon: UserOutlined,
+    icon: BankOutlined,
     component: CompanyList,
     exact: true,
     aclResource: 'companies',
@@ -62,16 +68,25 @@ const menus: MenuItem[] = [
     path: '/profiles',
     title: 'Profiles',
     subTitle: 'Manager user profiles and ACL configurations',
-    icon: ProfileOutlined,
+    icon: UsergroupAddOutlined,
     component: ProfileManager,
     exact: true,
     aclResource: 'profiles',
   },
   {
+    path: '/reports',
+    title: 'Reports',
+    subTitle: 'Manager portal reports',
+    icon: AuditOutlined,
+    component: ReportList,
+    exact: true,
+    aclResource: 'users',
+  },
+  {
     path: '/languages',
     title: 'Languages',
     subTitle: 'Manager site language translation',
-    icon: ProfileOutlined,
+    icon: TranslationOutlined,
     component: LanguageList,
     exact: true,
     aclResource: 'profiles',
@@ -80,7 +95,7 @@ const menus: MenuItem[] = [
     path: '/queues',
     title: 'Queues',
     subTitle: 'Manager site queues',
-    icon: ProfileOutlined,
+    icon: OrderedListOutlined,
     component: Queue,
     exact: true,
     aclResource: 'queues',

@@ -10,7 +10,7 @@ import Select from 'antd/es/select';
 import Switch from 'antd/es/switch';
 import Tabs from 'antd/es/tabs';
 import Typography from 'antd/es/typography';
-import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
+import BankOutlined from '@ant-design/icons/BankOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
@@ -128,7 +128,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <ProjectOutlined /> {company ? t('Edit company') : t('New company')}
+            <BankOutlined /> {company ? t('Edit company') : t('New company')}
           </Title>
         }
         width={'70vw'}

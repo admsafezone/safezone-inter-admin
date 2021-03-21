@@ -6,6 +6,18 @@ const formatDate = (date = new Date(), format = 'DD/MM/YYYY HH:mm'): string => {
   return moment(date).format(format);
 };
 
+const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+};
+
 const getAttributeValue = (obj: any, path: string) => {
   return objectGet(obj, path);
 };
@@ -36,4 +48,4 @@ const objectToFields = (object, objectPath) => {
   return result;
 };
 
-export { formatDate, getAttributeValue, setAttributeValue, fieldsToObject, objectToFields };
+export { formatDate, getAttributeValue, setAttributeValue, fieldsToObject, objectToFields, formatBytes };

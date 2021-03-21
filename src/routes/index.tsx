@@ -29,6 +29,8 @@ const Routes: FC<RoutesProps> = ({ menus }: RoutesProps): ReactElement => {
     if (!item.aclResource || checkACL(item.aclResource, Constants.permissions.R)) {
       if (item.component) {
         const Component: React.ElementType = item.component;
+        const icon = item.icon ? <item.icon /> : null;
+
         return (
           <Route
             key={i}
@@ -36,7 +38,14 @@ const Routes: FC<RoutesProps> = ({ menus }: RoutesProps): ReactElement => {
             exact={!!item.exact}
             component={() => (
               <Content className="one-layout-content">
-                {!item.noHeader && <OnePageHeader title={t(item.title || '')} subTitle={t(item.subTitle || '')} />}
+                {!item.noHeader && (
+                  <OnePageHeader
+                    title={t(item.title || '')}
+                    subTitle={t(item.subTitle || '')}
+                    backIcon={icon}
+                    onBack={() => {}}
+                  />
+                )}
                 <Component />
               </Content>
             )}

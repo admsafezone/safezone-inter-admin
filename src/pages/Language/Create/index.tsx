@@ -8,7 +8,7 @@ import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
 import Collapse from 'antd/es/collapse';
 import Typography from 'antd/es/typography';
-import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
+import TranslationOutlined from '@ant-design/icons/TranslationOutlined';
 import OneLanguageInput from 'components/atoms/OneLanguageInput';
 import PlusOutlined from '@ant-design/icons/PlusOutlined';
 import OneLoader from 'components/atoms/OneLoader';
@@ -156,7 +156,7 @@ const LanguageCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <ProjectOutlined /> {language ? t('Edit language') : t('New language')}
+            <TranslationOutlined /> {language ? t('Edit language') : t('New language')}
           </Title>
         }
         width={'70vw'}
