@@ -1,0 +1,32 @@
+.onereportitem {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    > .report_icon svg{
+        width: 23px;
+        height: 23px;
+    }
+    > .report_text {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 5px;
+        > p {
+            font-size: 11px;
+            margin: 0;
+        }
+        > span {
+            font-size: 6px;
+        } 
+    }
+    > .report_action svg {
+        width: 23px;
+        height: 23px;
+    }
+}
+
+.report_action:hover svg {
+    color: #02BC77;
+}

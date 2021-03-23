@@ -1,17 +1,20 @@
 import { FC } from 'react';
 import Layout from 'antd/es/layout';
+import { Row, Col, Collapse, Card } from 'antd/es';
+import { Column } from '@ant-design/charts';
+import { DownOutlined } from '@ant-design/icons';
+
 import { useAppContext } from 'providers/AppProvider';
 import OneCard from '../../components/atoms/OneCard';
-import { Row, Col, Collapse, Card } from 'antd/es';
-import './style.less';
+import OneReportItem from '../../components/atoms/OneReportItem';
+
 
 import todoTasks from "../../assets/todo-tasks.svg";
 import overdueTasks from "../../assets/overdue-tasks.svg";
 import totalTasks from "../../assets/total-tasks.svg";
 import completedTasks from "../../assets/completed-tasks.svg";
-import { Column } from '@ant-design/charts';
-import { DownOutlined } from '@ant-design/icons';
 
+import './style.less';
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -186,7 +189,7 @@ const Dashboard: FC = (props): JSX.Element => {
   return (
     <Content {...props} className="one-page-dashboard">
       <Row gutter={[16, 16]}>
-        <Col span={18} lg={18} md={24} sm={24}>
+        <Col span={18} lg={18} md={24} sm={24} xs={24}>
           <Row gutter={[16, 16]} >
             <Col span={6} lg={6} md={12} sm={24} xs={24}>
               <OneCard className="total" title={t('Total Tasks')} {...data}>
@@ -222,7 +225,18 @@ const Dashboard: FC = (props): JSX.Element => {
             </Col>
           </Row>
         </Col>
-        <Col span={6} lg={6} md={24} sm={24}>
+        <Col span={6} lg={6} md={24} sm={24} xs={24}>
+          <dl className="report-list rounded">
+            <dt className="report-list__title">{t('Relatórios')}</dt>
+            <dd className="report-list__items">
+              <OneReportItem />
+              <OneReportItem />
+              <OneReportItem />
+              <OneReportItem />
+              <OneReportItem />
+              <OneReportItem />
+            </dd>
+          </dl>
           <dl className="rounded infringement-list">
             <dt className="infringement-list__title">{t('Infrações')}</dt>
             <dd className="infringement-list__items">
