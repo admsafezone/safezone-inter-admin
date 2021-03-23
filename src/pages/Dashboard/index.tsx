@@ -10,6 +10,7 @@ import overdueTasks from "../../assets/overdue-tasks.svg";
 import totalTasks from "../../assets/total-tasks.svg";
 import completedTasks from "../../assets/completed-tasks.svg";
 import { Column } from '@ant-design/charts';
+import { DownOutlined } from '@ant-design/icons';
 
 
 const { Content } = Layout;
@@ -34,7 +35,22 @@ const users = [
     id: 3,
     name: "Maria",
     info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
-  }
+  },
+  {
+    id: 4,
+    name: "Maria",
+    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+  },
+  {
+    id: 5,
+    name: "Maria",
+    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+  },
+  {
+    id: 6,
+    name: "Maria",
+    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+  },
 ]
 
 const datagraph = [
@@ -207,20 +223,27 @@ const Dashboard: FC = (props): JSX.Element => {
           </Row>
         </Col>
         <Col span={6} lg={6} md={24} sm={24}>
-          <Card className="rounded" size="small">
-            <Collapse defaultActiveKey={['1']} onChange={() => { }}>
-              {users.map(user => (
-                <Panel header={user.name} key={user.id}>
-                  <p>{user.info}</p>
-                </Panel>
-              ))}
-            </Collapse>
-          </Card>
+          <dl className="rounded infringement-list">
+            <dt className="infringement-list__title">{t('Infrações')}</dt>
+            <dd className="infringement-list__items">
+              <Collapse
+                accordion
+                bordered={false}
+                expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 0 : -90} style={{ color: "#CF0000" }} />}>
+                {users.map(user => (
+                  <Panel className="" header={user.name} key={user.id}>
+                    <p>{user.info}</p>
+                  </Panel>
+                ))}
+              </Collapse>
+            </dd>
+            <dt className="infringement-list__footer">{`Atualização realizada em ${new Date().toLocaleString()}`}</dt>
+          </dl>
         </Col>
       </Row>
 
 
-    </Content>
+    </Content >
   );
 };
 
