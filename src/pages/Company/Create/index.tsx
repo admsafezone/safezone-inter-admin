@@ -218,17 +218,22 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 {t('Sign in options')}
               </h2>
               <Row gutter={24}>
-                <Col md={8}>
-                  <Form.Item label={t('Username from name and surname')} name="options.autoUsername">
-                    <Switch defaultChecked={company?.options?.autoUsername} />
+                <Col md={6}>
+                  <Form.Item label={t('Slogan')} name="theme.slogan">
+                    <Input placeholder={t('Type a text')} />
                   </Form.Item>
                 </Col>
-                <Col md={8}>
+                <Col md={6}>
                   <Form.Item label={t('Username pattern mask')} name="options.maskOptions.mask">
                     <Input placeholder={t('Ex.: AA999999')} />
                   </Form.Item>
                 </Col>
-                <Col md={8}>
+                <Col md={6}>
+                  <Form.Item label={t('Username from name and surname')} name="options.autoUsername">
+                    <Switch defaultChecked={company?.options?.autoUsername} />
+                  </Form.Item>
+                </Col>
+                <Col md={6}>
                   <Form.Item label={t('Username visible mask')} name="options.maskOptions.alwaysShowMask">
                     <Switch defaultChecked={company?.options?.maskOptions?.alwaysShowMask} />
                   </Form.Item>
