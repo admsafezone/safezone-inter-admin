@@ -17,9 +17,10 @@ export interface Theme {
   configThemeVisible?: boolean;
 }
 
-const userCompany = sls.getItem(Constants.storage.COMPANY) || null;
-const loggedUser = sls.getItem(Constants.storage.USER) || null;
-const userOptions = sls.getItem(Constants.storage.OPTIONS) || {
+const { api, storage } = Constants;
+const userCompany = sls.getItem(storage.COMPANY) || null;
+const loggedUser = sls.getItem(storage.USER) || null;
+const userOptions = sls.getItem(storage.OPTIONS) || {
   theme: 'light',
   componentSize: 'middle',
   lang: 'pt_br',
@@ -47,15 +48,15 @@ export const AppProvider = ({ children }: any) => {
 
   const changeOptions = async (_options: ThemeOptions) => {
     setOptions(_options || options);
-    sls.setItem(Constants.storage.OPTIONS, _options);
+    sls.setItem(storage.OPTIONS, _options);
 
     if (_options.lang) {
-      sls.setItem(Constants.storage.LANG);
+      sls.setItem(storage.LANG);
       await i18n.changeLanguage(_options.lang);
     }
 
     if (user?._id) {
-      defaultService.put(`${Constants.api.USERS}/${user._id}`, { options: _options });
+      defaultService.put(`${api.USERS}/${user._id}`, { options: _options });
     }
   };
 
@@ -72,20 +73,20 @@ export const AppProvider = ({ children }: any) => {
 
   const getCompany = async () => {
     const response = await defaultService.get(
-      `${Constants.api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
+      `${api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
     );
-    sls.setItem(Constants.storage.COMPANY, response);
+    sls.setItem(storage.COMPANY, response);
     setCompany(response);
   };
 
   const getLanguages = async () => {
-    let languages = sls.getItem(Constants.storage.LANGUAGES) || [];
+    let languages = sls.getItem(storage.LANGUAGES) || [];
 
     if (!languages.length) {
-      const response = await defaultService.get(`${Constants.api.LANGUAGES}/start/?origin=admin`);
+      const response = await defaultService.get(`${api.LANGUAGES}/start/?origin=admin`);
 
       if (Object.keys(response).length) {
-        sls.setItem(Constants.storage.LANGUAGES, response);
+        sls.setItem(storage.LANGUAGES, response);
         languages = response || [];
       }
     }

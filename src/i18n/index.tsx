@@ -11,6 +11,7 @@ export const setLanguages = (resources = { en_us }, defaultLang = 'en_us', fallb
     resources,
     lng: defaultLang,
     fallbackLng,
+    nsSeparator: '::',
     interpolation: {
       escapeValue: false,
     },
