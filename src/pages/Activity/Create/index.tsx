@@ -51,6 +51,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       if (data.content) {
         data.content = data.content.toHTML();
       }
+      if (data.data && data.data.zipFile) {
+        delete data.data.zipFile;
+      }
       if (data.data && data.data.header) {
         data.data.header = data.data.header.toHTML();
       }
