@@ -10,6 +10,7 @@ interface OneSelectProps extends SelectProps<SelectValue> {
   apiURL: string;
   valueAttr: string;
   labelAttr: string;
+  headers?: any;
   keyAttr?: string;
   dataItems?: any[];
   useCache?: boolean;
@@ -17,7 +18,7 @@ interface OneSelectProps extends SelectProps<SelectValue> {
 }
 
 const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
-  const { dataItems = [], apiURL, keyAttr, valueAttr, labelAttr, useCache, noDefaultOption, ...rest } = props;
+  const { dataItems = [], apiURL, keyAttr, valueAttr, labelAttr, useCache, noDefaultOption, headers, ...rest } = props;
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
@@ -33,7 +34,7 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
 
   const getData = async () => {
     setLoading(true);
-    const response = await defaultService.get(apiURL, []);
+    const response = await defaultService.get(apiURL, [], { headers });
     await setData(response);
     if (useCache) {
       setCache(response);

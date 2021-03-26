@@ -13,6 +13,7 @@ import Typography from 'antd/es/typography';
 import BankOutlined from '@ant-design/icons/BankOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
+import OneUploadInput from 'components/atoms/OneUploadInput';
 import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
@@ -44,6 +45,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
   const [companyDomain, setCompanyDomain] = useState<string>('');
   const [form] = Form.useForm();
   const szDomain = process.env.REACT_APP_DOMAIN;
+  const defaultIdentifier = process.env.REACT_APP_DEFAULT_IDENTIFIER;
   const messageDuration = 5;
 
   const save = async () => {
@@ -219,22 +221,17 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 {t('Sign in options')}
               </h2>
               <Row gutter={24}>
-                <Col md={6}>
-                  <Form.Item label={t('Slogan')} name="theme.slogan">
-                    <Input placeholder={t('Type a text')} />
-                  </Form.Item>
-                </Col>
-                <Col md={6}>
+                <Col md={8}>
                   <Form.Item label={t('Username pattern mask')} name="options.maskOptions.mask">
                     <Input placeholder={t('Ex.: AA999999')} />
                   </Form.Item>
                 </Col>
-                <Col md={6}>
+                <Col md={8}>
                   <Form.Item label={t('Username from name and surname')} name="options.autoUsername">
                     <Switch defaultChecked={company?.options?.autoUsername} />
                   </Form.Item>
                 </Col>
-                <Col md={6}>
+                <Col md={8}>
                   <Form.Item label={t('Username visible mask')} name="options.maskOptions.alwaysShowMask">
                     <Switch defaultChecked={company?.options?.maskOptions?.alwaysShowMask} />
                   </Form.Item>
@@ -302,6 +299,27 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             </Col>
 
             <Col md={24}>
+              <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Public area options')}</h2>
+              <Row gutter={24}>
+                <Col md={8}>
+                  <Form.Item label={t('Slogan')} name="theme.public.slogan">
+                    <Input placeholder={t('Type a text')} />
+                  </Form.Item>
+                </Col>
+                <Col md={8}>
+                  <Form.Item label={t('Signup text')} name="theme.public.signupText">
+                    <Input placeholder={t('Type a text')} />
+                  </Form.Item>
+                </Col>
+                <Col md={8}>
+                  <Form.Item label={t('Sign in logo url')} name="theme.public.logo">
+                    <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Col>
+
+            <Col md={24}>
               <h1 style={{ borderBottom: '1px solid #ccc' }}>{t('Theme options')}</h1>
               <Row gutter={24}>
                 <Col md={8}>
@@ -325,6 +343,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   >
                     <OneSelect
                       apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
+                      headers={{ identifier: defaultIdentifier }}
                       labelAttr="name"
                       valueAttr="lang"
                       showArrow
