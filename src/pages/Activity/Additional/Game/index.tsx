@@ -62,7 +62,7 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
               <Form.Item
                 label={t('Game zip file')}
                 name={['data', 'zipFile']}
-                rules={[{ required: true, message: 'Zip file is required' }]}
+                rules={[{ required: !data?.url, message: 'Zip file is required' }]}
               >
                 <Upload
                   accept=".zip"

@@ -331,25 +331,23 @@ const ActivityList: FC = (): JSX.Element => {
             render={(_: string, item: Activity) => formatDate(item.updatedAt)}
           />
 
-          {!identifier && (
-            <Column
-              title={t('Preview')}
-              dataIndex="preview"
-              width={50}
-              align={'center'}
-              render={(_: string, item: Activity) => (
-                <OneButton
-                  icon={<EyeOutlined />}
-                  type="primary"
-                  shape="circle"
-                  onClick={() => {
-                    setActivityPreview(item);
-                    setPreviewVisible(true);
-                  }}
-                ></OneButton>
-              )}
-            />
-          )}
+          <Column
+            title={t('Preview')}
+            dataIndex="preview"
+            width={50}
+            align={'center'}
+            render={(_: string, item: Activity) => (
+              <OneButton
+                icon={<EyeOutlined />}
+                type="primary"
+                shape="circle"
+                onClick={() => {
+                  setActivityPreview(item);
+                  setPreviewVisible(true);
+                }}
+              ></OneButton>
+            )}
+          />
 
           {checkACL(acl.ACTIVITIES, permissions.W) ? (
             <Column

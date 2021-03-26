@@ -1,14 +1,17 @@
-import { FC, ReactElement, useEffect } from 'react';
+import { FC, ReactElement } from 'react';
 import Modal from 'antd/es/modal';
 import Typography from 'antd/es/typography';
 import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
 import { useAppContext } from 'providers/AppProvider';
+import { sls } from 'utils/StorageUtils';
 import { Activity } from 'interfaces';
+import Constants from 'utils/Constants';
 import './style.less';
 
 const { Title } = Typography;
-const domain = process.env.REACT_APP_DOMAIN;
+const clientDomain = process.env.REACT_APP_CLIENT_HOST;
 const defaultPreview = process.env.REACT_APP_DEFAULT_PREVIEW || 'local';
+const defaultIdentifier = process.env.REACT_APP_DEFAULT_IDENTIFIER || 'admin';
 
 interface ArticlePreviewProps {
   activity?: Activity;
@@ -22,8 +25,10 @@ const ActivityPreview: FC<ArticlePreviewProps> = ({
   activity,
 }: ArticlePreviewProps): ReactElement => {
   const { t } = useAppContext();
-
-  useEffect(() => {}, [visible, activity]);
+  const tokenData = sls.getItem(Constants.storage.TOKEN);
+  const identifier = activity?.company?.identifier || defaultIdentifier;
+  const domain = clientDomain?.replace('[identifier]', identifier !== defaultIdentifier ? identifier : defaultPreview);
+  const previewUrl = `${domain}/preview/${activity?._id}?token=${tokenData.token}&identifier=${identifier}`;
 
   return (
     <>
@@ -42,11 +47,7 @@ const ActivityPreview: FC<ArticlePreviewProps> = ({
         onCancel={() => setVisible(false)}
         cancelButtonProps={{ type: 'primary' }}
       >
-        <iframe
-          className="one-activity-preview-iframe"
-          src={`https://${activity?.company?.identifier || defaultPreview}.${domain}/preview/${activity?._id}`}
-          title={activity?.title}
-        ></iframe>
+        <iframe className="one-activity-preview-iframe" src={previewUrl} title={activity?.title}></iframe>
       </Modal>
     </>
   );
