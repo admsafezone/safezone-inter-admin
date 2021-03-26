@@ -17,6 +17,7 @@ export interface ThemeMode {
 
 export interface Theme {
   mode: 'light' | 'dark' | string;
+  lang?: string;
   light?: ThemeMode;
   dark?: ThemeMode;
 }

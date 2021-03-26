@@ -241,6 +241,12 @@ const CompanyList: FC = (): JSX.Element => {
           {columnWithSearch(t('Identifier'), 'identifier', true, 'r', 'i')}
 
           <Column
+            title={t('Language')}
+            dataIndex="theme.lang"
+            width={80}
+            render={(_: string, item: Company) => item.theme?.lang || t('None')}
+          />
+          <Column
             title={t('Domains')}
             dataIndex="origins"
             width={200}

@@ -12,6 +12,7 @@ import Tabs from 'antd/es/tabs';
 import Typography from 'antd/es/typography';
 import BankOutlined from '@ant-design/icons/BankOutlined';
 import OneLoader from 'components/atoms/OneLoader';
+import OneSelect from 'components/atoms/OneSelect';
 import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
@@ -303,7 +304,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             <Col md={24}>
               <h1 style={{ borderBottom: '1px solid #ccc' }}>{t('Theme options')}</h1>
               <Row gutter={24}>
-                <Col md={24}>
+                <Col md={8}>
                   <Form.Item
                     label={t('Theme mode')}
                     name="theme.mode"
@@ -313,6 +314,22 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                       <Radio value={'light'}>{t('Light')}</Radio>
                       <Radio value={'dark'}>{t('Dark')}</Radio>
                     </Radio.Group>
+                  </Form.Item>
+                </Col>
+                <Col md={8}>
+                  <Form.Item
+                    label={t('Site language')}
+                    name="theme.lang"
+                    required={true}
+                    rules={[{ required: true, message: t('Please select the site language') }]}
+                  >
+                    <OneSelect
+                      apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
+                      labelAttr="name"
+                      valueAttr="lang"
+                      showArrow
+                      useCache
+                    />
                   </Form.Item>
                 </Col>
               </Row>

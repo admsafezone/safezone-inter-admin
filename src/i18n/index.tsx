@@ -1,8 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-
 import en_us from './en';
-
 import pt_BR from 'antd/es/locale/pt_BR';
 import en_US from 'antd/es/locale/en_US';
 
