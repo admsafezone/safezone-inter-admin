@@ -2,6 +2,7 @@ import { FC } from 'react';
 import Row from 'antd/es/row';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
+import Input from 'antd/es/input';
 import { useAppContext } from 'providers/AppProvider';
 import OneInputColor from 'components/atoms/OneInputColor';
 import OneUploadInput from 'components/atoms/OneUploadInput';
@@ -22,7 +23,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
         {t('Images for $t({{mode}})', { mode })}
       </h2>
       <Row gutter={24}>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
             label={t('Logo url')}
             name={`${prefixName}.logo`}
@@ -31,20 +32,29 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
-            label={t('Top background url')}
+            label={t('Top background image')}
             name={`${prefixName}.backgroundTop`}
-            rules={[{ type: 'url', message: t('Please select the background top url') }]}
+            rules={[{ message: t('Please select the background top image') }]}
           >
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
-            label={t('Boby background url')}
+            label={t('Boby background image')}
             name={`${prefixName}.background`}
-            rules={[{ type: 'url', message: t('Please select the background body url') }]}
+            rules={[{ message: t('Please select the background body image') }]}
+          >
+            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item
+            label={t('Footer background image')}
+            name={`${prefixName}.backgroundFooter`}
+            rules={[{ message: t('Please select the background body image') }]}
           >
             <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
           </Form.Item>
@@ -109,6 +119,11 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor name={`${prefixName}.header.fontHoverColor`} />
           </Form.Item>
         </Col>
+        <Col md={24}>
+          <Form.Item label={t('Backgournd pattern')} name={`${prefixName}.header.backgroundPattern`}>
+            <Input name={`${prefixName}.header.backgroundPattern`} />
+          </Form.Item>
+        </Col>
       </Row>
 
       <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Site ranking colors')}</h3>
@@ -147,7 +162,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
 
       <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Site activity colors')}</h3>
       <Row gutter={24}>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color')}
             name={`${prefixName}.activity.backgroundColor`}
@@ -157,7 +172,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor name={`${prefixName}.activity.backgroundColor`} />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
             label={t('Font color')}
             name={`${prefixName}.activity.fontColor`}
@@ -167,7 +182,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor name={`${prefixName}.activity.fontColor`} />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={6}>
           <Form.Item
             label={t('Font hover color')}
             name={`${prefixName}.activity.fontHoverColor`}
@@ -175,6 +190,16 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             rules={[{ required: true, message: t('Please type the site activity font hover color') }]}
           >
             <OneInputColor name={`${prefixName}.activity.fontHoverColor`} />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item
+            label={t('Title color')}
+            name={`${prefixName}.activity.titleColor`}
+            required
+            rules={[{ required: true, message: t('Please type the site activity title color') }]}
+          >
+            <OneInputColor name={`${prefixName}.activity.titleColor`} />
           </Form.Item>
         </Col>
       </Row>
