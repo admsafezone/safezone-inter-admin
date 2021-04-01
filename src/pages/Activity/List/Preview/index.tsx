@@ -47,7 +47,9 @@ const ActivityPreview: FC<ArticlePreviewProps> = ({
         onCancel={() => setVisible(false)}
         cancelButtonProps={{ type: 'primary' }}
       >
-        <iframe className="one-activity-preview-iframe" src={previewUrl} title={activity?.title}></iframe>
+        {activity?.title && (
+          <iframe className="one-activity-preview-iframe" src={previewUrl} title={activity?.title}></iframe>
+        )}
       </Modal>
     </>
   );
