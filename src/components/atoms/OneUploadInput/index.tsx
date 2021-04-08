@@ -29,10 +29,10 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
   }, [value]);
 
   return (
-    <div className={'one-input-upload'}>
+    <div className="one-input-upload">
       <Input {...props} type="hidden" value={value} />
 
-      <Space size={12} align="center" className="one-upload-button">
+      <Space size={12} align="center" className="one-upload-space">
         {image ? (
           <Image
             width={previewSize}
@@ -54,6 +54,7 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
         )}
 
         <Button
+          className="upload-input-btn"
           type="primary"
           onClick={() => {
             setGaleryVisible(true);
@@ -62,7 +63,7 @@ const OneUploadInput: FC<OneUploadInputProps> = ({
           icon={<PictureOutlined />}
           style={{ marginRight: '4px' }}
         >
-          {t('Gallery')}
+          {t('Open gallery')}
         </Button>
       </Space>
     </div>

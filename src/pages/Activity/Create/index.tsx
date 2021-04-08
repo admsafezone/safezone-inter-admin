@@ -146,7 +146,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       >
         <Form layout="vertical" form={form}>
           <Row gutter={24}>
-            <Col md={16}>
+            <Col md={18}>
               <Form.Item
                 label={t('Title')}
                 name="title"
@@ -160,7 +160,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               </Form.Item>
             </Col>
 
-            <Col md={8}>
+            <Col md={6}>
               <Form.Item label={t('Cover image')} name="image">
                 <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
               </Form.Item>

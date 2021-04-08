@@ -306,12 +306,12 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                     <Input placeholder={t('Type a text')} />
                   </Form.Item>
                 </Col>
-                <Col md={8}>
+                <Col md={10}>
                   <Form.Item label={t('Signup text')} name="theme.public.signupText">
                     <Input placeholder={t('Type a text')} />
                   </Form.Item>
                 </Col>
-                <Col md={8}>
+                <Col md={6}>
                   <Form.Item label={t('Sign in logo url')} name="theme.public.logo">
                     <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
                   </Form.Item>
