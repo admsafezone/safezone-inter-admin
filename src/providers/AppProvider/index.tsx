@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { Company, ThemeOptions, User } from 'interfaces';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
@@ -39,7 +39,7 @@ export const AppContext = createContext<Theme>({
   configThemeVisible: false,
 });
 
-export const AppProvider = ({ children }: any) => {
+export const AppProvider: FC = ({ children }: any): JSX.Element => {
   const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(userOptions);
@@ -116,4 +116,4 @@ export const AppProvider = ({ children }: any) => {
   );
 };
 
-export const useAppContext = () => useContext(AppContext);
+export const useAppContext = (): any => useContext(AppContext);

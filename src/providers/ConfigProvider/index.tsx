@@ -1,8 +1,9 @@
+import { FC } from 'react';
+import { antLang } from 'i18n';
 import AntConfigProvider from 'antd/es/config-provider';
 import { useAppContext } from 'providers/AppProvider';
-import { antLang } from 'i18n';
 
-export const ConfigProvider = ({ children }: any) => {
+export const ConfigProvider: FC = ({ children }: any) => {
   const { options } = useAppContext();
 
   return (

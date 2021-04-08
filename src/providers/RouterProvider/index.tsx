@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useAppContext } from 'providers/AppProvider';
 import OneThemeConfig from 'components/organisms/OneThemeConfig';
@@ -5,7 +6,7 @@ import OneLogin from 'components/templates/OneLogin';
 import OneSiderBar from 'components/templates/OneSiderBar';
 import OneTopBar from 'components/templates/OneTopBar';
 
-export const RouterProvider = () => {
+export const RouterProvider: FC = () => {
   const { user, options, changeLogged } = useAppContext();
 
   const selectLayout = () => {

@@ -6,7 +6,7 @@ const formatDate = (date = new Date(), format = 'DD/MM/YYYY HH:mm'): string => {
   return moment(date).format(format);
 };
 
-const formatBytes = (bytes, decimals = 2) => {
+const formatBytes = (bytes: number, decimals = 2): string => {
   if (bytes === 0) return '0 Bytes';
 
   const k = 1024;
@@ -18,15 +18,15 @@ const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
 
-const getAttributeValue = (obj: any, path: string) => {
+const getAttributeValue = (obj = {}, path: string): any => {
   return objectGet(obj, path);
 };
 
-const setAttributeValue = (obj: any, path: string, value: any) => {
+const setAttributeValue = (obj = {}, path: string, value: unknown): any => {
   return objectSet(obj, path, value);
 };
 
-const fieldsToObject = (data) => {
+const fieldsToObject = (data = {}): any => {
   const keys = Object.keys(data);
   const result: any = {};
 
@@ -37,7 +37,7 @@ const fieldsToObject = (data) => {
   return result;
 };
 
-const objectToFields = (object, objectPath) => {
+const objectToFields = (object = {}, objectPath = {}): any => {
   const keys = Object.keys(objectPath);
   const result = {};
 

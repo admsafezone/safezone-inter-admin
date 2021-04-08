@@ -4,7 +4,7 @@ import en_us from './en';
 import pt_BR from 'antd/es/locale/pt_BR';
 import en_US from 'antd/es/locale/en_US';
 
-export const setLanguages = (resources = { en_us }, defaultLang = 'en_us', fallbackLng = 'en_us') => {
+export const setLanguages = (resources = { en_us }, defaultLang = 'en_us', fallbackLng = 'en_us'): any => {
   i18n.use(initReactI18next).init({
     resources,
     lng: defaultLang,
