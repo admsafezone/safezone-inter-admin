@@ -1,4 +1,5 @@
 import { FC, ReactElement, useState } from 'react';
+import Recaptcha from 'react-recaptcha';
 import Form from 'antd/es/form';
 import Alert from 'antd/es/alert';
 import Button from 'antd/es/button';
@@ -7,7 +8,6 @@ import Typography from 'antd/es/typography';
 import Col from 'antd/es/col';
 import Image from 'antd/es/image';
 import Input from 'antd/es/input';
-import Recaptcha from 'react-recaptcha';
 import OnePageTitle from 'components/atoms/OnePageTitle';
 import defaultService from 'services/defaultService';
 import { useAppContext } from 'providers/AppProvider';
@@ -138,9 +138,9 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
         <Recaptcha
           ref={(e) => (recaptchaInstance = e)}
           sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
-          size="invisible"
-          hl={'pt-BR'}
           verifyCallback={recaptchaVerifyCallback}
+          size="invisible"
+          hl="pt-BR"
         />
       </Form>
     </div>
