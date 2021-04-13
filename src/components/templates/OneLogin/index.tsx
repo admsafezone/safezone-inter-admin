@@ -7,6 +7,7 @@ import Typography from 'antd/es/typography';
 import Col from 'antd/es/col';
 import Image from 'antd/es/image';
 import Input from 'antd/es/input';
+import Recaptcha from 'react-recaptcha';
 import OnePageTitle from 'components/atoms/OnePageTitle';
 import defaultService from 'services/defaultService';
 import { useAppContext } from 'providers/AppProvider';
@@ -18,21 +19,23 @@ import { getCurrentLang } from 'i18n';
 import logo from 'assets/logo.svg';
 import './style.less';
 
-interface Login {
-  email: string;
-  password: string;
-}
 interface LoginProps {
   onLogin(user?: User): void;
 }
+
+let recaptchaInstance;
 
 const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [form] = Form.useForm();
 
-  const onFinish = async (values: Login) => {
+  const onFinish = async (token) => {
     setLoading(true);
+    const values = form.getFieldsValue();
+    values.recaptchaToken = token;
+
     const requestConfig = {
       url: `${defaultService.api.defaults.baseURL}/${Constants.api.AUTH}`,
       data: values,
@@ -46,6 +49,10 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
 
     if (response.error) {
       setErrorMessages(response.error);
+      setLoading(false);
+      if (recaptchaInstance) {
+        recaptchaInstance.reset();
+      }
     } else {
       sls.setItem(Constants.storage.TOKEN, response);
       const decoded = tokenDecode(response.token);
@@ -54,14 +61,29 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
       sls.setItem(Constants.storage.USER, user);
       onLogin(decoded.user);
     }
-    setLoading(false);
+  };
+
+  const recaptchaVerifyCallback = (token) => {
+    onFinish(token);
+  };
+
+  const executeCaptcha = () => {
+    recaptchaInstance.execute();
+    setLoading(true);
   };
 
   return (
     <div className="one-login-wrapper">
       <OnePageTitle title={t('Sign in')} />
 
-      <Form className="one-login" name="login" layout="vertical" initialValues={{ remember: true }} onFinish={onFinish}>
+      <Form
+        className="one-login"
+        name="login"
+        form={form}
+        layout="vertical"
+        initialValues={{ remember: true }}
+        onFinish={() => executeCaptcha()}
+      >
         <div className="one-login-logo">
           <Image src={logo} />
           <Typography>{Constants.app.appName}</Typography>
@@ -92,7 +114,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
           name="email"
           rules={[{ required: true, message: t('Please input your email!') }]}
         >
-          <Input />
+          <Input disabled={loading} />
         </Form.Item>
 
         <Form.Item
@@ -100,7 +122,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
           name="password"
           rules={[{ required: true, message: t('Please input your password!') }]}
         >
-          <Input.Password />
+          <Input.Password disabled={loading} />
         </Form.Item>
 
         <Form.Item name="remember" valuePropName="checked">
@@ -112,6 +134,14 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
             {t('Enter')}
           </Button>
         </Form.Item>
+
+        <Recaptcha
+          ref={(e) => (recaptchaInstance = e)}
+          sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
+          size="invisible"
+          hl={'pt-BR'}
+          verifyCallback={recaptchaVerifyCallback}
+        />
       </Form>
     </div>
   );
