@@ -38,10 +38,11 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
   const [medias, setMedias] = useState<Media[]>([]);
   const [selectMadia, setSelectMadia] = useState<Media>();
   const { token } = sls.getItem(Constants.storage.TOKEN);
+  let isMounted = true;
 
   const getMedias = async () => {
     const response = await defaultService.get(`${Constants.api.MEDIA}/?select=url type`, []);
-    setMedias(response);
+    if (isMounted) setMedias(response);
   };
 
   const handleDeleteMedia = async (id) => {
@@ -104,6 +105,10 @@ const OneMediaGalery: FC<OneMediaGaleryProps> = ({
   useEffect(() => {
     getMedias();
     setSelectMadia(undefined);
+
+    return () => {
+      isMounted = false;
+    };
   }, [fieldName]);
 
   return (

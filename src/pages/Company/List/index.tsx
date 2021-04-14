@@ -43,15 +43,18 @@ const CompanyList: FC = (): JSX.Element => {
     sortBy: '',
   });
   const [companiesToDelete, setCompaniesToDelete] = useState<React.Key[]>([]);
+  let isMounted = true;
 
   const getCompanies = async (page: Pager = pager, filter: FilterItem[] = filters) => {
     setLoading(true);
     const params = queryBuilder(page, filter);
     const response = await defaultService.get(`${Constants.api.COMPANIES}/?${params}`, { list: [], pager: [] });
 
-    await setCompanies(response?.list);
-    setPager({ ...response?.pager, sortBy: page.sortBy });
-    setLoading(false);
+    if (isMounted) {
+      setLoading(false);
+      setCompanies(response?.list);
+      setPager({ ...response?.pager, sortBy: page.sortBy });
+    }
   };
 
   const onChangePage = (page, filters, sorter) => {
@@ -109,6 +112,10 @@ const CompanyList: FC = (): JSX.Element => {
 
   useEffect(() => {
     getCompanies();
+
+    return () => {
+      isMounted = false;
+    };
   }, [, reload]);
 
   const columnWithSearch = (title, key, sorter, type = '', options = '') => {

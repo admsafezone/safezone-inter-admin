@@ -25,7 +25,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
       <Row gutter={24}>
         <Col md={6}>
           <Form.Item
-            label={t('Logo url')}
+            label={t('Site logo image')}
             name={`${prefixName}.logo`}
             rules={[{ required: true, message: t('Please select the logo url') }]}
           >
@@ -34,16 +34,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
         </Col>
         <Col md={6}>
           <Form.Item
-            label={t('Top background image')}
-            name={`${prefixName}.backgroundTop`}
-            rules={[{ message: t('Please select the background top image') }]}
-          >
-            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
-          </Form.Item>
-        </Col>
-        <Col md={6}>
-          <Form.Item
-            label={t('Boby background image')}
+            label={t('Site boby background image')}
             name={`${prefixName}.background`}
             rules={[{ message: t('Please select the background body image') }]}
           >
@@ -52,7 +43,16 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
         </Col>
         <Col md={6}>
           <Form.Item
-            label={t('Footer background image')}
+            label={t('Site top background image')}
+            name={`${prefixName}.backgroundTop`}
+            rules={[{ message: t('Please select the background top image') }]}
+          >
+            <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item
+            label={t('Site footer background image')}
             name={`${prefixName}.backgroundFooter`}
             rules={[{ message: t('Please select the background body image') }]}
           >

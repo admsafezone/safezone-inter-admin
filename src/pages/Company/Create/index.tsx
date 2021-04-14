@@ -18,6 +18,7 @@ import ThemeOptions from '../ThemeOptions';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import OneMediaGalery from 'components/atoms/OneMediaGalery';
+import OneInputColor from 'components/atoms/OneInputColor';
 import Constants from 'utils/Constants';
 import { checkACL } from 'utils/AclUtils';
 import { objectToFields, fieldsToObject } from 'utils/DateUtils';
@@ -112,7 +113,9 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
 
   useEffect(() => {
     setIsSaved(false);
-    form.resetFields();
+    if (visible) {
+      form.resetFields();
+    }
 
     if (company) {
       const fields = form.getFieldsValue();
@@ -210,8 +213,8 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             </Col>
 
             <Col md={12}>
-              <Form.Item label={t('Active company')} name="active">
-                <Switch defaultChecked={company?.active} />
+              <Form.Item label={t('Active company')} name="active" valuePropName="checked">
+                <Switch />
               </Form.Item>
             </Col>
 
@@ -227,13 +230,21 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   </Form.Item>
                 </Col>
                 <Col md={8}>
-                  <Form.Item label={t('Username from name and surname')} name="options.autoUsername">
-                    <Switch defaultChecked={company?.options?.autoUsername} />
+                  <Form.Item
+                    label={t('Username from name and surname')}
+                    name="options.autoUsername"
+                    valuePropName="checked"
+                  >
+                    <Switch />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
-                  <Form.Item label={t('Username visible mask')} name="options.maskOptions.alwaysShowMask">
-                    <Switch defaultChecked={company?.options?.maskOptions?.alwaysShowMask} />
+                  <Form.Item
+                    label={t('Username visible mask')}
+                    name="options.maskOptions.alwaysShowMask"
+                    valuePropName="checked"
+                  >
+                    <Switch />
                   </Form.Item>
                 </Col>
               </Row>
@@ -243,18 +254,30 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
               </h2>
               <Row gutter={24}>
                 <Col md={8}>
-                  <Form.Item label={t('Password force use lowercase')} name="options.passwordOptions.lowercase">
-                    <Switch defaultChecked={company?.options?.passwordOptions?.lowercase} />
+                  <Form.Item
+                    label={t('Password force use lowercase')}
+                    name="options.passwordOptions.lowercase"
+                    valuePropName="checked"
+                  >
+                    <Switch />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
-                  <Form.Item label={t('Password force use uppercase')} name="options.passwordOptions.uppercase">
-                    <Switch defaultChecked={company?.options?.passwordOptions?.uppercase} />
+                  <Form.Item
+                    label={t('Password force use uppercase')}
+                    name="options.passwordOptions.uppercase"
+                    valuePropName="checked"
+                  >
+                    <Switch />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
-                  <Form.Item label={t('Password force use number')} name="options.maskOptions.number">
-                    <Switch defaultChecked={company?.options?.passwordOptions?.number} />
+                  <Form.Item
+                    label={t('Password force use number')}
+                    name="options.maskOptions.number"
+                    valuePropName="checked"
+                  >
+                    <Switch />
                   </Form.Item>
                 </Col>
                 <Col md={8}>
@@ -301,18 +324,30 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             <Col md={24}>
               <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Public area options')}</h2>
               <Row gutter={24}>
-                <Col md={8}>
-                  <Form.Item label={t('Slogan')} name="theme.public.slogan">
-                    <Input placeholder={t('Type a text')} />
-                  </Form.Item>
+                <Col md={12}>
+                  <Col md={24}>
+                    <Form.Item label={t('Slogan')} name="theme.public.slogan">
+                      <Input placeholder={t('Type a text')} />
+                    </Form.Item>
+                  </Col>
+                  <Col md={24}>
+                    <Form.Item label={t('Signup text')} name="theme.public.signupText">
+                      <Input placeholder={t('Type a text')} />
+                    </Form.Item>
+                  </Col>
+                  <Col md={12}>
+                    <Form.Item label={t('Sign in background color')} name={'theme.public.backgroundColor'}>
+                      <OneInputColor name="theme.public.backgroundColor" />
+                    </Form.Item>
+                  </Col>
                 </Col>
-                <Col md={10}>
-                  <Form.Item label={t('Signup text')} name="theme.public.signupText">
-                    <Input placeholder={t('Type a text')} />
+                <Col md={6}>
+                  <Form.Item label={t('Sign in logo')} name="theme.public.logo">
+                    <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
                   </Form.Item>
                 </Col>
                 <Col md={6}>
-                  <Form.Item label={t('Sign in logo url')} name="theme.public.logo">
+                  <Form.Item label={t('Sign in background image')} name="theme.public.background">
                     <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
                   </Form.Item>
                 </Col>

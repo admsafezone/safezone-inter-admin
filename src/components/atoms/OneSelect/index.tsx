@@ -22,6 +22,7 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any[]>([]);
+  let isMounted = true;
 
   const setCache = (data: any[]) => {
     sls.setItem(apiURL, data);
@@ -35,11 +36,14 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   const getData = async () => {
     setLoading(true);
     const response = await defaultService.get(apiURL, [], { headers });
-    await setData(response);
+    if (isMounted) {
+      setLoading(false);
+      setData(response);
+    }
+
     if (useCache) {
       setCache(response);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -53,6 +57,10 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
     } else {
       setData(dataItems);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
