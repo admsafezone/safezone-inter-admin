@@ -23,8 +23,6 @@ interface LoginProps {
   onLogin(user?: User): void;
 }
 
-let recaptchaInstance;
-
 const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
@@ -51,8 +49,8 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
     if (response.error) {
       setErrorMessages(response.error);
       setLoading(false);
-      if (recaptchaInstance) {
-        recaptchaInstance.reset();
+      if (recaptchaRef.current) {
+        recaptchaRef.current.reset();
       }
     } else {
       sls.setItem(Constants.storage.TOKEN, response);
