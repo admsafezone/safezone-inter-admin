@@ -1,5 +1,5 @@
-import { FC, ReactElement, useState } from 'react';
-import Recaptcha from 'react-recaptcha';
+import { FC, ReactElement, useRef, useState } from 'react';
+import Recaptcha from 'react-google-recaptcha';
 import Form from 'antd/es/form';
 import Alert from 'antd/es/alert';
 import Button from 'antd/es/button';
@@ -30,8 +30,9 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
   const [loading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [form] = Form.useForm();
+  const recaptchaRef = useRef<any>();
 
-  const onFinish = async (token) => {
+  const login = async (token) => {
     setLoading(true);
     const values = form.getFieldsValue();
     values.recaptchaToken = token;
@@ -63,13 +64,16 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
     }
   };
 
-  const recaptchaVerifyCallback = (token) => {
-    onFinish(token);
-  };
-
-  const executeCaptcha = () => {
-    recaptchaInstance.execute();
+  const executeCaptcha = async () => {
+    setErrorMessages([]);
     setLoading(true);
+    try {
+      const token = await recaptchaRef.current.executeAsync();
+      login(token);
+    } catch (error) {
+      setErrorMessages([t('Recaptcha error, try sign in again')]);
+      setLoading(false);
+    }
   };
 
   return (
@@ -135,13 +139,7 @@ const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
           </Button>
         </Form.Item>
 
-        <Recaptcha
-          ref={(e) => (recaptchaInstance = e)}
-          sitekey={process.env.REACT_APP_RECAPTCHA_KEY}
-          verifyCallback={recaptchaVerifyCallback}
-          size="invisible"
-          hl="pt-BR"
-        />
+        <Recaptcha ref={recaptchaRef} sitekey={process.env.REACT_APP_RECAPTCHA_KEY} size="invisible" hl="pt-BR" />
       </Form>
     </div>
   );

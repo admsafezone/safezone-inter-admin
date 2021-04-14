@@ -22,8 +22,8 @@
     "moment-timezone": "^0.5.33",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-recaptcha": "^2.1.0",
     "react-i18next": "^11.8.12",
-    "react-recaptcha": "^2.3.10",
     "react-router-dom": "^5.2.0",
     "secure-web-storage": "^1.0.2",
     "web-vitals": "^1.1.1"
