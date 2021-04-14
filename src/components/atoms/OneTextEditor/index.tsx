@@ -15,6 +15,7 @@ const validFiles = process.env.REACT_APP_MEDIA_TYPE
 const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorProps) => {
   const { t } = useAppContext();
   const [medias, setMedias] = useState<Media[]>([]);
+  let isMounted = true;
   // const langMap = { en_us: 'en', pt_br: 'pt-br' };
   const controls = [
     'redo',
@@ -51,7 +52,8 @@ const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorPro
 
   const getMedias = async () => {
     const response = await defaultService.get(`${Constants.api.MEDIA}/?select=url type`, []);
-    setMedias(response);
+
+    if (isMounted) setMedias(response);
   };
 
   const uploadHendler = async ({ file, progress }) => {
@@ -111,6 +113,10 @@ const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorPro
 
   useEffect(() => {
     getMedias();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (

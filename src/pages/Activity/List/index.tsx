@@ -55,6 +55,7 @@ const ActivityList: FC = (): JSX.Element => {
     sortBy: '',
   });
   const [activitiesToDelete, setActivitiesToDelete] = useState<React.Key[]>([]);
+  let isMounted = true;
 
   const getActivities = async (page: Pager = pager, filter: FilterItem[] = filters) => {
     setLoading(true);
@@ -65,9 +66,11 @@ const ActivityList: FC = (): JSX.Element => {
       { headers: { identifier } },
     );
 
-    await setActivities(response?.list);
-    setPager({ ...response?.pager, sortBy: page.sortBy });
-    setLoading(false);
+    if (isMounted) {
+      setActivities(response?.list);
+      setPager({ ...response?.pager, sortBy: page.sortBy });
+      setLoading(false);
+    }
   };
 
   const onChangePage = (page, filters, sorter) => {
@@ -125,6 +128,10 @@ const ActivityList: FC = (): JSX.Element => {
 
   useEffect(() => {
     getActivities();
+
+    return () => {
+      isMounted = false;
+    };
   }, [, reload, identifier]);
 
   const columnWithSearch = (title, key, sorter, type = '', options = '') => {

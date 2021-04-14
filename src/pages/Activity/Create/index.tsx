@@ -106,7 +106,9 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
   useEffect(() => {
     setIsSaved(false);
-    form.resetFields();
+    if (visible) {
+      form.resetFields();
+    }
 
     if (activity) {
       form.setFieldsValue(activity);
@@ -144,7 +146,15 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
         okText={copy ? t('Save copy') : t('Save')}
         okButtonProps={{ loading, disabled: loading }}
       >
-        <Form layout="vertical" form={form}>
+        <Form
+          layout="vertical"
+          form={form}
+          initialValues={{
+            active: true,
+            type: activity?.type || '',
+            lang: activity?.lang || options.lang || '',
+          }}
+        >
           <Row gutter={24}>
             <Col md={18}>
               <Form.Item
@@ -197,7 +207,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                   apiURL={`${Constants.api.PARAMS}/Activitytype?select=name`}
                   labelAttr="name"
                   valueAttr="name"
-                  defaultValue={activity?.type || ''}
                   showArrow
                   useCache
                   onSelect={(value) => setType(`${value}`)}
@@ -216,7 +225,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
                   apiURL={`${Constants.api.LANGUAGES}/?select=name lang`}
                   labelAttr="name"
                   valueAttr="lang"
-                  defaultValue={activity?.lang || options.lang || ''}
                   showArrow
                   useCache
                 />
@@ -224,8 +232,8 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
             </Col>
 
             <Col md={8}>
-              <Form.Item label={t('Published')} name="active">
-                <Switch defaultChecked={activity ? activity?.active : true} />
+              <Form.Item label={t('Published')} name="active" valuePropName="checked">
+                <Switch />
               </Form.Item>
             </Col>
           </Row>

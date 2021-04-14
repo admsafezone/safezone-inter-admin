@@ -5,8 +5,8 @@ import Input from 'antd/es/input';
 import Row from 'antd/es/row';
 import Upload from 'antd/es/upload';
 import message from 'antd/es/message';
+import Select from 'antd/es/select';
 import InboxOutlined from '@ant-design/icons/InboxOutlined';
-// import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
@@ -58,7 +58,7 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
       <Row gutter={24} className="one-game-upload">
         {checkACL(Constants.acl.ACTIVITIES, Constants.permissions.F) && (
           <>
-            <Col md={24}>
+            <Col md={16}>
               <Form.Item
                 label={t('Game zip file')}
                 name={['data', 'zipFile']}
@@ -85,6 +85,15 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
             </Col>
           </>
         )}
+
+        <Col md={8}>
+          <Form.Item name={['data', 'displayMode']} label={t('Game display mode')}>
+            <Select defaultValue={'fullscreem'}>
+              <Select.Option value="fullscreem">{t('Full Screem')}</Select.Option>
+              <Select.Option value="in-content">{t('In content')}</Select.Option>
+            </Select>
+          </Form.Item>
+        </Col>
 
         <Form.Item name={['data', 'url']}>
           <Input hidden />

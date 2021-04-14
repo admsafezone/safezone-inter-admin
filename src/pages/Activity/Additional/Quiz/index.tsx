@@ -11,7 +11,6 @@ import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
 import OneUploadInput from 'components/atoms/OneUploadInput';
 import OneTextEditor from 'components/atoms/OneTextEditor';
 import { useAppContext } from 'providers/AppProvider';
-import { getAttributeValue } from 'utils/DateUtils';
 import './style.less';
 
 const { Panel } = Collapse;
@@ -22,7 +21,7 @@ interface QuizProps {
   setGaleryVisible(visible: boolean): void;
 }
 
-const Quiz: FC<QuizProps> = ({ data, updateField, setGaleryVisible }: QuizProps) => {
+const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
   const { t } = useAppContext();
   const [activeKey, setActiveKey] = useState('panel-0');
   let lastKeyCount = 0;
@@ -117,9 +116,6 @@ const Quiz: FC<QuizProps> = ({ data, updateField, setGaleryVisible }: QuizProps)
                           {(fields, { add, remove }) => (
                             <>
                               {fields.map((optionField) => {
-                                const path = `questions.${field.name}.options.${optionField.name}.right`;
-                                const checked = getAttributeValue(data, path);
-
                                 return (
                                   <Row key={`option-${optionField.fieldKey}`} gutter={24}>
                                     <Col span={24}>
@@ -152,8 +148,12 @@ const Quiz: FC<QuizProps> = ({ data, updateField, setGaleryVisible }: QuizProps)
                                       </Form.Item>
                                     </Col>
                                     <Col span={4}>
-                                      <Form.Item label={t('Right option')} name={[optionField.name, 'right']}>
-                                        <Switch defaultChecked={checked} />
+                                      <Form.Item
+                                        label={t('Right option')}
+                                        name={[optionField.name, 'right']}
+                                        valuePropName="checked"
+                                      >
+                                        <Switch />
                                       </Form.Item>
                                     </Col>
                                   </Row>
