@@ -162,7 +162,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                 rules={[{ required: true, message: t('Please select the query type') }]}
               >
                 <OneSelect
-                  dataItems={[{ name: 'find' }, { name: 'aggregate' }]}
+                  dataItems={[{ name: 'find' }, { name: 'aggregate' }, { name: 'count' }]}
                   labelAttr="name"
                   valueAttr="name"
                   showArrow
@@ -176,8 +176,13 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
               </Form.Item>
             </Col>
             <Col md={24}>
-              <Form.Item label={t('Query')} name="query">
-                <Input.TextArea placeholder={t('Graphic query object for aggregate type')} rows={10} />
+              <Form.Item
+                label={t('Query')}
+                name="query"
+                required
+                rules={[{ required: true, message: t('Please type the query') }]}
+              >
+                <Input.TextArea placeholder={t('Graphic query object for aggregate type, default: {}')} rows={10} />
               </Form.Item>
             </Col>
             <Col md={24}>

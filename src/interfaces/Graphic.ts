@@ -8,7 +8,7 @@ export interface Graphic {
   description?: string;
   active: boolean;
   model: string;
-  queryType: 'find' | 'aggregate';
+  queryType: 'find' | 'aggregate' | 'count';
   query: string;
   select?: string;
   configs?: any;

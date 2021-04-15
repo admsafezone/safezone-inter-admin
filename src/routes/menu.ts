@@ -7,6 +7,7 @@ import BankOutlined from '@ant-design/icons/BankOutlined';
 import UsergroupAddOutlined from '@ant-design/icons/UsergroupAddOutlined';
 import TranslationOutlined from '@ant-design/icons/TranslationOutlined';
 import OrderedListOutlined from '@ant-design/icons/OrderedListOutlined';
+import Constants from 'utils/Constants';
 import ActivityList from 'pages/Activity/List';
 import CompanyList from 'pages/Company/List';
 import Dashboard from 'pages/Dashboard';
@@ -28,6 +29,7 @@ export interface MenuItem {
   exact?: boolean;
   noHeader?: boolean;
   aclResource?: string;
+  minAcl?: string;
 }
 
 const menus: MenuItem[] = [
@@ -82,6 +84,7 @@ const menus: MenuItem[] = [
     component: GraphicList,
     exact: true,
     aclResource: 'graphics',
+    minAcl: Constants.permissions.M,
   },
   {
     path: '/reports',

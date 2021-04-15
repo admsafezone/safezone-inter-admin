@@ -61,7 +61,7 @@ const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactE
     const key = `${item.path.replace('/', '')}-menu`;
     const Icon: any = item.icon;
 
-    if (!item.aclResource || checkACL(item.aclResource, Constants.permissions.R)) {
+    if (!item.aclResource || checkACL(item.aclResource, item.minAcl || Constants.permissions.R)) {
       if (item.component) {
         return (
           <Menu.Item key={key} icon={<Icon />} className={key} onClick={() => handleClick(path)}>
