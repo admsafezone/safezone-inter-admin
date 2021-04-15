@@ -1,8 +1,10 @@
+import { Company } from './Company';
+
 export interface Graphic {
   _id: string;
   title: string;
   code: string;
-  type: Graphictype;
+  type: string;
   description?: string;
   active: boolean;
   model: string;
@@ -10,12 +12,7 @@ export interface Graphic {
   query: string;
   select?: string;
   configs?: any;
-  result?: any;
+  excludedCompanies?: Company[] | string[];
   createdAt?: Date;
   updatedAt?: Date;
-}
-
-export interface Graphictype {
-  _id: string;
-  name: string;
 }

@@ -242,11 +242,15 @@ const GraphicList: FC = (): JSX.Element => {
 
           <Column title={t('Code')} dataIndex="code" width={110} />
 
+          <Column title={t('Type')} dataIndex="type" width={70} />
+
           <Column
-            title={t('Type')}
-            dataIndex="type"
+            title={t('Excluded company')}
+            dataIndex="excludedCompany"
             width={110}
-            render={(_: string, item: Graphic) => item.type?.name}
+            render={(_: string, item: Graphic) =>
+              item.excludedCompanies?.map((company) => company.name).join(', ') || t('None')
+            }
           />
 
           <Column

@@ -66,7 +66,8 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
     form.resetFields();
 
     if (graphic) {
-      const graphicEdit = { ...graphic, type: graphic.type._id };
+      const graphicEdit = { ...graphic };
+      graphicEdit.excludedCompanies = graphic.excludedCompanies?.map((company) => company._id) || [];
       form.setFieldsValue(graphicEdit);
     }
   }, [visible, graphic]);
@@ -129,9 +130,9 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                 rules={[{ required: true, message: t('Please select the graphic type') }]}
               >
                 <OneSelect
-                  apiURL={`${api.PARAMS}/graphictype?select=_id name`}
+                  apiURL={`${api.PARAMS}/graphictype?select=name`}
                   labelAttr="name"
-                  valueAttr="_id"
+                  valueAttr="name"
                   showArrow
                   useCache
                   placeholder={t('Select')}
@@ -184,7 +185,21 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                 <Input.TextArea placeholder={t('Graphic configurations for frontend')} rows={8} />
               </Form.Item>
             </Col>
-            <Col md={8}>
+            <Col md={18}>
+              <Form.Item label={t('Excluded companies')} name="excludedCompanies">
+                <OneSelect
+                  apiURL={`${api.COMPANIES}/?select=_id name`}
+                  labelAttr="name"
+                  valueAttr="_id"
+                  mode="multiple"
+                  noDefaultOption
+                  showArrow
+                  useCache
+                  placeholder={t('Select')}
+                />
+              </Form.Item>
+            </Col>
+            <Col md={6}>
               <Form.Item label={t('Active')} name="active" valuePropName="checked">
                 <Switch />
               </Form.Item>
