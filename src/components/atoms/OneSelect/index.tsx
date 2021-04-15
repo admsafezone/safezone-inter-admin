@@ -7,7 +7,7 @@ import { sls } from 'utils/StorageUtils';
 const { Option } = Select;
 
 interface OneSelectProps extends SelectProps<SelectValue> {
-  apiURL: string;
+  apiURL?: string;
   valueAttr: string;
   labelAttr: string;
   headers?: any;
@@ -34,15 +34,17 @@ const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   };
 
   const getData = async () => {
-    setLoading(true);
-    const response = await defaultService.get(apiURL, [], { headers });
-    if (isMounted) {
-      setLoading(false);
-      setData(response);
-    }
+    if (apiURL) {
+      setLoading(true);
+      const response = await defaultService.get(apiURL, [], { headers });
+      if (isMounted) {
+        setLoading(false);
+        setData(response);
+      }
 
-    if (useCache) {
-      setCache(response);
+      if (useCache) {
+        setCache(response);
+      }
     }
   };
 

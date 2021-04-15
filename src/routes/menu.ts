@@ -13,6 +13,7 @@ import Dashboard from 'pages/Dashboard';
 import ProfileManager from 'pages/Profile/Manager';
 import UserList from 'pages/User/List';
 import ReportList from 'pages/Report/List';
+import GraphicList from 'pages/Graphic/List';
 import LanguageList from 'pages/Language/List';
 import Queue from 'pages/Queue';
 
@@ -72,6 +73,15 @@ const menus: MenuItem[] = [
     component: ProfileManager,
     exact: true,
     aclResource: 'profiles',
+  },
+  {
+    path: '/graphics',
+    title: 'Graphics',
+    subTitle: 'Manager portal graphics',
+    icon: AuditOutlined,
+    component: GraphicList,
+    exact: true,
+    aclResource: 'graphics',
   },
   {
     path: '/reports',

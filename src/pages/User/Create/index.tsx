@@ -19,7 +19,7 @@ import './style.less';
 
 const { Title } = Typography;
 
-interface ArticleCreateProps {
+interface UserCreateProps {
   user?: User;
   visible: boolean;
   setVisible(status: boolean): void;
@@ -27,7 +27,7 @@ interface ArticleCreateProps {
   reload(reload: boolean): void;
 }
 
-const UserCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): ReactElement => {
+const UserCreate: FC<UserCreateProps> = (props: UserCreateProps): ReactElement => {
   const { visible, setVisible, user, setUser, reload } = props;
   const { t, company } = useAppContext();
   const [loading, setLoading] = useState(false);

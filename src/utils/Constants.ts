@@ -25,6 +25,7 @@ const Constants = {
     USERS: 'users',
     QUEUES: 'queues',
     REPORTS: 'reports',
+    GRAPHICS: 'graphics',
   },
   message: {
     EXPIRED_TOKEN: 'jwt expired',
@@ -37,6 +38,7 @@ const Constants = {
     LANGUAGES: 'languages',
     DEFAULT: 'default',
     REPORTS: 'reports',
+    GRAPHICS: 'graphics',
   },
   permissions: {
     R: 'r',
