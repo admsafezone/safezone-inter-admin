@@ -1,11 +1,11 @@
 import { FC, ReactElement } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Layout from 'antd/es/layout';
-import OnePageHeader from '../components/atoms/OnePageHeader';
+import { Layout } from 'antd/es';
+import { OnePageHeader } from 'components/atoms';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
-import { MenuItem } from './menu';
 import { useAppContext } from 'providers/AppProvider';
+import { MenuItem } from './menu';
 
 const { Content } = Layout;
 

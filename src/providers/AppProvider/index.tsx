@@ -1,6 +1,6 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { Company, ThemeOptions, User } from 'interfaces';
-import message from 'antd/es/message';
+import { message } from 'antd/es';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
 import Constants from 'utils/Constants';
