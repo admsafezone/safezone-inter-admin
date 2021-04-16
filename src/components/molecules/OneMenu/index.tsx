@@ -13,7 +13,7 @@ export interface OneMenuProps {
   mode?: 'inline' | 'horizontal' | 'vertical' | 'vertical-left' | 'vertical-right' | undefined;
 }
 
-const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactElement => {
+export const OneMenu: FC<OneMenuProps> = ({ theme, menus, mode }: OneMenuProps): ReactElement => {
   const history = useHistory();
   const location = useLocation();
   const { t } = useAppContext();

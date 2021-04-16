@@ -1,13 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import Table from 'antd/es/table';
-import Typography from 'antd/es/typography';
-import ReloadOutlined from '@ant-design/icons/ReloadOutlined';
+import { Table, Typography } from 'antd/es';
+import { ReloadOutlined } from '@ant-design/icons';
 import { useAppContext } from 'providers/AppProvider';
-import defaultService from 'services/defaultService';
-import { Activity, Comment } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import Constants from 'utils/Constants';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
+import defaultService from 'services/defaultService';
+import { Activity, Comment } from 'interfaces';
 import './style.less';
 
 const { Title } = Typography;

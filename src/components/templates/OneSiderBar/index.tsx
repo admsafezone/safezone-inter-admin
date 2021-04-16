@@ -13,7 +13,7 @@ import './style.less';
 
 const { Sider, Footer } = Layout;
 
-const OneSiderBar: FC = (): JSX.Element => {
+export const OneSiderBar: FC = (): JSX.Element => {
   const { options } = useAppContext();
   const [collapsed, setCollapsed] = useState(false);
 

@@ -12,7 +12,7 @@ import './style.less';
 
 const { Footer } = Layout;
 
-const OneTopBar: FC = (): JSX.Element => {
+export const OneTopBar: FC = (): JSX.Element => {
   const { options } = useAppContext();
   const theme = options.layout === 'top-bar top-dark' ? 'dark' : options.theme;
 

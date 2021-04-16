@@ -16,7 +16,7 @@ import './style.less';
 
 const { Option } = Select;
 
-const OneThemeConfig: FC = (): JSX.Element => {
+export const OneThemeConfig: FC = (): JSX.Element => {
   const { options, user, changeOptions, t, toggleConfigTheme, configThemeVisible } = useAppContext();
   const [value, setValue] = useState(user?.company?.identifier);
 

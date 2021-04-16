@@ -1,15 +1,7 @@
 import { FC, useState } from 'react';
-import Button from 'antd/es/button';
-import Collapse from 'antd/es/collapse';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import Row from 'antd/es/row';
-import Select from 'antd/es/select';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
-import OneUploadInput from 'components/atoms/OneUploadInput';
-import OneTextEditor from 'components/atoms/OneTextEditor';
+import { Button, Collapse, Col, Form, Input, Row, Select } from 'antd/es';
+import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
+import { OneUploadInput, OneTextEditor } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import './style.less';
 

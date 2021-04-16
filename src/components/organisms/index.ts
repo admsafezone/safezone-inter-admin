@@ -1,0 +1,1 @@
+export { OneThemeConfig } from './OneThemeConfig';

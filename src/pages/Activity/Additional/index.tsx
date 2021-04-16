@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import Collapse from 'antd/es/collapse';
+import { Collapse } from 'antd/es';
 import Quiz from './Quiz';
 import Test from './Test';
 import Game from './Game';

@@ -23,7 +23,7 @@ interface LoginProps {
   onLogin(user?: User): void;
 }
 
-const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
+export const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);

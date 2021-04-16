@@ -1,18 +1,12 @@
 import { FC, useState } from 'react';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import Row from 'antd/es/row';
-import Upload from 'antd/es/upload';
-import message from 'antd/es/message';
-import Select from 'antd/es/select';
-import InboxOutlined from '@ant-design/icons/InboxOutlined';
+import { Col, Form, Input, Row, Upload, message, Select } from 'antd/es';
+import { InboxOutlined } from '@ant-design/icons';
+import { OneButton } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
+import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
 import './style.less';
-import OneButton from 'components/atoms/OneButton';
-import { checkACL } from 'utils/AclUtils';
 
 interface GameProps {
   data?: any;

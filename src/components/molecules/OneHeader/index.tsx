@@ -14,7 +14,7 @@ interface OneFeaherProps {
   children?: ReactElement[];
 }
 
-const OneHeader: FC<OneFeaherProps> = ({ collapsed, toggle, children }: OneFeaherProps): ReactElement => {
+export const OneHeader: FC<OneFeaherProps> = ({ collapsed, toggle, children }: OneFeaherProps): ReactElement => {
   return (
     <Header
       className="one-header-layout"

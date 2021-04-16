@@ -1,11 +1,10 @@
 import { FC, ReactElement } from 'react';
-import Modal from 'antd/es/modal';
-import Typography from 'antd/es/typography';
-import ProjectOutlined from '@ant-design/icons/ProjectOutlined';
+import { Modal, Typography } from 'antd/es';
+import { ProjectOutlined } from '@ant-design/icons';
 import { useAppContext } from 'providers/AppProvider';
 import { sls } from 'utils/StorageUtils';
-import { Activity } from 'interfaces';
 import Constants from 'utils/Constants';
+import { Activity } from 'interfaces';
 import './style.less';
 
 const { Title } = Typography;
