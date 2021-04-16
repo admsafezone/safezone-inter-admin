@@ -45,6 +45,9 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
       let result;
 
       if (graphic) {
+        if (!data.excludedCompanies.length) {
+          data.excludedCompanies = null;
+        }
         result = await defaultService.put(`${api.GRAPHICS}/${graphic._id}`, data);
       } else {
         result = await defaultService.post(api.GRAPHICS, data);
