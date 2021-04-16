@@ -1,11 +1,7 @@
 import { FC } from 'react';
-import Row from 'antd/es/row';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
+import { Row, Col, Form, Input } from 'antd/es';
+import { OneInputColor, OneUploadInput } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
-import OneInputColor from 'components/atoms/OneInputColor';
-import OneUploadInput from 'components/atoms/OneUploadInput';
 
 interface ThemeOptionsProps {
   mode: string;
