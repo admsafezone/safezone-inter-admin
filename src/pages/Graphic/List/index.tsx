@@ -246,7 +246,7 @@ const GraphicList: FC = (): JSX.Element => {
           />
 
           <Column
-            title={t('Excluded company')}
+            title={t('Excluded companies')}
             dataIndex="excludedCompany"
             width={110}
             render={(_: string, item: Graphic) =>
