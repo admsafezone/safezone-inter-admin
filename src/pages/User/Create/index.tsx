@@ -1,15 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import message from 'antd/es/message';
-import Modal from 'antd/es/modal';
-import Row from 'antd/es/row';
-import Typography from 'antd/es/typography';
-import Switch from 'antd/es/switch';
-import UserOutlined from '@ant-design/icons/UserOutlined';
-import OneLoader from 'components/atoms/OneLoader';
-import OneSelect from 'components/atoms/OneSelect';
+import { Col, Form, Input, message, Modal, Row, Typography, Switch } from 'antd/es';
+import { UserOutlined } from '@ant-design/icons';
+import { OneLoader, OneSelect } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';

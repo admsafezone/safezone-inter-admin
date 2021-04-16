@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import Layout from 'antd/es/layout';
-import OnePageTitle from 'components/atoms/OnePageTitle';
+import { Layout } from 'antd/es';
+import { OnePageTitle } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import Constants from 'utils/Constants';
 import './style.less';

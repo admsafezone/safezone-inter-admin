@@ -1,33 +1,25 @@
 import { FC, Key, useEffect, useState } from 'react';
-import Checkbox from 'antd/es/checkbox';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Layout from 'antd/es/layout';
-import Radio from 'antd/es/radio';
-import Popconfirm from 'antd/es/popconfirm';
-import Table from 'antd/es/table';
-import Popover from 'antd/es/popover';
-import Input from 'antd/es/input';
-import Title from 'antd/es/typography/Title';
-import Row from 'antd/es/row';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import SaveOutlined from '@ant-design/icons/SaveOutlined';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import WarningOutlined from '@ant-design/icons/WarningOutlined';
-import ClearOutlined from '@ant-design/icons/ClearOutlined';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import OneButton from 'components/atoms/OneButton';
-import OnePageTitle from 'components/atoms/OnePageTitle';
-import { Profile, Resource } from 'interfaces';
-import { formatDate } from 'utils/DateUtils';
+import { Checkbox, Col, Form, Layout, Radio, Popconfirm, Table, Popover, Input, Typography, Row } from 'antd/es';
+import {
+  DeleteOutlined,
+  SaveOutlined,
+  ExclamationCircleOutlined,
+  WarningOutlined,
+  ClearOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+import { OneButton, OnePageTitle } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
+import { formatDate } from 'utils/DateUtils';
 import Constants from 'utils/Constants';
+import { Profile, Resource } from 'interfaces';
 import './style.less';
 
 const { Content } = Layout;
 const { Column } = Table;
+const { Title } = Typography;
 
 const ProfileManager: FC = (): JSX.Element => {
   const { t } = useAppContext();
