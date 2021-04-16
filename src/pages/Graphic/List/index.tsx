@@ -1,28 +1,22 @@
 import { FC, useEffect, useState } from 'react';
-import Button from 'antd/es/button';
-import Col from 'antd/es/col';
-import Input from 'antd/es/input';
-import Space from 'antd/es/space';
-import Layout from 'antd/es/layout';
-import Popconfirm from 'antd/es/popconfirm';
-import Table from 'antd/es/table';
-import Row from 'antd/es/row';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import SearchOutlined from '@ant-design/icons/SearchOutlined';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import ClearOutlined from '@ant-design/icons/ClearOutlined';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import OneButton from 'components/atoms/OneButton';
-import OnePageTitle from 'components/atoms/OnePageTitle';
+import { Col, Input, Space, Layout, Popconfirm, Table, Row } from 'antd/es';
+import {
+  EditOutlined,
+  SearchOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  ClearOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
+import { OneButton, OnePageTitle } from 'components/atoms';
 import GraphicCreate from '../Create';
-import { Graphic } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
 import { queryBuilder, FilterItem, Pager } from 'utils/ApiUtils';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import { checkACL } from 'utils/AclUtils';
 import Constants from 'utils/Constants';
+import { Graphic } from 'interfaces';
 import './style.less';
 
 const { Content } = Layout;
@@ -143,7 +137,7 @@ const GraphicList: FC = (): JSX.Element => {
               autoComplete={'off'}
             />
             <Space style={{ display: 'block', overflow: 'hidden' }}>
-              <Button
+              <OneButton
                 onClick={() => {
                   searchHandler(key, []);
                 }}
@@ -151,8 +145,8 @@ const GraphicList: FC = (): JSX.Element => {
                 style={{ width: 90, float: 'left' }}
               >
                 {t('Clean')}
-              </Button>
-              <Button
+              </OneButton>
+              <OneButton
                 type="primary"
                 onClick={() => searchHandler(key, selectedKeys, type, options)}
                 icon={<SearchOutlined />}
@@ -160,7 +154,7 @@ const GraphicList: FC = (): JSX.Element => {
                 style={{ width: 90, float: 'right' }}
               >
                 {t('Filter')}
-              </Button>
+              </OneButton>
             </Space>
           </div>
         )}

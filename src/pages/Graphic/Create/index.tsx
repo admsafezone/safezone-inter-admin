@@ -1,19 +1,7 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Button from 'antd/es/button';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import message from 'antd/es/message';
-import Modal from 'antd/es/modal';
-import Row from 'antd/es/row';
-import Typography from 'antd/es/typography';
-import Select from 'antd/es/select';
-import Switch from 'antd/es/switch';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
-import BarChartOutlined from '@ant-design/icons/BarChartOutlined';
-import OneLoader from 'components/atoms/OneLoader';
-import OneSelect from 'components/atoms/OneSelect';
+import { Col, Form, Input, message, Modal, Row, Typography, Select, Switch } from 'antd/es';
+import { PlusOutlined, MinusCircleOutlined, BarChartOutlined } from '@ant-design/icons';
+import { OneLoader, OneSelect, OneButton } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
@@ -251,9 +239,9 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                     ))}
 
                     <Form.Item className="list-add">
-                      <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                      <OneButton type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
                         {t('Add variable')}
-                      </Button>
+                      </OneButton>
                     </Form.Item>
                   </>
                 )}
