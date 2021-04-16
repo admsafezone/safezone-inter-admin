@@ -7,6 +7,7 @@ import BankOutlined from '@ant-design/icons/BankOutlined';
 import UsergroupAddOutlined from '@ant-design/icons/UsergroupAddOutlined';
 import TranslationOutlined from '@ant-design/icons/TranslationOutlined';
 import OrderedListOutlined from '@ant-design/icons/OrderedListOutlined';
+import BarChartOutlined from '@ant-design/icons/BarChartOutlined';
 import Constants from 'utils/Constants';
 import ActivityList from 'pages/Activity/List';
 import CompanyList from 'pages/Company/List';
@@ -80,7 +81,7 @@ const menus: MenuItem[] = [
     path: '/graphics',
     title: 'Graphics',
     subTitle: 'Manager portal graphics',
-    icon: AuditOutlined,
+    icon: BarChartOutlined,
     component: GraphicList,
     exact: true,
     aclResource: 'graphics',

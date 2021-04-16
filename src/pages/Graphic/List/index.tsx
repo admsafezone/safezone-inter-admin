@@ -245,6 +245,13 @@ const GraphicList: FC = (): JSX.Element => {
           <Column title={t('Type')} dataIndex="type" width={70} />
 
           <Column
+            title={t('Frequency')}
+            dataIndex="frequency"
+            width={70}
+            render={(_: string, item: Graphic) => `${item.frequency} ${item.frequencyUnit}`}
+          />
+
+          <Column
             title={t('Excluded company')}
             dataIndex="excludedCompany"
             width={110}
@@ -256,7 +263,7 @@ const GraphicList: FC = (): JSX.Element => {
           <Column
             title={t('Active')}
             dataIndex="active"
-            width={90}
+            width={50}
             filteredValue={getFilterValues('active')}
             filterMultiple={false}
             filters={[

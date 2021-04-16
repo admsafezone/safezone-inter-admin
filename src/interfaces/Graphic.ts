@@ -11,6 +11,9 @@ export interface Graphic {
   queryType: 'find' | 'aggregate' | 'count';
   query: string;
   select?: string;
+  frequency?: string;
+  frequencyUnit?: string;
+  variables?: Array<any>;
   configs?: any;
   excludedCompanies?: Company[] | string[];
   createdAt?: Date;

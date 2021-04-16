@@ -1,4 +1,5 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
+import Button from 'antd/es/button';
 import Col from 'antd/es/col';
 import Form from 'antd/es/form';
 import Input from 'antd/es/input';
@@ -6,8 +7,11 @@ import message from 'antd/es/message';
 import Modal from 'antd/es/modal';
 import Row from 'antd/es/row';
 import Typography from 'antd/es/typography';
+import Select from 'antd/es/select';
 import Switch from 'antd/es/switch';
-import UserOutlined from '@ant-design/icons/UserOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
+import BarChartOutlined from '@ant-design/icons/BarChartOutlined';
 import OneLoader from 'components/atoms/OneLoader';
 import OneSelect from 'components/atoms/OneSelect';
 import { useAppContext } from 'providers/AppProvider';
@@ -79,7 +83,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
       <Modal
         title={
           <Title level={3} className="one-modal-title">
-            <UserOutlined /> {graphic ? t('Edit graphic') : t('New graphic')}
+            <BarChartOutlined /> {graphic ? t('Edit graphic') : t('New graphic')}
           </Title>
         }
         width={'60vw'}
@@ -175,22 +179,84 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                 <Input placeholder={t('For find: name value createdAt')} />
               </Form.Item>
             </Col>
-            <Col md={24}>
+            <Col md={12}>
               <Form.Item
                 label={t('Query')}
                 name="query"
                 required
                 rules={[{ required: true, message: t('Please type the query') }]}
               >
-                <Input.TextArea placeholder={t('Graphic query object for aggregate type, default: {}')} rows={10} />
+                <Input.TextArea placeholder={t('Graphic query object for aggregate type, default: {}')} rows={15} />
+              </Form.Item>
+            </Col>
+            <Col md={12}>
+              <Form.Item label={t('Graphic frontend configutations object')} name="configs">
+                <Input.TextArea placeholder={t('Graphic configurations for frontend')} rows={15} />
               </Form.Item>
             </Col>
             <Col md={24}>
-              <Form.Item label={t('Graphic frontend configutations object')} name="configs">
-                <Input.TextArea placeholder={t('Graphic configurations for frontend')} rows={8} />
-              </Form.Item>
+              <Form.List name={'variables'}>
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map((field) => (
+                      <Row gutter={24} key={field.fieldKey}>
+                        <Col md={9}>
+                          <Form.Item
+                            {...field}
+                            label={t('Variable path')}
+                            name={[field.name, 'path']}
+                            key={`${field.fieldKey}-path`}
+                            rules={[{ required: true, message: t('Variavle path is required') }]}
+                          >
+                            <Input placeholder={t('Variable path')} />
+                          </Form.Item>
+                        </Col>
+                        <Col md={9}>
+                          <Form.Item
+                            {...field}
+                            label={t('Variable value')}
+                            name={[field.name, 'value']}
+                            key={`${field.fieldKey}-value`}
+                            rules={[{ required: true, message: t('Variable value is required') }]}
+                          >
+                            <Input placeholder={t('Variable value or function')} />
+                          </Form.Item>
+                        </Col>
+                        <Col md={5}>
+                          <Form.Item
+                            {...field}
+                            label={t('Variable type')}
+                            name={[field.name, 'type']}
+                            key={`${field.fieldKey}-type`}
+                            rules={[{ required: true, message: t('Variable type is required') }]}
+                          >
+                            <Select defaultValue="">
+                              <Select.Option value="">{t('Select')}</Select.Option>
+                              <Select.Option value="code">{t('Code')}</Select.Option>
+                              <Select.Option value="date">{t('Date')}</Select.Option>
+                              <Select.Option value="number">{t('Number')}</Select.Option>
+                              <Select.Option value="string">{t('String')}</Select.Option>
+                              <Select.Option value="boolean">{t('Boolean')}</Select.Option>
+                            </Select>
+                          </Form.Item>
+                        </Col>
+
+                        <Col md={1} className="variable-remove-icon">
+                          <MinusCircleOutlined onClick={() => remove(field.name)} />
+                        </Col>
+                      </Row>
+                    ))}
+
+                    <Form.Item className="list-add">
+                      <Button type="dashed" onClick={() => add()} icon={<PlusOutlined />}>
+                        {t('Add variable')}
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
             </Col>
-            <Col md={18}>
+            <Col md={24}>
               <Form.Item label={t('Excluded companies')} name="excludedCompanies">
                 <OneSelect
                   apiURL={`${api.COMPANIES}/?select=_id name`}
@@ -202,6 +268,32 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                   useCache
                   placeholder={t('Select')}
                 />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item
+                label={t('Frequency number')}
+                name="frequency"
+                required
+                rules={[{ required: true, message: t('Please type the frequency of update') }]}
+              >
+                <Input placeholder={t('Frequency number: 30')} />
+              </Form.Item>
+            </Col>
+            <Col md={8}>
+              <Form.Item
+                label={t('Frequency unit')}
+                name={'frequencyUnit'}
+                rules={[{ required: true, message: t('Please select the frequency unit') }]}
+              >
+                <Select defaultValue="">
+                  <Select.Option value="">{t('Select')}</Select.Option>
+                  <Select.Option value="minutes">{t('Minutes')}</Select.Option>
+                  <Select.Option value="hours">{t('Hours')}</Select.Option>
+                  <Select.Option value="days">{t('Days')}</Select.Option>
+                  <Select.Option value="weeks">{t('Weeks')}</Select.Option>
+                  <Select.Option value="months">{t('Months')}</Select.Option>
+                </Select>
               </Form.Item>
             </Col>
             <Col md={6}>
