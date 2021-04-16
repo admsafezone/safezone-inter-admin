@@ -1,17 +1,8 @@
 import { FC, ReactElement, useEffect, useState } from 'react';
-import Button from 'antd/es/button';
-import Col from 'antd/es/col';
-import Form from 'antd/es/form';
-import Input from 'antd/es/input';
-import message from 'antd/es/message';
-import Modal from 'antd/es/modal';
-import Row from 'antd/es/row';
-import Collapse from 'antd/es/collapse';
-import Typography from 'antd/es/typography';
-import TranslationOutlined from '@ant-design/icons/TranslationOutlined';
+import { Col, Form, Input, message, Modal, Row, Collapse, Typography } from 'antd/es';
+import { TranslationOutlined, PlusOutlined } from '@ant-design/icons';
 import OneLanguageInput from 'components/atoms/OneLanguageInput';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import OneLoader from 'components/atoms/OneLoader';
+import { OneButton, OneLoader } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
 import Constants from 'utils/Constants';
@@ -137,9 +128,9 @@ const LanguageCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               ))}
 
               <Form.Item className="list-add">
-                <Button type="primary" onClick={() => add()} icon={<PlusOutlined />}>
+                <OneButton type="primary" onClick={() => add()} icon={<PlusOutlined />}>
                   {t('Add translation')}
-                </Button>
+                </OneButton>
               </Form.Item>
             </>
           )}

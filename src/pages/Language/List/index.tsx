@@ -1,15 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import Col from 'antd/es/col';
-import Layout from 'antd/es/layout';
-import Popconfirm from 'antd/es/popconfirm';
-import Table from 'antd/es/table';
-import Row from 'antd/es/row';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import OneButton from 'components/atoms/OneButton';
-import OnePageTitle from 'components/atoms/OnePageTitle';
+import { Col, Layout, Popconfirm, Table, Row } from 'antd/es';
+import { EditOutlined, PlusOutlined, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { OneButton, OnePageTitle } from 'components/atoms';
 import { formatDate } from 'utils/DateUtils';
 import { useAppContext } from 'providers/AppProvider';
 import LanguageCreate from 'pages/Language/Create';
