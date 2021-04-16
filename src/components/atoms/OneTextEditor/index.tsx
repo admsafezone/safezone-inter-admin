@@ -12,7 +12,7 @@ const validFiles = process.env.REACT_APP_MEDIA_TYPE
   ? process.env.REACT_APP_MEDIA_TYPE.split(';')
   : ['image/jpeg', 'image/png', 'image/svg+xml', 'image/gif'];
 
-const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorProps) => {
+export const OneTextEditor: FC<DraftEditorProps> = ({ value, ...props }: DraftEditorProps) => {
   const { t } = useAppContext();
   const [medias, setMedias] = useState<Media[]>([]);
   let isMounted = true;

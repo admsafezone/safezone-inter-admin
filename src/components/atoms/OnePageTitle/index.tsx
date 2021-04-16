@@ -5,7 +5,7 @@ interface PageTitleProps {
   subtitle?: string;
 }
 
-const OnePageTitle: FC<PageTitleProps> = ({ title, subtitle }: PageTitleProps) => {
+export const OnePageTitle: FC<PageTitleProps> = ({ title, subtitle }: PageTitleProps) => {
   useEffect(() => {
     document.title = `${process.env.REACT_APP_NAME} :: ${title}${subtitle ? ' - ' + subtitle : ''}`;
   }, []);

@@ -1,10 +1,13 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react';
 import { Company, ThemeOptions, User } from 'interfaces';
+import message from 'antd/es/message';
 import defaultService from 'services/defaultService';
 import { sls } from 'utils/StorageUtils';
 import Constants from 'utils/Constants';
 import { useTranslation } from 'react-i18next';
 import i18n, { setLanguages } from 'i18n';
+
+message.config({ duration: 6 });
 
 export interface Theme {
   company?: Company;

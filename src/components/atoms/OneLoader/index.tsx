@@ -8,7 +8,7 @@ interface LoaderProps {
   text?: string;
 }
 
-const OneLoader: FC<LoaderProps> = (props: LoaderProps): ReactElement => {
+export const OneLoader: FC<LoaderProps> = (props: LoaderProps): ReactElement => {
   const { t } = useAppContext();
   const { show = false, text = t('Loading...') } = props;
   return (

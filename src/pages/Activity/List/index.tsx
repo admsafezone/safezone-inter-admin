@@ -1,24 +1,18 @@
 import { FC, Key, useEffect, useState } from 'react';
-import Button from 'antd/es/button';
-import Col from 'antd/es/col';
-import Input from 'antd/es/input';
-import Space from 'antd/es/space';
-import Layout from 'antd/es/layout';
-import Popconfirm from 'antd/es/popconfirm';
-import Table from 'antd/es/table';
-import Row from 'antd/es/row';
-import EditOutlined from '@ant-design/icons/EditOutlined';
-import SearchOutlined from '@ant-design/icons/SearchOutlined';
-import PlusOutlined from '@ant-design/icons/PlusOutlined';
-import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
-import ClearOutlined from '@ant-design/icons/ClearOutlined';
-import DiffOutlined from '@ant-design/icons/DiffOutlined';
-import CheckCircleOutlined from '@ant-design/icons/CheckCircleOutlined';
-import ExclamationCircleOutlined from '@ant-design/icons/ExclamationCircleOutlined';
-import CopyOutlined from '@ant-design/icons/CopyOutlined';
-import EyeOutlined from '@ant-design/icons/EyeOutlined';
-import OneButton from 'components/atoms/OneButton';
-import OnePageTitle from 'components/atoms/OnePageTitle';
+import { Button, Col, Input, Space, Layout, Popconfirm, Table, Row, message } from 'antd/es';
+import {
+  EditOutlined,
+  SearchOutlined,
+  PlusOutlined,
+  DeleteOutlined,
+  ClearOutlined,
+  DiffOutlined,
+  CheckCircleOutlined,
+  ExclamationCircleOutlined,
+  CopyOutlined,
+  EyeOutlined,
+} from '@ant-design/icons';
+import { OneButton, OnePageTitle } from 'components/atoms';
 import ActivityPreview from './Preview';
 import Comments from './Comments';
 import { Activity } from 'interfaces';
@@ -83,9 +77,15 @@ const ActivityList: FC = (): JSX.Element => {
   const deleteActivities = async () => {
     if (activitiesToDelete.length) {
       setLoading(true);
-      await defaultService.delete(api.ACTIVITIES, activitiesToDelete);
-      setActivitiesToDelete([]);
-      await getActivities();
+      const response = await defaultService.delete(api.ACTIVITIES, activitiesToDelete);
+
+      if (!response.error) {
+        setActivitiesToDelete([]);
+        getActivities();
+      } else {
+        message.error(response.error);
+        setLoading(false);
+      }
     }
   };
 

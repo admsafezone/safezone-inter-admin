@@ -17,7 +17,7 @@ interface OneSelectProps extends SelectProps<SelectValue> {
   noDefaultOption?: boolean;
 }
 
-const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
+export const OneSelect: FC<OneSelectProps> = (props: OneSelectProps): ReactElement => {
   const { dataItems = [], apiURL, keyAttr, valueAttr, labelAttr, useCache, noDefaultOption, headers, ...rest } = props;
   const { t } = useAppContext();
   const [loading, setLoading] = useState(false);

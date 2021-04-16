@@ -49,7 +49,11 @@ class DefaultService {
       const result = await this.api.delete(url, config);
       return result.data?.data;
     } catch (error) {
-      return errorResponse;
+      const result = {
+        error: error.response && error.response.data ? error.response.data?.message : [error.message],
+        data: error.response && error.response.data ? error.response.data?.data : errorResponse,
+      };
+      return result;
     }
   }
 

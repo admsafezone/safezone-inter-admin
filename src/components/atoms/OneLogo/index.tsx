@@ -6,7 +6,7 @@ interface LogoProps {
   logo: string;
 }
 
-const OneLogo: FC<LogoProps> = (props: LogoProps): ReactElement => {
+export const OneLogo: FC<LogoProps> = (props: LogoProps): ReactElement => {
   const { appName, logo } = props;
   return (
     <div className="logo-container">

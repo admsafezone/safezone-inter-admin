@@ -13,7 +13,7 @@ interface OneUploadInputProps extends InputProps {
   setGaleryVisible(visible: boolean): void;
 }
 
-const OneUploadInput: FC<OneUploadInputProps> = ({
+export const OneUploadInput: FC<OneUploadInputProps> = ({
   value,
   setGaleryVisible,
   updateField,

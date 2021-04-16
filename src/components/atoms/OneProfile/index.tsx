@@ -8,7 +8,7 @@ import { useAppContext } from 'providers/AppProvider';
 import { sls } from 'utils/StorageUtils';
 import './style.less';
 
-const OneProfile: FC = (): ReactElement => {
+export const OneProfile: FC = (): ReactElement => {
   const { t, company, user, changeLogged, toggleConfigTheme } = useAppContext();
   const { profiles } = user || { profiles: [] };
   const history = useHistory();

@@ -27,7 +27,7 @@ interface OneMediaGaleryProps {
   visible: boolean;
 }
 
-const OneMediaGalery: FC<OneMediaGaleryProps> = ({
+export const OneMediaGalery: FC<OneMediaGaleryProps> = ({
   updateField,
   fieldName,
   setVisible,
