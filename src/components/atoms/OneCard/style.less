@@ -1,0 +1,65 @@
+.dashboard-card {
+    height: 88px;
+    border-radius: 10px !important;
+    > div {
+        border-radius: 10px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        overflow: ellipsis;
+        padding: 15px;
+        height: 88px;
+    }
+}
+.dashboard-card-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    svg {
+        width: 15px;
+        height: 30px;
+    }
+    &.total {
+        background-color: #E0ECFF;
+        svg {
+            color: #4791FF;
+        }
+    }
+    &.todo {
+        background-color: #FFF9E1;
+        svg {
+            color: #FFD950;
+        }
+    }
+    &.overdue {
+        background-color: #FFDAE5;
+        svg {
+            color: #FF2366;
+        }
+    }
+    &.completed {
+        background-color: #D4F4E8;
+        svg {
+            color: #02BC77;
+        }
+    }
+}
+.dashboard-card-info {
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+    margin-right: auto;
+    flex-shrink: 2;
+    strong {
+        font-size: 22px;
+    }
+}
+.dashboard-card-value {
+    color: red;
+    
+}

@@ -22,14 +22,14 @@ export const OneProfile: FC = (): ReactElement => {
   return (
     <>
       <div className="profile">
-        <h2>{company?.name}</h2>
+        <h2>{company?.name ?? "NO COMPANY"}</h2>
         <Tooltip
           title={`${profiles.length > 1 ? t('Profiles') : t('Profile')}: ${profiles.join(', ')}`}
           placement="bottom"
         >
           <p>{user?.name}</p>
         </Tooltip>
-        <div className="profile-thumb">{(user?.name || '').substring(0, 1).toUpperCase()}</div>
+        <div className="profile-thumb">{(user?.name || '').split(" ").map(item => item.substring(0, 1).toUpperCase()).join("")}</div>
       </div>
       <div className="profile-actions">
         <Button type="link" onClick={logout} icon={<LogoutOutlined />}>
