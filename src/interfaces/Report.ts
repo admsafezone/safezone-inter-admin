@@ -18,3 +18,11 @@ export interface ReportResult {
   createdAt?: Date;
   updatedAt?: Date;
 }
+export interface ReportDashboard {
+  _id: string;
+  name: string;
+  file: string;
+  size: number;
+  createdAt?: string;
+  updatedAt?: string;
+}

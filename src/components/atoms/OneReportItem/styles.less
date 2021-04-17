@@ -1,11 +1,16 @@
+.report_actions {
+  display: flex;
+  flex-direction: row;
+}
+
 .onereportitem {
     display: flex;
     padding: 8px;
     justify-content: center;
     align-items: center;
     > .report_icon svg{
-        width: 23px;
-        height: 23px;
+        width: 25px;
+        height: 25px;
     }
     > .report_text {
         display: flex;
@@ -18,13 +23,21 @@
             margin: 0;
         }
         > span {
-            font-size: 6px;
+            font-size: 9px;
         } 
     }
-    > .report_action svg {
-        width: 23px;
-        height: 23px;
-    }
+    > .report_action{
+      cursor: pointer;
+      & svg {
+          width: 25px;
+          height: 25px;
+      }
+    } 
+}
+
+.report_action:last-child {
+  color: #7d1ae5;
+  margin-left: 10px;
 }
 
 .report_action:hover svg {

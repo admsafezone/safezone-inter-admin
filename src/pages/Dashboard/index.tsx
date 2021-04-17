@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, useEffect } from 'react';
 import Layout from 'antd/es/layout';
 import { Row, Col, Collapse, Card } from 'antd/es';
 import { Column } from '@ant-design/charts';
@@ -13,6 +13,10 @@ import todoTasks from "../../assets/todo-tasks.svg";
 import overdueTasks from "../../assets/overdue-tasks.svg";
 import totalTasks from "../../assets/total-tasks.svg";
 import completedTasks from "../../assets/completed-tasks.svg";
+
+
+import { ReportDashboard } from "../../interfaces/Report";
+import defaultService from 'services/defaultService';
 
 import './style.less';
 
@@ -185,6 +189,26 @@ const configGraph = {
 };
 
 const Dashboard: FC = (props): JSX.Element => {
+
+  const [reports, setReports] = useState<ReportDashboard[]>([])
+  const [loadingReport, setLoadingReport] = useState(false);
+
+  useEffect(() => {
+    async function getReports() {
+      const reports = await defaultService.get('/reports/dashboard')
+      setReports(reports);
+    }
+    getReports()
+  }, [])
+
+  const handleGenerateReport = async () => {
+    setLoadingReport(true)
+    await defaultService.get('/reports/run/general')
+    setTimeout(() => {
+      setLoadingReport(false)
+    }, 1000)
+  }
+
   const { t } = useAppContext();
   return (
     <Content {...props} className="one-page-dashboard">
@@ -229,12 +253,9 @@ const Dashboard: FC = (props): JSX.Element => {
           <dl className="report-list rounded">
             <dt className="report-list__title">{t('Relatórios')}</dt>
             <dd className="report-list__items">
-              <OneReportItem />
-              <OneReportItem />
-              <OneReportItem />
-              <OneReportItem />
-              <OneReportItem />
-              <OneReportItem />
+              {reports.map(report => (
+                <OneReportItem key={report._id} {...report} loading={loadingReport} generateReport={handleGenerateReport} />
+              ))}
             </dd>
           </dl>
           <dl className="rounded infringement-list">
