@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FileSyncOutlined, DownloadOutlined, ReloadOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useAppContext } from 'providers/AppProvider';
 import { Tooltip } from 'antd/es';
 
 import { ReportDashboard } from "../../../interfaces/Report";
+import defaultService from 'services/defaultService';
 
 import './styles.less';
 
-interface Props extends ReportDashboard {
-  generateReport: () => void;
-  loading: boolean;
-}
 
-const OneReportItem: React.FC<Props> = (props: Props) => {
+
+const OneReportItem: React.FC<ReportDashboard> = (props: ReportDashboard) => {
+
   const { t } = useAppContext();
+
+  const [loadingReport, setLoadingReport] = useState(false);
+
+  const handleGenerateReport = async (code: string) => {
+    setLoadingReport(true)
+    await defaultService.get(`/reports/run/${code}`)
+    setTimeout(() => {
+      setLoadingReport(false)
+    }, 1000)
+  }
+
   return (
     <div className="onereportitem">
       <div className="report_icon">
@@ -21,7 +31,7 @@ const OneReportItem: React.FC<Props> = (props: Props) => {
       </div>
       <div className="report_text">
         <p>{props.name}</p>
-        <span>{`Atualizado em ${new Date(`${props.createdAt}`).toLocaleString()}`}</span>
+        <span>{`${t('Atualizado em')} ${new Date(`${props.createdAt}`).toLocaleString()}`}</span>
       </div>
       <div className="report_actions">
         <Tooltip placement="topLeft" title={t('Baixar relatório')}>
@@ -30,8 +40,8 @@ const OneReportItem: React.FC<Props> = (props: Props) => {
           </a>
         </Tooltip>
         <Tooltip placement="topRight" title={t('Atualizar relatório')}>
-          <div className="report_action" onClick={() => props.generateReport()}>
-            {props.loading
+          <div className="report_action" onClick={() => handleGenerateReport(props.code)}>
+            {loadingReport
               ?
               <LoadingOutlined />
               :

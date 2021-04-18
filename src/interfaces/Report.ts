@@ -20,6 +20,7 @@ export interface ReportResult {
 }
 export interface ReportDashboard {
   _id: string;
+  code: string;
   name: string;
   file: string;
   size: number;

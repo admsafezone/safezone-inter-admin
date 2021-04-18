@@ -191,23 +191,23 @@ const configGraph = {
 const Dashboard: FC = (props): JSX.Element => {
 
   const [reports, setReports] = useState<ReportDashboard[]>([])
-  const [loadingReport, setLoadingReport] = useState(false);
+  // const [graphicData, setGraphicData] = useState<any>({})
 
   useEffect(() => {
     async function getReports() {
       const reports = await defaultService.get('/reports/dashboard')
       setReports(reports);
     }
+    // async function getGraphicData() {
+    //   const graphicData = await defaultService.get('/dashboard/activity-participation')
+    //   setGraphicData({
+    //     data: graphicData.results,
+    //     ...graphicData
+    //   })
+    // }
     getReports()
+    // getGraphicData()
   }, [])
-
-  const handleGenerateReport = async () => {
-    setLoadingReport(true)
-    await defaultService.get('/reports/run/general')
-    setTimeout(() => {
-      setLoadingReport(false)
-    }, 1000)
-  }
 
   const { t } = useAppContext();
   return (
@@ -254,7 +254,7 @@ const Dashboard: FC = (props): JSX.Element => {
             <dt className="report-list__title">{t('Relatórios')}</dt>
             <dd className="report-list__items">
               {reports.map(report => (
-                <OneReportItem key={report._id} {...report} loading={loadingReport} generateReport={handleGenerateReport} />
+                <OneReportItem key={report._id} {...report} />
               ))}
             </dd>
           </dl>
