@@ -36,9 +36,9 @@ export const AppContext = createContext<Theme>({
   user: loggedUser,
   options: userOptions,
   t: () => '',
-  changeOptions: () => { },
-  changeLogged: () => { },
-  toggleConfigTheme: () => { },
+  changeOptions: () => {},
+  changeLogged: () => {},
+  toggleConfigTheme: () => {},
   configThemeVisible: false,
 });
 

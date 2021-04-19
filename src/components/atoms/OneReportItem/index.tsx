@@ -3,26 +3,23 @@ import { FileSyncOutlined, DownloadOutlined, ReloadOutlined, LoadingOutlined } f
 import { useAppContext } from 'providers/AppProvider';
 import { Tooltip } from 'antd/es';
 
-import { ReportDashboard } from "../../../interfaces/Report";
+import { ReportDashboard } from '../../../interfaces/Report';
 import defaultService from 'services/defaultService';
 
 import './styles.less';
 
-
-
 const OneReportItem: React.FC<ReportDashboard> = (props: ReportDashboard) => {
-
   const { t } = useAppContext();
 
   const [loadingReport, setLoadingReport] = useState(false);
 
   const handleGenerateReport = async (code: string) => {
-    setLoadingReport(true)
-    await defaultService.get(`/reports/run/${code}`)
+    setLoadingReport(true);
+    await defaultService.get(`/reports/run/${code}`);
     setTimeout(() => {
-      setLoadingReport(false)
-    }, 1000)
-  }
+      setLoadingReport(false);
+    }, 1000);
+  };
 
   return (
     <div className="onereportitem">
@@ -41,18 +38,12 @@ const OneReportItem: React.FC<ReportDashboard> = (props: ReportDashboard) => {
         </Tooltip>
         <Tooltip placement="topRight" title={t('Atualizar relatório')}>
           <div className="report_action" onClick={() => handleGenerateReport(props.code)}>
-            {loadingReport
-              ?
-              <LoadingOutlined />
-              :
-              <ReloadOutlined />
-            }
+            {loadingReport ? <LoadingOutlined /> : <ReloadOutlined />}
           </div>
         </Tooltip>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 export default OneReportItem;

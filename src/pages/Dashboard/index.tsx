@@ -8,14 +8,12 @@ import { useAppContext } from 'providers/AppProvider';
 import OneCard from '../../components/atoms/OneCard';
 import OneReportItem from '../../components/atoms/OneReportItem';
 
+import todoTasks from '../../assets/todo-tasks.svg';
+import overdueTasks from '../../assets/overdue-tasks.svg';
+import totalTasks from '../../assets/total-tasks.svg';
+import completedTasks from '../../assets/completed-tasks.svg';
 
-import todoTasks from "../../assets/todo-tasks.svg";
-import overdueTasks from "../../assets/overdue-tasks.svg";
-import totalTasks from "../../assets/total-tasks.svg";
-import completedTasks from "../../assets/completed-tasks.svg";
-
-
-import { ReportDashboard } from "../../interfaces/Report";
+import { ReportDashboard } from '../../interfaces/Report';
 import defaultService from 'services/defaultService';
 
 import './style.less';
@@ -25,40 +23,46 @@ const { Panel } = Collapse;
 const data = {
   count: 34,
   value: -25,
-}
+};
 
 const users = [
   {
     id: 1,
-    name: "Robson",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'Robson',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
   {
     id: 2,
-    name: "João",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'João',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
   {
     id: 3,
-    name: "Maria",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'Maria',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
   {
     id: 4,
-    name: "Maria",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'Maria',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
   {
     id: 5,
-    name: "Maria",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'Maria',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
   {
     id: 6,
-    name: "Maria",
-    info: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum"
+    name: 'Maria',
+    info:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
   },
-]
+];
 
 const datagraph = [
   {
@@ -161,8 +165,7 @@ const datagraph = [
     year: '2019',
     value: 18,
   },
-]
-
+];
 
 const configGraph = {
   data: datagraph,
@@ -175,27 +178,22 @@ const configGraph = {
   label: {
     legend: {
       layout: 'horizontal',
-      position: 'bottom'
+      position: 'bottom',
     },
     style: {
-      opacity: 0
+      opacity: 0,
     },
-    layout: [
-      { type: 'interval-adjust-position' },
-      { type: 'interval-hide-overlap' },
-      { type: 'adjust-color' },
-    ],
+    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }],
   },
 };
 
 const Dashboard: FC = (props): JSX.Element => {
-
-  const [reports, setReports] = useState<ReportDashboard[]>([])
+  const [reports, setReports] = useState<ReportDashboard[]>([]);
   // const [graphicData, setGraphicData] = useState<any>({})
 
   useEffect(() => {
     async function getReports() {
-      const reports = await defaultService.get('/reports/dashboard')
+      const reports = await defaultService.get('/reports/dashboard', []);
       setReports(reports);
     }
     // async function getGraphicData() {
@@ -205,16 +203,16 @@ const Dashboard: FC = (props): JSX.Element => {
     //     ...graphicData
     //   })
     // }
-    getReports()
+    getReports();
     // getGraphicData()
-  }, [])
+  }, []);
 
   const { t } = useAppContext();
   return (
     <Content {...props} className="one-page-dashboard">
       <Row gutter={[16, 16]}>
         <Col span={18} lg={18} md={24} sm={24} xs={24}>
-          <Row gutter={[16, 16]} >
+          <Row gutter={[16, 16]}>
             <Col span={6} lg={6} md={12} sm={24} xs={24}>
               <OneCard className="total" title={t('Total Tasks')} {...data}>
                 <img src={totalTasks} />
@@ -253,7 +251,7 @@ const Dashboard: FC = (props): JSX.Element => {
           <dl className="report-list rounded">
             <dt className="report-list__title">{t('Relatórios')}</dt>
             <dd className="report-list__items">
-              {reports.map(report => (
+              {reports.map((report) => (
                 <OneReportItem key={report._id} {...report} />
               ))}
             </dd>
@@ -264,8 +262,9 @@ const Dashboard: FC = (props): JSX.Element => {
               <Collapse
                 accordion
                 bordered={false}
-                expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 0 : -90} style={{ color: "#CF0000" }} />}>
-                {users.map(user => (
+                expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 0 : -90} style={{ color: '#CF0000' }} />}
+              >
+                {users.map((user) => (
                   <Panel className="" header={user.name} key={user.id}>
                     <p>{user.info}</p>
                   </Panel>
@@ -276,9 +275,7 @@ const Dashboard: FC = (props): JSX.Element => {
           </dl>
         </Col>
       </Row>
-
-
-    </Content >
+    </Content>
   );
 };
 
