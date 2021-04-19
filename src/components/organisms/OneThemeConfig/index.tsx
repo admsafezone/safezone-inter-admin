@@ -54,7 +54,7 @@ export const OneThemeConfig: FC = (): JSX.Element => {
       }}
     >
       <Form layout="vertical">
-        {checkACL(Constants.acl.DEFAULT, Constants.permissions.M) || user?.company?.like ? (
+        {checkACL(Constants.acl.MAIN, Constants.permissions.M) || user?.company?.like ? (
           <Form.Item label={t('Session company')}>
             <OneSelect
               apiURL={`${Constants.api.COMPANIES}/?select=identifier name`}

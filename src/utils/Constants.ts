@@ -36,7 +36,7 @@ const Constants = {
     PROFILES: 'profiles',
     ACTIVITIES: 'activities',
     LANGUAGES: 'languages',
-    DEFAULT: 'default',
+    MAIN: 'admin',
     REPORTS: 'reports',
     GRAPHICS: 'graphics',
   },
