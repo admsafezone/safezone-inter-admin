@@ -1,7 +1,7 @@
 {
-  "name": "ant-design-dashboard-ts",
-  "description": "Dashboard frontend Ant Design project",
-  "version": "0.1.0",
+  "name": "safezone-admin",
+  "description": "Admin for Safezone platform",
+  "version": "0.2.0",
   "license": "MIT",
   "author": {
     "name": "Eliton Freitas",
