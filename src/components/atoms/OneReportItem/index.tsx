@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { FileSyncOutlined, DownloadOutlined, ReloadOutlined, LoadingOutlined } from '@ant-design/icons';
 import { useAppContext } from 'providers/AppProvider';
 import { Tooltip } from 'antd/es';
@@ -46,4 +46,4 @@ const OneReportItem: React.FC<ReportDashboard> = (props: ReportDashboard) => {
   );
 };
 
-export default OneReportItem;
+export default memo(OneReportItem);
