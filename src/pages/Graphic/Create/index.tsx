@@ -58,7 +58,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
 
   useEffect(() => {
     setIsSaved(false);
-    form.resetFields();
+    if (visible) form.resetFields();
 
     if (graphic) {
       const graphicEdit = { ...graphic };
@@ -129,6 +129,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                   labelAttr="name"
                   valueAttr="name"
                   showArrow
+                  noDefaultOption
                   useCache
                   placeholder={t('Select')}
                 />
@@ -197,7 +198,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                             label={t('Variable path')}
                             name={[field.name, 'path']}
                             key={`${field.fieldKey}-path`}
-                            rules={[{ required: true, message: t('Variavle path is required') }]}
+                            rules={[{ required: true, message: t('Variable path is required') }]}
                           >
                             <Input placeholder={t('Variable path')} />
                           </Form.Item>
@@ -221,8 +222,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                             key={`${field.fieldKey}-type`}
                             rules={[{ required: true, message: t('Variable type is required') }]}
                           >
-                            <Select defaultValue="">
-                              <Select.Option value="">{t('Select')}</Select.Option>
+                            <Select placeholder={t('Select')}>
                               <Select.Option value="code">{t('Code')}</Select.Option>
                               <Select.Option value="date">{t('Date')}</Select.Option>
                               <Select.Option value="number">{t('Number')}</Select.Option>
@@ -277,8 +277,7 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
                 name={'frequencyUnit'}
                 rules={[{ required: true, message: t('Please select the frequency unit') }]}
               >
-                <Select defaultValue="">
-                  <Select.Option value="">{t('Select')}</Select.Option>
+                <Select placeholder={t('Select')}>
                   <Select.Option value="minutes">{t('Minutes')}</Select.Option>
                   <Select.Option value="hours">{t('Hours')}</Select.Option>
                   <Select.Option value="days">{t('Days')}</Select.Option>

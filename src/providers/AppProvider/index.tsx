@@ -103,12 +103,12 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
   };
 
   useEffect(() => {
-    if (user) {
-      getCompany();
-    }
+    if (user) getCompany();
+  }, [user]);
 
+  useEffect(() => {
     getLanguages();
-  }, [, user]);
+  }, []);
 
   return (
     <AppContext.Provider

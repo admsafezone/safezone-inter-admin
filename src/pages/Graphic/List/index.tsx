@@ -38,15 +38,18 @@ const GraphicList: FC = (): JSX.Element => {
   });
   const [graphicsToDelete, setGraphicsToDelete] = useState<React.Key[]>([]);
   const { api, permissions, acl } = Constants;
+  let isMounted = true;
 
   const getGraphics = async (page: Pager = pager, filter: FilterItem[] = filters) => {
     setLoading(true);
     const params = queryBuilder(page, filter);
     const response = await defaultService.get(`${api.GRAPHICS}/?${params}`, { list: [], pager: [] });
 
-    setGraphics(response?.list);
-    setPager({ ...response?.pager, sortBy: page.sortBy });
-    setLoading(false);
+    if (isMounted) {
+      setGraphics(response?.list);
+      setPager({ ...response?.pager, sortBy: page.sortBy });
+      setLoading(false);
+    }
   };
 
   const onChangePage = (page, filters, sorter) => {
@@ -104,6 +107,10 @@ const GraphicList: FC = (): JSX.Element => {
 
   useEffect(() => {
     getGraphics();
+
+    return () => {
+      isMounted = false;
+    };
   }, [, reload]);
 
   const columnWithSearch = (title, key, sorter, type = '', options = '') => {
