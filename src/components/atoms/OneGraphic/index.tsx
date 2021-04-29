@@ -9,7 +9,7 @@ const OneGraphic: React.FC = (props: any) => {
   if (!props || !props.data) {
     return (
       <Card className="rounded" size="small" title="No Data">
-        <h1>NO data</h1>
+        <h1>No data props</h1>
       </Card>
     );
   }
@@ -63,7 +63,7 @@ const OneGraphic: React.FC = (props: any) => {
     default:
       return (
         <Card className="rounded" size="small" title="No Data">
-          <h1>NO data</h1>
+          <h1>No data</h1>
         </Card>
       );
   }
