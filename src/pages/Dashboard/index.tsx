@@ -1,7 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import Layout from 'antd/es/layout';
-import { Row, Col, Collapse, Card } from 'antd/es';
-import { Column } from '@ant-design/charts';
+import { Row, Col, Collapse } from 'antd/es';
 import { DownOutlined } from '@ant-design/icons';
 
 import { useAppContext } from 'providers/AppProvider';
@@ -17,6 +16,7 @@ import { ReportDashboard } from '../../interfaces/Report';
 import defaultService from 'services/defaultService';
 
 import './style.less';
+import OneGraphic from 'components/atoms/OneGraphic';
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -64,147 +64,27 @@ const users = [
   },
 ];
 
-const datagraph = [
-  {
-    name: 'Total',
-    year: '2015',
-    value: 45,
-  },
-  {
-    name: 'Total',
-    year: '2016',
-    value: 64,
-  },
-  {
-    name: 'Total',
-    year: '2017',
-    value: 68,
-  },
-  {
-    name: 'Total',
-    year: '2018',
-    value: 83,
-  },
-  {
-    name: 'Total',
-    year: '2019',
-    value: 99,
-  },
-  {
-    name: 'Overdue',
-    year: '2015',
-    value: 15,
-  },
-  {
-    name: 'Overdue',
-    year: '2016',
-    value: 19,
-  },
-  {
-    name: 'Overdue',
-    year: '2017',
-    value: 20,
-  },
-  {
-    name: 'Overdue',
-    year: '2018',
-    value: 17,
-  },
-  {
-    name: 'Overdue',
-    year: '2019',
-    value: 14,
-  },
-  {
-    name: 'Completed',
-    year: '2015',
-    value: 18,
-  },
-  {
-    name: 'Completed',
-    year: '2016',
-    value: 50,
-  },
-  {
-    name: 'Completed',
-    year: '2017',
-    value: 58,
-  },
-  {
-    name: 'Completed',
-    year: '2018',
-    value: 63,
-  },
-  {
-    name: 'Completed',
-    year: '2019',
-    value: 84,
-  },
-  {
-    name: 'To do',
-    year: '2015',
-    value: 30,
-  },
-  {
-    name: 'To do',
-    year: '2016',
-    value: 16,
-  },
-  {
-    name: 'To do',
-    year: '2017',
-    value: 20,
-  },
-  {
-    name: 'To do',
-    year: '2018',
-    value: 33,
-  },
-  {
-    name: 'To do',
-    year: '2019',
-    value: 18,
-  },
-];
-
-const configGraph = {
-  data: datagraph,
-  isGroup: true,
-  xField: 'year',
-  yField: 'value',
-  seriesField: 'name',
-  colorField: 'name',
-  color: ['#4791FF', '#FF2366', '#02BC77', '#FFD950'],
-  label: {
-    legend: {
-      layout: 'horizontal',
-      position: 'bottom',
-    },
-    style: {
-      opacity: 0,
-    },
-    layout: [{ type: 'interval-adjust-position' }, { type: 'interval-hide-overlap' }, { type: 'adjust-color' }],
-  },
-};
-
 const Dashboard: FC = (props): JSX.Element => {
   const [reports, setReports] = useState<ReportDashboard[]>([]);
-  // const [graphicData, setGraphicData] = useState<any>({})
+  const [activityParticipation, setActivityParticipation] = useState<any>(null);
+  const [activityByDay, setActivityByDay] = useState<any>(null);
 
   useEffect(() => {
     async function getReports() {
       const reports = await defaultService.get('/reports/dashboard', []);
       setReports(reports);
     }
-    // async function getGraphicData() {
-    //   const graphicData = await defaultService.get('/dashboard/activity-participation')
-    //   setGraphicData({
-    //     data: graphicData.results,
-    //     ...graphicData
-    //   })
-    // }
+    async function getGraphicActivityParticipation() {
+      const graphicData = await defaultService.get('/dashboard/activity-participation', []);
+      setActivityParticipation(graphicData);
+    }
+    async function getGraphicActivityByDay() {
+      const graphicData = await defaultService.get('/dashboard/activity-by-day', []);
+      setActivityByDay(graphicData);
+    }
     getReports();
-    // getGraphicData()
+    getGraphicActivityParticipation();
+    getGraphicActivityByDay();
   }, []);
 
   const { t } = useAppContext();
@@ -236,14 +116,10 @@ const Dashboard: FC = (props): JSX.Element => {
           </Row>
           <Row style={{ marginTop: 16 }} gutter={[16, 16]}>
             <Col span={12} md={12} sm={24} xs={24}>
-              <Card className="rounded" size="small" title="Tasks">
-                <Column {...configGraph} />
-              </Card>
+              <OneGraphic {...activityParticipation} />
             </Col>
             <Col span={12} md={12} sm={24} xs={24}>
-              <Card className="rounded" size="small" title="Tasks">
-                <Column {...configGraph} />
-              </Card>
+              <OneGraphic {...activityByDay} />
             </Col>
           </Row>
         </Col>
