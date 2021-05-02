@@ -13,12 +13,12 @@ interface Props {
 const OneCard: FC<Props> = (props: Props): ReactElement => {
   return (
     <Card className={`dashboard-card`}>
-      <div className={`dashboard-card-icon  ${props.className}`}>{props.children}</div>
+      <div className={`dashboard-card-icon ${props.className}`}>{props.children}</div>
       <div className="dashboard-card-info">
         <span>{props.title}</span>
         <strong>{props.count}</strong>
       </div>
-      <div className="dashboard-card-value">
+      <div className={`dashboard-card-value${props.value < 0 ? '__negative' : '__positive'}`}>
         <span>{props.value}%</span>
       </div>
     </Card>
