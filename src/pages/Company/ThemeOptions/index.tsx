@@ -68,7 +68,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site primary color') }]}
           >
-            <OneInputColor name={`${prefixName}.primaryColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={8}>
@@ -78,7 +78,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site secondary color') }]}
           >
-            <OneInputColor name={`${prefixName}.secondaryColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
       </Row>
@@ -92,7 +92,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site header background color') }]}
           >
-            <OneInputColor name={`${prefixName}.header.backgroundColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={8}>
@@ -102,7 +102,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site header font color') }]}
           >
-            <OneInputColor name={`${prefixName}.header.fontColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={8}>
@@ -112,12 +112,12 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site header font hover color') }]}
           >
-            <OneInputColor name={`${prefixName}.header.fontHoverColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={24}>
           <Form.Item label={t('Backgournd pattern')} name={`${prefixName}.header.backgroundPattern`}>
-            <Input name={`${prefixName}.header.backgroundPattern`} />
+            <Input />
           </Form.Item>
         </Col>
       </Row>
@@ -131,7 +131,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site ranking background color') }]}
           >
-            <OneInputColor name={`${prefixName}.ranking.backgroundColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={8}>
@@ -141,7 +141,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site ranking font color') }]}
           >
-            <OneInputColor name={`${prefixName}.ranking.fontColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={8}>
@@ -151,7 +151,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site ranking font hover color') }]}
           >
-            <OneInputColor name={`${prefixName}.ranking.fontHoverColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
       </Row>
@@ -165,7 +165,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site activity background color') }]}
           >
-            <OneInputColor name={`${prefixName}.activity.backgroundColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={6}>
@@ -175,7 +175,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site activity font color') }]}
           >
-            <OneInputColor name={`${prefixName}.activity.fontColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={6}>
@@ -185,7 +185,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site activity font hover color') }]}
           >
-            <OneInputColor name={`${prefixName}.activity.fontHoverColor`} />
+            <OneInputColor />
           </Form.Item>
         </Col>
         <Col md={6}>
@@ -195,7 +195,27 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             required
             rules={[{ required: true, message: t('Please type the site activity title color') }]}
           >
-            <OneInputColor name={`${prefixName}.activity.titleColor`} />
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item label={t('Button font color')} name={`${prefixName}.activity.fontColorBtn`}>
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item label={t('Button font color hover')} name={`${prefixName}.activity.fontColorBtnHover`}>
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item label={t('Button background color')} name={`${prefixName}.activity.backgroundColorBtn`}>
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={6}>
+          <Form.Item label={t('Button background hover color')} name={`${prefixName}.activity.backgroundColorBtnHover`}>
+            <OneInputColor />
           </Form.Item>
         </Col>
       </Row>
