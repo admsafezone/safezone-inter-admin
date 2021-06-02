@@ -88,9 +88,19 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                       </Col>
 
                       <Col span={18}>
-                        <Form.Item label={t('Question feedback title')} name={[field.name, 'feedbackTitle']}>
-                          <Input placeholder={t('Type the question feedback title')} />
-                        </Form.Item>
+                        <Row gutter={24}>
+                          <Col span={18}>
+                            <Form.Item label={t('Question feedback title')} name={[field.name, 'feedbackTitle']}>
+                              <Input placeholder={t('Type the question feedback title')} />
+                            </Form.Item>
+                          </Col>
+
+                          <Col span={6}>
+                            <Form.Item label={t('Question score')} name={[field.name, 'score']}>
+                              <Input type="number" placeholder={t('Type the question score')} />
+                            </Form.Item>
+                          </Col>
+                        </Row>
 
                         <Form.Item label={t('Question feedback text')} name={[field.name, 'feedbackText']}>
                           <Input.TextArea placeholder={t('Type the question feedback text')} rows={4} />

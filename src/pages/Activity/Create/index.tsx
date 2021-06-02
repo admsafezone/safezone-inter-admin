@@ -60,6 +60,10 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           }
         }
 
+        if (!dataPut.finalScore) {
+          dataPut.finalScore = null;
+        }
+
         result = await defaultService.put(`${Constants.api.ACTIVITIES}/${activity._id}`, dataPut);
       } else {
         result = await defaultService.post(Constants.api.ACTIVITIES, data);
@@ -139,6 +143,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
           form={form}
           initialValues={{
             active: true,
+            unique: false,
             type: activity?.type || '',
             lang: activity?.lang || options.lang || '',
           }}
@@ -184,7 +189,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               </Form.Item>
             </Col>
 
-            <Col md={8}>
+            <Col md={6}>
               <Form.Item
                 label={t('Type')}
                 name="type"
@@ -202,7 +207,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               </Form.Item>
             </Col>
 
-            <Col md={8}>
+            <Col md={5}>
               <Form.Item
                 label={t('Language')}
                 name="lang"
@@ -219,7 +224,19 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
               </Form.Item>
             </Col>
 
-            <Col md={8}>
+            <Col md={5}>
+              <Form.Item label={t('Final score')} name="finalScore">
+                <Input type="number" placeholder={t('Type the final score if activity')} />
+              </Form.Item>
+            </Col>
+
+            <Col md={4}>
+              <Form.Item label={t('Unique score')} name="unique" valuePropName="checked">
+                <Switch />
+              </Form.Item>
+            </Col>
+
+            <Col md={4}>
               <Form.Item label={t('Published')} name="active" valuePropName="checked">
                 <Switch />
               </Form.Item>

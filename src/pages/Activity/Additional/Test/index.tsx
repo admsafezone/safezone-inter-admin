@@ -65,7 +65,7 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
                 <Input placeholder={t('Type the pattern')} />
               </Form.Item>
             </Col>
-            <Col span={18}>
+            <Col span={14}>
               <Form.Item
                 label={t('Check message')}
                 name={[field.name, 'message']}
@@ -75,6 +75,11 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
                 <Input placeholder={t('Type the message')} />
               </Form.Item>
             </Col>
+            <Col span={4}>
+              <Form.Item label={t('Check score')} name={[field.name, 'score']}>
+                <Input type="number" placeholder={t('Type the check score')} />
+              </Form.Item>
+            </Col>
           </Row>
         );
 
@@ -82,7 +87,7 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
       default:
         return (
           <Row gutter={24}>
-            <Col span={12}>
+            <Col span={16}>
               <Form.Item
                 label={t('Question text')}
                 name={[field.name, 'text']}
@@ -93,15 +98,20 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
               </Form.Item>
             </Col>
 
-            <Col span={6}>
+            <Col span={8}>
               <Form.Item label={t('Question pattern')} name={[field.name, 'pattern']}>
                 <Input placeholder={t('Type the pattern')} />
               </Form.Item>
             </Col>
 
-            <Col span={6}>
+            <Col span={16}>
               <Form.Item label={t('Question answer')} name={[field.name, 'answer']}>
                 <Input placeholder={t('Type the answer')} />
+              </Form.Item>
+            </Col>
+            <Col span={8}>
+              <Form.Item label={t('Question score')} name={[field.name, 'score']}>
+                <Input type="number" placeholder={t('Type the question score')} />
               </Form.Item>
             </Col>
           </Row>
