@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { Button, Collapse, Col, Form, Input, Row, Switch } from 'antd/es';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
-import { OneUploadInput, OneTextEditor } from 'components/atoms';
+import { OneUploadInput, OneTextEditor, OneSelect } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import './style.less';
 
@@ -17,6 +17,13 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
   const { t } = useAppContext();
   const [activeKey, setActiveKey] = useState('panel-0');
   let lastKeyCount = 0;
+  const questionTypes = [
+    { name: 'text-image' },
+    { name: 'left-image' },
+    { name: 'top-image' },
+    { name: 'only-text' },
+    { name: 'only-image' },
+  ];
 
   return (
     <>
@@ -67,14 +74,30 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                   >
                     <Row gutter={24}>
                       <Col span={18}>
-                        <Form.Item
-                          label={t('Question title')}
-                          name={[field.name, 'title']}
-                          required
-                          rules={[{ required: true, message: 'Question title is required' }]}
-                        >
-                          <Input placeholder={t('Type the question title')} />
-                        </Form.Item>
+                        <Row gutter={24}>
+                          <Col span={18}>
+                            <Form.Item
+                              label={t('Question title')}
+                              name={[field.name, 'title']}
+                              required
+                              rules={[{ required: true, message: 'Question title is required' }]}
+                            >
+                              <Input placeholder={t('Type the question title')} />
+                            </Form.Item>
+                          </Col>
+
+                          <Col span={6}>
+                            <Form.Item label={t('Question type')} name={[field.name, 'type']}>
+                              <OneSelect
+                                dataItems={questionTypes}
+                                labelAttr="name"
+                                valueAttr="name"
+                                showArrow
+                                placeholder={t('Select the question type')}
+                              />
+                            </Form.Item>
+                          </Col>
+                        </Row>
 
                         <Form.Item label={t('Question text')} name={[field.name, 'text']}>
                           <Input.TextArea placeholder={t('Type the question text')} rows={4} />
@@ -134,7 +157,7 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                                       </h3>
                                     </Col>
 
-                                    <Col span={16}>
+                                    <Col span={10}>
                                       <Form.Item
                                         label={t('Option text')}
                                         name={[optionField.name, 'text']}
@@ -156,6 +179,11 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                                         valuePropName="checked"
                                       >
                                         <Switch />
+                                      </Form.Item>
+                                    </Col>
+                                    <Col span={6}>
+                                      <Form.Item label={t('Option image')} name={[optionField.name, 'image']}>
+                                        <OneUploadInput updateField={updateField} setGaleryVisible={setGaleryVisible} />
                                       </Form.Item>
                                     </Col>
                                   </Row>
