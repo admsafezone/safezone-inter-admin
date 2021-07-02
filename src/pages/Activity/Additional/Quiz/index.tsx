@@ -24,14 +24,28 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
     { name: 'only-text' },
     { name: 'only-image' },
   ];
+  const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }];
 
   return (
     <>
-      <Col md={24}>
-        <Form.Item label={t('Quiz title')} name={['data', 'title']}>
-          <Input placeholder={t('Type the quiz title')} />
-        </Form.Item>
-      </Col>
+      <Row gutter={24}>
+        <Col md={20}>
+          <Form.Item label={t('Quiz title')} name={['data', 'title']}>
+            <Input placeholder={t('Type the quiz title')} />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item label={t('Quiz type')} name={['data', 'quizType']}>
+            <OneSelect
+              dataItems={quizTypes}
+              labelAttr="name"
+              valueAttr="name"
+              showArrow
+              placeholder={t('Select the question type')}
+            />
+          </Form.Item>
+        </Col>
+      </Row>
 
       <Col md={24}>
         <Form.Item label={t('Quiz header text')} name={['data', 'header']}>

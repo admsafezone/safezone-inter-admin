@@ -124,7 +124,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
 
       <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Site ranking colors')}</h3>
       <Row gutter={24}>
-        <Col md={8}>
+        <Col md={4}>
           <Form.Item
             label={t('Background color')}
             name={`${prefixName}.ranking.backgroundColor`}
@@ -134,7 +134,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={4}>
           <Form.Item
             label={t('Font color')}
             name={`${prefixName}.ranking.fontColor`}
@@ -144,12 +144,54 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={8}>
+        <Col md={4}>
           <Form.Item
             label={t('Font hover color')}
             name={`${prefixName}.ranking.fontHoverColor`}
             required
             rules={[{ required: true, message: t('Please type the site ranking font hover color') }]}
+          >
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+
+        {/* //////////////// */}
+        <Col md={4}>
+          <Form.Item
+            label={t('Background color thumb first')}
+            name={`${prefixName}.ranking.backgroundColorThumbFirst`}
+            required
+            rules={[{ message: t('Please type the site ranking background color first') }]}
+          >
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item
+            label={t('Background color thumb second')}
+            name={`${prefixName}.ranking.backgroundColorThumbSecond`}
+            required
+            rules={[{ message: t('Please type the site ranking background color second') }]}
+          >
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item
+            label={t('Background color thumb third')}
+            name={`${prefixName}.ranking.backgroundColorThumbThird`}
+            required
+            rules={[{ message: t('Please type the site ranking background color third') }]}
+          >
+            <OneInputColor />
+          </Form.Item>
+        </Col>
+        <Col md={4}>
+          <Form.Item
+            label={t('Background color active')}
+            name={`${prefixName}.ranking.backgroundColorActive`}
+            required
+            rules={[{ message: t('Please type the site ranking background color active') }]}
           >
             <OneInputColor />
           </Form.Item>

@@ -19,7 +19,7 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
   const [websiteUrl, setWebsiteUrl] = useState(data?.url);
 
   const uploadHendler = async (file: any) => {
-    if (file && ['application/zip'].includes(file.type)) {
+    if (file && ['application/zip', 'application/x-zip-compressed'].includes(file.type)) {
       setLoading(true);
       const data = new FormData();
       data.append('file', file);
@@ -43,7 +43,7 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
       }
       setLoading(false);
     } else {
-      message.error(t('Invalid file type, use zip file.'));
+      message.error(t('Invalid file type, use zip file.') + file.type);
     }
   };
 
