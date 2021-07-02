@@ -62,7 +62,7 @@ const Game: FC<GameProps> = ({ data, updateField }: GameProps) => {
                   accept=".zip"
                   name="file"
                   showUploadList={false}
-                  onChange={async (info) => {
+                  customRequest={async (info) => {
                     if (!loading) {
                       await uploadHendler(info.file);
                     }
