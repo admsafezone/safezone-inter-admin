@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
-import { Col, Form, Input, Row, Upload, message, Select } from 'antd/es';
 import { InboxOutlined } from '@ant-design/icons';
+import { Col, Form, Input, Row, Upload, message, Select } from 'antd/es';
 import { OneButton } from 'components/atoms';
 import { useAppContext } from 'providers/AppProvider';
 import defaultService from 'services/defaultService';
