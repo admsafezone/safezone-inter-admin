@@ -20,7 +20,7 @@ function checkACL(resource: string, level = 'r'): boolean {
   let decoded: any = {};
   try {
     decoded = tokenDecode(token);
-  } catch (error) { }
+  } catch (error) {}
 
   const permissions = decoded.acl;
   const levels: any = {
