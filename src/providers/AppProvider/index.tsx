@@ -16,8 +16,6 @@ export interface Theme {
   t(key: string, options?: any): string;
   changeOptions(options: ThemeOptions): void;
   changeLogged(user?: User): void;
-  toggleConfigTheme(): void;
-  configThemeVisible?: boolean;
 }
 
 const { api, storage } = Constants;
@@ -38,15 +36,12 @@ export const AppContext = createContext<Theme>({
   t: () => '',
   changeOptions: () => {},
   changeLogged: () => {},
-  toggleConfigTheme: () => {},
-  configThemeVisible: false,
 });
 
 export const AppProvider: FC = ({ children }: any): JSX.Element => {
   const [company, setCompany] = useState<Company>(userCompany);
   const [user, setUser] = useState<User | undefined>(loggedUser);
   const [options, setOptions] = useState<ThemeOptions>(userOptions);
-  const [configThemeVisible, setConfigThemeVisible] = useState(false);
   const { t } = useTranslation();
 
   const changeOptions = async (_options: ThemeOptions) => {
@@ -68,10 +63,6 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
     if (_user) {
       changeOptions(_user?.options || options);
     }
-  };
-
-  const toggleConfigTheme = () => {
-    setConfigThemeVisible(!configThemeVisible);
   };
 
   const getCompany = async () => {
@@ -111,9 +102,7 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
   }, []);
 
   return (
-    <AppContext.Provider
-      value={{ user, company, options, t, changeOptions, changeLogged, toggleConfigTheme, configThemeVisible }}
-    >
+    <AppContext.Provider value={{ user, company, options, t, changeOptions, changeLogged }}>
       {children}
     </AppContext.Provider>
   );

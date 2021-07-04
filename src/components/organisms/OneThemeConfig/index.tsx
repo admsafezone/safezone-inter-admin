@@ -17,8 +17,13 @@ import './style.less';
 const { Option } = Select;
 
 export const OneThemeConfig: FC = (): JSX.Element => {
-  const { options, user, changeOptions, t, toggleConfigTheme, configThemeVisible } = useAppContext();
+  const { options, user, changeOptions, t } = useAppContext();
   const [value, setValue] = useState(user?.company?.identifier);
+  const [visible, setVisible] = useState(false);
+
+  const toggleConfigTheme = () => {
+    setVisible(!visible);
+  };
 
   const onChangeCompany = async (identifier) => {
     setValue(identifier);
@@ -37,6 +42,9 @@ export const OneThemeConfig: FC = (): JSX.Element => {
   };
 
   useEffect(() => {
+    const btnTheme = document.getElementById('theme-menu-btn');
+    btnTheme?.addEventListener('click', () => toggleConfigTheme());
+
     setValue(user?.company?.identifier);
   }, [user]);
 
@@ -47,7 +55,7 @@ export const OneThemeConfig: FC = (): JSX.Element => {
       placement="right"
       closable={true}
       onClose={() => toggleConfigTheme()}
-      visible={configThemeVisible}
+      visible={visible}
       width={350}
       style={{
         zIndex: 1000,

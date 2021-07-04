@@ -9,7 +9,7 @@ import { sls } from 'utils/StorageUtils';
 import './style.less';
 
 export const OneProfile: FC = (): ReactElement => {
-  const { t, company, user, changeLogged, toggleConfigTheme } = useAppContext();
+  const { t, company, user, changeLogged } = useAppContext();
   const { profiles } = user || { profiles: [] };
   const history = useHistory();
 
@@ -40,7 +40,7 @@ export const OneProfile: FC = (): ReactElement => {
         <Button type="link" onClick={logout} icon={<LogoutOutlined />}>
           {t('Logout')}
         </Button>
-        <Button type="link" onClick={toggleConfigTheme} icon={<SettingOutlined />} />
+        <Button type="link" id="theme-menu-btn" icon={<SettingOutlined />} />
       </div>
     </>
   );
