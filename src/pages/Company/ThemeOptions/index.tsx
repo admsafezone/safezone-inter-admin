@@ -124,7 +124,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
 
       <h3 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>{t('Site ranking colors')}</h3>
       <Row gutter={24}>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color')}
             name={`${prefixName}.ranking.backgroundColor`}
@@ -134,7 +134,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Font color')}
             name={`${prefixName}.ranking.fontColor`}
@@ -144,7 +144,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Font hover color')}
             name={`${prefixName}.ranking.fontHoverColor`}
@@ -154,9 +154,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-
-        {/* //////////////// */}
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color thumb first')}
             name={`${prefixName}.ranking.backgroundColorThumbFirst`}
@@ -166,7 +164,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color thumb second')}
             name={`${prefixName}.ranking.backgroundColorThumbSecond`}
@@ -176,7 +174,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color thumb third')}
             name={`${prefixName}.ranking.backgroundColorThumbThird`}
@@ -186,7 +184,7 @@ const ThemeOptions: FC<ThemeOptionsProps> = ({ mode, setGaleryVisible, updateFie
             <OneInputColor />
           </Form.Item>
         </Col>
-        <Col md={4}>
+        <Col md={6}>
           <Form.Item
             label={t('Background color active')}
             name={`${prefixName}.ranking.backgroundColorActive`}
