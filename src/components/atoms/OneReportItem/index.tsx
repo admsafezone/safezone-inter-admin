@@ -26,17 +26,19 @@ const OneReportItem: React.FC<ReportDashboard> = (props: ReportDashboard) => {
       <div className="report_icon">
         <FileSyncOutlined />
       </div>
+
       <div className="report_text">
         <p>{props.name}</p>
-        <span>{`${t('Atualizado em')} ${new Date(`${props.createdAt}`).toLocaleString()}`}</span>
+        <span>{`${t('Updated At')} ${new Date(`${props.createdAt}`).toLocaleString('pt-BR')}`}</span>
       </div>
+
       <div className="report_actions">
-        <Tooltip placement="topLeft" title={t('Baixar relatório')}>
+        <Tooltip placement="topLeft" title={t('Download report')}>
           <a className="report_action" target="_blank" href={props.file} rel="noreferrer">
             <DownloadOutlined />
           </a>
         </Tooltip>
-        <Tooltip placement="topRight" title={t('Atualizar relatório')}>
+        <Tooltip placement="topRight" title={t('Update report')}>
           <div className="report_action" onClick={() => handleGenerateReport(props.code)}>
             {loadingReport ? <LoadingOutlined /> : <ReloadOutlined />}
           </div>

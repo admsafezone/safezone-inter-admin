@@ -187,6 +187,11 @@ const GraphicCreate: FC<GraphicCreateProps> = (props: GraphicCreateProps): React
               </Form.Item>
             </Col>
             <Col md={24}>
+              <Form.Item label={t('Graphic data result path')} name="resultPath">
+                <Input placeholder={t('Graphic result path: result.data')} />
+              </Form.Item>
+            </Col>
+            <Col md={24}>
               <Form.List name={'variables'}>
                 {(fields, { add, remove }) => (
                   <>
