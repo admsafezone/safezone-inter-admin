@@ -1,11 +1,25 @@
 .logo-container {
-  display: grid;
+  display: flex;
   padding: 14px 40px;
-  grid-template-columns: 1fr 2fr;
   align-items: center;
   justify-items: center;
   transition: all 200ms;
   color: @primary-color;
+  min-height: 59px;
+
+  img {
+    margin-right: 10px;
+    max-height: 32px;
+    margin: 0 auto;
+  }
+
+  span {
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 1.1em;
+  }
 }
 
 .one-layout.top-bar {
@@ -27,18 +41,6 @@
 
 .dark .logo-container {
   color: @text-color-dark;
-}
-
-.logo-container img {
-  max-height: 36px;
-}
-
-.logo-container span {
-  text-transform: uppercase;
-  font-size: 1.3em;
-  font-weight: bold;
-  line-height: 1.1em;
-  justify-self: stretch;
 }
 
 .ant-layout-sider-collapsed .logo-container {

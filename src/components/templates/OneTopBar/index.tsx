@@ -3,11 +3,9 @@ import Layout from 'antd/es/layout';
 import OneLogo from 'components/atoms/OneLogo';
 import OneMenu from 'components/molecules/OneMenu';
 import { useAppContext } from 'providers/AppProvider';
-import Constants from 'utils/Constants';
 import OneHeader from 'components/molecules/OneHeader';
 import Routes from '../../../routes';
 import menus from '../../../routes/menu';
-import logo from 'assets/logo.svg';
 import './style.less';
 
 const { Footer } = Layout;
@@ -20,7 +18,7 @@ export const OneTopBar: FC = (): JSX.Element => {
     <Layout className={`one-layout ${options.theme} ${options?.layout}`}>
       <Layout className="one-content-layout">
         <OneHeader>
-          <OneLogo appName={Constants.app.appName} logo={logo} />
+          <OneLogo />
           <OneMenu theme={theme} menus={menus} mode="horizontal" />
         </OneHeader>
 

@@ -4,11 +4,9 @@ import Layout from 'antd/es/layout';
 import OneLogo from 'components/atoms/OneLogo';
 import OneMenu from 'components/molecules/OneMenu';
 import { useAppContext } from 'providers/AppProvider';
-import Constants from 'utils/Constants';
 import OneHeader from 'components/molecules/OneHeader';
 import Routes from '../../../routes';
 import menus from '../../../routes/menu';
-import logo from 'assets/logo.svg';
 import './style.less';
 
 const { Sider, Footer } = Layout;
@@ -37,7 +35,7 @@ export const OneSiderBar: FC = (): JSX.Element => {
           height: '100vh',
         }}
       >
-        <OneLogo appName={Constants.app.appName} logo={logo} />
+        <OneLogo />
         <OneMenu theme={options.theme} menus={menus} />
       </Sider>
       <Layout className="one-bar-layout">

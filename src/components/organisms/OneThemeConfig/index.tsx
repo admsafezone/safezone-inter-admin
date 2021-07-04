@@ -41,12 +41,16 @@ export const OneThemeConfig: FC = (): JSX.Element => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    const btnTheme = document.getElementById('theme-menu-btn');
-    btnTheme?.addEventListener('click', () => toggleConfigTheme());
+  const btnTheme = document.getElementById('theme-menu-btn');
+  btnTheme?.addEventListener('click', () => toggleConfigTheme());
 
+  useEffect(() => {
     setValue(user?.company?.identifier);
-  }, [user]);
+
+    return () => {
+      btnTheme?.removeEventListener('click', () => toggleConfigTheme());
+    };
+  }, [options, user]);
 
   return (
     <Drawer

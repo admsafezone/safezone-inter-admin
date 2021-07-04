@@ -1,17 +1,26 @@
 import { FC, ReactElement } from 'react';
+import { useAppContext } from 'providers/AppProvider';
+import Constants from 'utils/Constants';
 import './style.less';
 
-interface LogoProps {
-  appName: string;
-  logo: string;
-}
+export const OneLogo: FC = (): ReactElement => {
+  const { company } = useAppContext();
+  const appName = company?.name || Constants.app.appName;
+  const logo = company?.theme?.light?.logo;
 
-export const OneLogo: FC<LogoProps> = (props: LogoProps): ReactElement => {
-  const { appName, logo } = props;
   return (
     <div className="logo-container">
-      <img src={logo} alt={appName} />
-      <span>{appName}</span>
+      {logo && (
+        <img
+          src={logo}
+          alt={appName}
+          style={{
+            backgroundColor: company?.theme?.light?.header?.backgroundColor,
+            padding: '3px 10px',
+          }}
+        />
+      )}
+      {!logo && appName && <span>{appName}</span>}
     </div>
   );
 };
