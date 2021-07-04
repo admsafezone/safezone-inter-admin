@@ -1,16 +1,11 @@
 import { FC, useState, useEffect } from 'react';
 import Layout from 'antd/es/layout';
 import { Row, Col, Collapse } from 'antd/es';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, CommentOutlined, UsergroupAddOutlined, UserOutlined, ScheduleOutlined } from '@ant-design/icons';
 
 import { useAppContext } from 'providers/AppProvider';
 import OneCard from 'components/atoms/OneCard';
 import OneReportItem from 'components/atoms/OneReportItem';
-
-import todoTasks from 'assets/todo-tasks.svg';
-import overdueTasks from 'assets/overdue-tasks.svg';
-import totalTasks from 'assets/total-tasks.svg';
-import completedTasks from 'assets/completed-tasks.svg';
 
 import { ReportDashboard } from 'interfaces/Report';
 import defaultService from 'services/defaultService';
@@ -114,22 +109,54 @@ const Dashboard: FC = (props): JSX.Element => {
             <Row gutter={16}>
               <Col span={6} lg={6} md={12} sm={24} xs={24}>
                 <OneCard className="total" {...totals.users}>
-                  <img src={totalTasks} />
+                  <UserOutlined
+                    style={{
+                      fontSize: '1.8em',
+                      color: '#4791ff',
+                      backgroundColor: '#e0ecff',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  />
                 </OneCard>
               </Col>
               <Col span={6} lg={6} md={12} sm={24} xs={24}>
                 <OneCard className="todo" {...totals.subscribers}>
-                  <img src={todoTasks} />
+                  <UsergroupAddOutlined
+                    style={{
+                      fontSize: '1.8em',
+                      color: '#eebb04',
+                      backgroundColor: '#fff9e1',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  />
                 </OneCard>
               </Col>
               <Col span={6} lg={6} md={12} sm={24} xs={24}>
                 <OneCard className="overdue" {...totals.activities}>
-                  <img src={overdueTasks} />
+                  <ScheduleOutlined
+                    style={{
+                      fontSize: '1.8em',
+                      color: '#ff2366',
+                      backgroundColor: '#ffdae5',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  />
                 </OneCard>
               </Col>
               <Col span={6} lg={6} md={12} sm={24} xs={24}>
                 <OneCard className="completed" {...totals.comments}>
-                  <img src={completedTasks} />
+                  <CommentOutlined
+                    style={{
+                      fontSize: '1.8em',
+                      color: '#02bc77',
+                      backgroundColor: '#d4f4e8',
+                      padding: '10px',
+                      borderRadius: '10px',
+                    }}
+                  />
                 </OneCard>
               </Col>
             </Row>
