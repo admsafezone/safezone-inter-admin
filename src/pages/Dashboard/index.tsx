@@ -15,8 +15,9 @@ import completedTasks from 'assets/completed-tasks.svg';
 import { ReportDashboard } from 'interfaces/Report';
 import defaultService from 'services/defaultService';
 
-import './style.less';
 import OneGraphic from 'components/atoms/OneGraphic';
+import { OnePageTitle } from 'components/atoms';
+import './style.less';
 
 const { Content } = Layout;
 const { Panel } = Collapse;
@@ -104,73 +105,81 @@ const Dashboard: FC = (props): JSX.Element => {
   const { t } = useAppContext();
 
   return (
-    <Content {...props} className="one-page-dashboard">
-      <Row gutter={16}>
-        <Col span={18} lg={18} md={24} sm={24} xs={24}>
-          <Row gutter={16}>
-            <Col span={6} lg={6} md={12} sm={24} xs={24}>
-              <OneCard className="total" {...totals.users}>
-                <img src={totalTasks} />
-              </OneCard>
-            </Col>
-            <Col span={6} lg={6} md={12} sm={24} xs={24}>
-              <OneCard className="todo" {...totals.subscribers}>
-                <img src={todoTasks} />
-              </OneCard>
-            </Col>
-            <Col span={6} lg={6} md={12} sm={24} xs={24}>
-              <OneCard className="overdue" {...totals.activities}>
-                <img src={overdueTasks} />
-              </OneCard>
-            </Col>
-            <Col span={6} lg={6} md={12} sm={24} xs={24}>
-              <OneCard className="completed" {...totals.comments}>
-                <img src={completedTasks} />
-              </OneCard>
-            </Col>
-          </Row>
+    <>
+      <OnePageTitle title={t('Dashboard')} />
 
-          <Row style={{ marginTop: 16 }} gutter={16}>
-            <Col span={12} md={12} sm={24} xs={24}>
-              <OneGraphic {...activityParticipation} />
-            </Col>
+      <Content {...props} className="one-page-dashboard">
+        <Row gutter={16}>
+          <Col span={18} lg={18} md={24} sm={24} xs={24}>
+            <Row gutter={16}>
+              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+                <OneCard className="total" {...totals.users}>
+                  <img src={totalTasks} />
+                </OneCard>
+              </Col>
+              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+                <OneCard className="todo" {...totals.subscribers}>
+                  <img src={todoTasks} />
+                </OneCard>
+              </Col>
+              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+                <OneCard className="overdue" {...totals.activities}>
+                  <img src={overdueTasks} />
+                </OneCard>
+              </Col>
+              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+                <OneCard className="completed" {...totals.comments}>
+                  <img src={completedTasks} />
+                </OneCard>
+              </Col>
+            </Row>
 
-            <Col span={12} md={12} sm={24} xs={24}>
-              <OneGraphic {...activityByDay} />
-            </Col>
-          </Row>
-        </Col>
+            <Row style={{ marginTop: 16 }} gutter={16}>
+              <Col span={12} md={12} sm={24} xs={24}>
+                <OneGraphic {...activityParticipation} />
+              </Col>
 
-        <Col span={6} lg={6} md={24} sm={24} xs={24}>
-          <dl className="report-list rounded">
-            <dt className="report-list__title">{t('Reports')}</dt>
-            <dd className="report-list__items">
-              {reports.map((report) => (
-                <OneReportItem key={report._id} {...report} />
-              ))}
-            </dd>
-          </dl>
+              <Col span={12} md={12} sm={24} xs={24}>
+                <OneGraphic {...activityByDay} />
+              </Col>
+            </Row>
+          </Col>
 
-          <dl className="rounded infringement-list">
-            <dt className="infringement-list__title">{t('Infringements')}</dt>
-            <dd className="infringement-list__items">
-              <Collapse
-                accordion
-                bordered={false}
-                expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 0 : -90} style={{ color: '#CF0000' }} />}
-              >
-                {users.map((user) => (
-                  <Panel className="" header={user.name} key={user.id}>
-                    <p>{user.info}</p>
-                  </Panel>
+          <Col span={6} lg={6} md={24} sm={24} xs={24}>
+            <dl className="report-list rounded">
+              <dt className="report-list__title">{t('Reports')}</dt>
+              <dd className="report-list__items">
+                {reports.map((report) => (
+                  <OneReportItem key={report._id} {...report} />
                 ))}
-              </Collapse>
-            </dd>
-            <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date().toLocaleString('pt-BR')}`}</dt>
-          </dl>
-        </Col>
-      </Row>
-    </Content>
+              </dd>
+            </dl>
+
+            <dl className="rounded infringement-list">
+              <dt className="infringement-list__title">{t('Infringements')}</dt>
+              <dd className="infringement-list__items">
+                <Collapse
+                  accordion
+                  bordered={false}
+                  expandIcon={({ isActive }) => (
+                    <DownOutlined rotate={isActive ? 0 : -90} style={{ color: '#CF0000' }} />
+                  )}
+                >
+                  {users.map((user) => (
+                    <Panel className="" header={user.name} key={user.id}>
+                      <p>{user.info}</p>
+                    </Panel>
+                  ))}
+                </Collapse>
+              </dd>
+              <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date().toLocaleString(
+                'pt-BR',
+              )}`}</dt>
+            </dl>
+          </Col>
+        </Row>
+      </Content>
+    </>
   );
 };
 
