@@ -5,7 +5,7 @@ import './style.less';
 
 export const OneLogo: FC = (): ReactElement => {
   const { company } = useAppContext();
-  const appName = company.theme?.admin?.name || Constants.app.appName;
+  const appName = company.theme?.admin?.title || Constants.app.appName;
   const logo = company?.theme?.admin?.logo;
 
   return (
