@@ -3,7 +3,7 @@
   align-items: center;
   justify-items: center;
   transition: all 200ms;
-  min-height: 64px;
+  height: 64px;
 
   img {
     max-height: 36px;
@@ -18,6 +18,10 @@
     font-size: 1.3em;
     font-weight: bold;
     line-height: 1.1em;
+  }
+
+  .collapsed-title {
+    display: none;
   }
 }
 
@@ -46,8 +50,19 @@
   display: block;
   text-align: center;
   padding: 14px 0;
+  overflow: hidden;
+  background: none !important;
 }
 
-.ant-layout-sider-collapsed .logo-container .logo-title {
+.ant-layout-sider-collapsed .logo-container .logo-title,
+.ant-layout-sider-collapsed .logo-container img {
   display: none;
+}
+
+.ant-layout-sider-collapsed .logo-container .collapsed-title {
+  display: block;
+  color: @primary-color;
+  font-size: 2.2em;
+  line-height: 1.3em;
+  font-weight: bolder;
 }

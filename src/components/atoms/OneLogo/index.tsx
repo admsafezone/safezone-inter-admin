@@ -15,8 +15,11 @@ export const OneLogo: FC = (): ReactElement => {
         backgroundColor: company?.theme?.admin?.backgroundColor,
       }}
     >
-      {logo && <img src={logo} alt={appName} />}
+      {logo && <img src={logo} alt={appName} title={appName} />}
       {!logo && appName && <div className="logo-title">{appName}</div>}
+      <div className="collapsed-title" title={appName}>
+        {appName?.substring(0, 1)}
+      </div>
     </div>
   );
 };
