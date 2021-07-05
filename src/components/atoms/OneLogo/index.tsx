@@ -5,22 +5,18 @@ import './style.less';
 
 export const OneLogo: FC = (): ReactElement => {
   const { company } = useAppContext();
-  const appName = company?.name || Constants.app.appName;
-  const logo = company?.theme?.light?.logo;
+  const appName = company.theme?.admin?.name || Constants.app.appName;
+  const logo = company?.theme?.admin?.logo;
 
   return (
-    <div className="logo-container">
-      {logo && (
-        <img
-          src={logo}
-          alt={appName}
-          style={{
-            backgroundColor: company?.theme?.light?.header?.backgroundColor,
-            padding: '3px 10px',
-          }}
-        />
-      )}
-      {!logo && appName && <span>{appName}</span>}
+    <div
+      className="logo-container"
+      style={{
+        backgroundColor: company?.theme?.admin?.backgroundColor,
+      }}
+    >
+      {logo && <img src={logo} alt={appName} />}
+      {!logo && appName && <div className="logo-title">{appName}</div>}
     </div>
   );
 };
