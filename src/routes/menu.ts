@@ -60,6 +60,7 @@ const menus: MenuItem[] = [
     component: CompanyList,
     exact: true,
     aclResource: 'companies',
+    minAcl: Constants.permissions.W,
   },
   {
     path: '/graphics',
