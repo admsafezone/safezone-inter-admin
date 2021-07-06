@@ -307,35 +307,37 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
               )}
             </Col>
 
-            <Col md={24}>
-              <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Admin options')}</h2>
-              <Row gutter={24}>
-                <Col md={18}>
-                  <Row gutter={24}>
-                    <Col md={24}>
-                      <Form.Item label={t('Admin title')} name="theme.admin.title">
-                        <Input placeholder={t('Admin title')} />
-                      </Form.Item>
-                    </Col>
-                    <Col md={12}>
-                      <Form.Item label={t('Admin logo background color')} name={'theme.admin.backgroundColor'}>
-                        <OneInputColor name="theme.admin.backgroundColor" />
-                      </Form.Item>
-                    </Col>
-                    <Col md={12}>
-                      <Form.Item label={t('Admin logo font color')} name={'theme.admin.fontColor'}>
-                        <OneInputColor name="theme.admin.fontColor" />
-                      </Form.Item>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col md={6}>
-                  <Form.Item label={t('Admin logo')} name="theme.admin.logo">
-                    <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Col>
+            {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) && (
+              <Col md={24}>
+                <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Admin options')}</h2>
+                <Row gutter={24}>
+                  <Col md={18}>
+                    <Row gutter={24}>
+                      <Col md={24}>
+                        <Form.Item label={t('Admin title')} name="theme.admin.title">
+                          <Input placeholder={t('Admin title')} />
+                        </Form.Item>
+                      </Col>
+                      <Col md={12}>
+                        <Form.Item label={t('Admin logo background color')} name={'theme.admin.backgroundColor'}>
+                          <OneInputColor name="theme.admin.backgroundColor" />
+                        </Form.Item>
+                      </Col>
+                      <Col md={12}>
+                        <Form.Item label={t('Admin logo font color')} name={'theme.admin.fontColor'}>
+                          <OneInputColor name="theme.admin.fontColor" />
+                        </Form.Item>
+                      </Col>
+                    </Row>
+                  </Col>
+                  <Col md={6}>
+                    <Form.Item label={t('Admin logo')} name="theme.admin.logo">
+                      <OneUploadInput setGaleryVisible={setGaleryVisible} updateField={updateField} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Col>
+            )}
 
             <Col md={24}>
               <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Public area options')}</h2>
