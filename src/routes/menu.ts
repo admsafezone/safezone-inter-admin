@@ -79,7 +79,7 @@ const menus: MenuItem[] = [
     icon: AuditOutlined,
     component: ReportList,
     exact: true,
-    aclResource: 'users',
+    aclResource: 'reports',
   },
   {
     path: '/languages',
