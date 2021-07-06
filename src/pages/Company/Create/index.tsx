@@ -307,7 +307,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
               )}
             </Col>
 
-            {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) && (
+            {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) ? (
               <Col md={24}>
                 <h2 style={{ borderBottom: '1px solid #ccc' }}>{t('Admin options')}</h2>
                 <Row gutter={24}>
@@ -337,6 +337,21 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   </Col>
                 </Row>
               </Col>
+            ) : (
+              <>
+                <Form.Item name="theme.admin.title" hidden>
+                  <Input type="hidden" />
+                </Form.Item>
+                <Form.Item name="theme.admin.backgroundColor" hidden>
+                  <Input type="hidden" />
+                </Form.Item>
+                <Form.Item name="theme.admin.fontColor" hidden>
+                  <Input type="hidden" />
+                </Form.Item>
+                <Form.Item name="theme.admin.logo" hidden>
+                  <Input type="hidden" />
+                </Form.Item>
+              </>
             )}
 
             <Col md={24}>
