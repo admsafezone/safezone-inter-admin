@@ -307,7 +307,7 @@ const ActivityList: FC = (): JSX.Element => {
         >
           {columnWithSearch('Title', 'title', true, 'r', 'i')}
 
-          <Column title={t('Type')} dataIndex="type" width={90} />
+          <Column title={t('Type')} sorter={true} dataIndex="type" width={90} />
 
           <Column title={t('Language')} dataIndex="lang" width={90} sorter={true} />
 
