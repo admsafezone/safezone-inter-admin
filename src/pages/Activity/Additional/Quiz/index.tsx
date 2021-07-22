@@ -26,6 +26,12 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
   ];
   const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }];
 
+  const randomId = () => {
+    const min = Math.ceil(1);
+    const max = Math.floor(9999999);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   return (
     <>
       <Row gutter={24}>
@@ -61,6 +67,7 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
       <Form.List name={['data', 'questions']}>
         {(fields, { add, remove }) => (
           <>
+            {console.log(fields)}
             <Collapse
               defaultActiveKey={activeKey}
               activeKey={activeKey}
@@ -95,6 +102,16 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                               name={[field.name, 'title']}
                               required
                               rules={[{ required: true, message: 'Question title is required' }]}
+                            >
+                              <Input placeholder={t('Type the question title')} />
+                            </Form.Item>
+
+                            <Form.Item
+                              label={t('Question Hide')}
+                              name={[field.name, 'id']}
+                              initialValue={randomId()}
+                              required
+                              style={{ display: 'none' }}
                             >
                               <Input placeholder={t('Type the question title')} />
                             </Form.Item>
