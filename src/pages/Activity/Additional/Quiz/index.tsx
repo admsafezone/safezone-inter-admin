@@ -23,6 +23,7 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
     { name: 'top-image' },
     { name: 'only-text' },
     { name: 'only-image' },
+    { name: 'input-text' },
   ];
   const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }];
 
