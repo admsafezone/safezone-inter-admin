@@ -25,7 +25,7 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
     { name: 'only-image' },
     { name: 'input-text' },
   ];
-  const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }];
+  const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }, { name: 'manual-result-quiz' }];
 
   const randomId = () => {
     const min = Math.ceil(1);
@@ -205,6 +205,11 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                                       </Form.Item>
                                     </Col>
                                     <Col span={4}>
+                                      <Form.Item label={t('Value option')} name={[optionField.name, 'valueOption']}>
+                                        <Input placeholder={t('Type the option value')} />
+                                      </Form.Item>
+                                    </Col>
+                                    <Col span={4}>
                                       <Form.Item
                                         label={t('Right option')}
                                         name={[optionField.name, 'right']}
@@ -292,9 +297,17 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                                   <Input placeholder={t('Type the feedback type')} />
                                 </Form.Item>
                               </Col>
-                              <Col span={18}>
+                              <Col span={14}>
                                 <Form.Item label={t('Feedback title')} name={[field.name, 'title']}>
                                   <Input placeholder={t('Type the feedback title')} />
+                                </Form.Item>
+                              </Col>
+                              <Col span={4}>
+                                <Form.Item
+                                  label={t('Option value feedback')}
+                                  name={[field.name, 'optionValueFeedback']}
+                                >
+                                  <Input placeholder={t('Option value feedback')} />
                                 </Form.Item>
                               </Col>
                             </Row>
