@@ -66,12 +66,7 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
               </Form.Item>
             </Col>
             <Col span={4}>
-              <Form.Item
-                label={t('Check options')}
-                name={[field.name, 'options']}
-                required
-                rules={[{ required: true, message: 'Check options is required' }]}
-              >
+              <Form.Item label={t('Check options')} name={[field.name, 'options']}>
                 <Input placeholder={t('Type the options')} />
               </Form.Item>
             </Col>
