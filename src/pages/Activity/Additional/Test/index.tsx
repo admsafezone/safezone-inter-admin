@@ -55,7 +55,7 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
                 <Input placeholder={t('Type the check level')} />
               </Form.Item>
             </Col>
-            <Col span={6}>
+            <Col span={4}>
               <Form.Item
                 label={t('Check pattern')}
                 name={[field.name, 'pattern']}
@@ -65,7 +65,17 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
                 <Input placeholder={t('Type the pattern')} />
               </Form.Item>
             </Col>
-            <Col span={14}>
+            <Col span={4}>
+              <Form.Item
+                label={t('Check options')}
+                name={[field.name, 'options']}
+                required
+                rules={[{ required: true, message: 'Check options is required' }]}
+              >
+                <Input placeholder={t('Type the options')} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
               <Form.Item
                 label={t('Check message')}
                 name={[field.name, 'message']}
@@ -87,7 +97,7 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
       default:
         return (
           <Row gutter={24}>
-            <Col span={16}>
+            <Col span={14}>
               <Form.Item
                 label={t('Question text')}
                 name={[field.name, 'text']}
@@ -98,9 +108,15 @@ const Test: FC<TestProps> = ({ data, updateField, setGaleryVisible }: TestProps)
               </Form.Item>
             </Col>
 
-            <Col span={8}>
+            <Col span={5}>
               <Form.Item label={t('Question pattern')} name={[field.name, 'pattern']}>
                 <Input placeholder={t('Type the pattern')} />
+              </Form.Item>
+            </Col>
+
+            <Col span={5}>
+              <Form.Item label={t('Question options')} name={[field.name, 'options']}>
+                <Input placeholder={t('Type the options')} />
               </Form.Item>
             </Col>
 
