@@ -17,49 +17,11 @@ import './style.less';
 const { Content } = Layout;
 const { Panel } = Collapse;
 
-const users = [
-  {
-    id: 1,
-    name: 'Robson',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-  {
-    id: 2,
-    name: 'João',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-  {
-    id: 3,
-    name: 'Maria',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-  {
-    id: 4,
-    name: 'Maria',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-  {
-    id: 5,
-    name: 'Maria',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-  {
-    id: 6,
-    name: 'Maria',
-    info:
-      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia ab omnis, sapiente perspiciatis optio velit debitis? Aspernatur dolores perferendis dolorum impedit. Fugiat enim voluptatem totam asperiores omnis explicabo dolorum rerum',
-  },
-];
-
 const Dashboard: FC = (props): JSX.Element => {
   const [reports, setReports] = useState<ReportDashboard[]>([]);
   const [activityParticipation, setActivityParticipation] = useState<any>(null);
   const [activityByDay, setActivityByDay] = useState<any>(null);
+  const [infringements, setInfringements] = useState<any>([]);
   const [totals, setTotals] = useState<any>({});
 
   async function getReports() {
@@ -75,6 +37,11 @@ const Dashboard: FC = (props): JSX.Element => {
   async function getGraphicActivityByDay() {
     const graphicData = await defaultService.get('/dashboard/activity-by-day', []);
     setActivityByDay(graphicData);
+  }
+
+  async function getInfringements() {
+    const graphicData = await defaultService.get('/dashboard/infringements');
+    setInfringements(graphicData);
   }
 
   async function getGraphicTotals() {
@@ -95,6 +62,7 @@ const Dashboard: FC = (props): JSX.Element => {
     getGraphicActivityParticipation();
     getGraphicActivityByDay();
     getGraphicTotals();
+    getInfringements();
   }, []);
 
   const { t } = useAppContext();
@@ -183,7 +151,7 @@ const Dashboard: FC = (props): JSX.Element => {
             </dl>
 
             <dl className="rounded infringement-list">
-              <dt className="infringement-list__title">{t('Infringements')}</dt>
+              <dt className="infringement-list__title">{infringements?.title || t('Infringements')}</dt>
               <dd className="infringement-list__items">
                 <Collapse
                   accordion
@@ -192,16 +160,32 @@ const Dashboard: FC = (props): JSX.Element => {
                     <DownOutlined rotate={isActive ? 0 : -90} style={{ color: '#CF0000' }} />
                   )}
                 >
-                  {users.map((user) => (
-                    <Panel className="" header={user.name} key={user.id}>
-                      <p>{user.info}</p>
+                  {infringements?.results?.map((infringement) => (
+                    <Panel
+                      header={
+                        <Row>
+                          <Col span={18}>{infringement.user}</Col>
+                          <Col span={6} style={{ textAlign: 'right' }}>
+                            {t('Total')}: {infringement.total}
+                          </Col>
+                        </Row>
+                      }
+                      key={infringement.id}
+                    >
+                      <ol>
+                        {infringement.descriptions &&
+                          infringement.descriptions.map((desc, key) => <li key={key}>{desc}</li>)}
+                      </ol>
+                      <p>
+                        {t('Last infringement')}: {new Date(infringement.lastDate).toLocaleString('pt-BR')}
+                      </p>
                     </Panel>
                   ))}
                 </Collapse>
               </dd>
-              <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date().toLocaleString(
-                'pt-BR',
-              )}`}</dt>
+              <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date(
+                infringements?.updatedAt,
+              ).toLocaleString('pt-BR')}`}</dt>
             </dl>
           </Col>
         </Row>
