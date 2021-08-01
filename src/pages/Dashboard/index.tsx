@@ -172,6 +172,7 @@ const Dashboard: FC = (props): JSX.Element => {
                       }
                       key={infringement.id}
                     >
+                      <strong>{t('Infringement type')}:</strong>
                       <ol>
                         {infringement.descriptions &&
                           infringement.descriptions.map((desc, key) => <li key={key}>{desc}</li>)}
