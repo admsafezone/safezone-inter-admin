@@ -184,7 +184,7 @@ const Dashboard: FC = (props): JSX.Element => {
                 </Collapse>
               </dd>
               <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date(
-                infringements?.updatedAt,
+                infringements?.updatedAt || new Date(),
               ).toLocaleString('pt-BR')}`}</dt>
             </dl>
           </Col>
