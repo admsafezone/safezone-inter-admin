@@ -24,6 +24,8 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
     { name: 'only-text' },
     { name: 'only-image' },
     { name: 'input-text' },
+    { name: 'input-text-cpf' },
+    { name: 'input-text-date' },
   ];
   const quizTypes = [{ name: 'automatic-result' }, { name: 'manual-result' }, { name: 'manual-result-quiz' }];
 
@@ -201,6 +203,11 @@ const Quiz: FC<QuizProps> = ({ updateField, setGaleryVisible }: QuizProps) => {
                                     </Col>
                                     <Col span={4}>
                                       <Form.Item label={t('Option icon')} name={[optionField.name, 'icon']}>
+                                        <Input placeholder={t('Type the option icon')} />
+                                      </Form.Item>
+                                    </Col>
+                                    <Col span={4}>
+                                      <Form.Item label={t('Hide input')} name={[optionField.name, 'hiddeninput']}>
                                         <Input placeholder={t('Type the option icon')} />
                                       </Form.Item>
                                     </Col>
