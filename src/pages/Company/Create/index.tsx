@@ -147,6 +147,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                 <Input placeholder={t('Type the company name')} />
               </Form.Item>
             </Col>
+
             <Col md={12}>
               <div
                 style={{ position: 'absolute', right: '20px', textAlign: 'right', fontWeight: 'bold', color: 'green' }}
@@ -231,6 +232,11 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                     valuePropName="checked"
                   >
                     <Switch />
+                  </Form.Item>
+                </Col>
+                <Col md={12}>
+                  <Form.Item label={t('Menssage company support')} name="theme.messageCompany">
+                    <Input placeholder={t('Please type the company menssage support')} />
                   </Form.Item>
                 </Col>
               </Row>
