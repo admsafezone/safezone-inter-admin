@@ -140,17 +140,6 @@ const Dashboard: FC = (props): JSX.Element => {
             </Row>
           </Col>
 
-          <Col lg={12} md={24} sm={24} style={{ marginTop: 24 }}>
-            <dl className="report-list rounded">
-              <dt className="report-list__title">{t('Reports')}</dt>
-              <dd className="report-list__items">
-                {reports.map((report) => (
-                  <OneReportItem key={report._id} {...report} />
-                ))}
-              </dd>
-            </dl>
-          </Col>
-
           <Col lg={12} md={24} style={{ marginTop: 24 }}>
             <dl className="rounded infringement-list">
               <dt className="infringement-list__title">{infringements?.title || t('Infringements')}</dt>
@@ -189,6 +178,17 @@ const Dashboard: FC = (props): JSX.Element => {
               <dt className="infringement-list__footer">{`${t('Updated At')} ${new Date(
                 infringements?.updatedAt || new Date(),
               ).toLocaleString('pt-BR')}`}</dt>
+            </dl>
+          </Col>
+
+          <Col lg={12} md={24} sm={24} style={{ marginTop: 24 }}>
+            <dl className="report-list rounded">
+              <dt className="report-list__title">{t('Reports')}</dt>
+              <dd className="report-list__items">
+                {reports.map((report) => (
+                  <OneReportItem key={report._id} {...report} />
+                ))}
+              </dd>
             </dl>
           </Col>
         </Row>
