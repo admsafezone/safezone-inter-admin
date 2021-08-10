@@ -73,9 +73,9 @@ const Dashboard: FC = (props): JSX.Element => {
 
       <Content {...props} className="one-page-dashboard">
         <Row gutter={16}>
-          <Col span={18} lg={18} md={24} sm={24} xs={24}>
+          <Col span={24}>
             <Row gutter={16}>
-              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+              <Col xl={6} lg={12} sm={24}>
                 <OneCard className="total" {...totals.users}>
                   <UserOutlined
                     style={{
@@ -88,7 +88,7 @@ const Dashboard: FC = (props): JSX.Element => {
                   />
                 </OneCard>
               </Col>
-              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+              <Col xl={6} lg={12} sm={24}>
                 <OneCard className="todo" {...totals.subscribers}>
                   <UsergroupAddOutlined
                     style={{
@@ -101,7 +101,7 @@ const Dashboard: FC = (props): JSX.Element => {
                   />
                 </OneCard>
               </Col>
-              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+              <Col xl={6} lg={12} sm={24}>
                 <OneCard className="overdue" {...totals.activities}>
                   <ScheduleOutlined
                     style={{
@@ -114,7 +114,7 @@ const Dashboard: FC = (props): JSX.Element => {
                   />
                 </OneCard>
               </Col>
-              <Col span={6} lg={6} md={12} sm={24} xs={24}>
+              <Col xl={6} lg={12} sm={24}>
                 <OneCard className="completed" {...totals.comments}>
                   <CommentOutlined
                     style={{
@@ -129,18 +129,18 @@ const Dashboard: FC = (props): JSX.Element => {
               </Col>
             </Row>
 
-            <Row style={{ marginTop: 16 }} gutter={16}>
-              <Col span={12} md={12} sm={24} xs={24}>
+            <Row style={{ marginTop: 24 }} gutter={16}>
+              <Col lg={12} md={24}>
                 <OneGraphic {...activityParticipation} />
               </Col>
 
-              <Col span={12} md={12} sm={24} xs={24}>
+              <Col lg={12} md={24}>
                 <OneGraphic {...activityByDay} />
               </Col>
             </Row>
           </Col>
 
-          <Col span={6} lg={6} md={24} sm={24} xs={24}>
+          <Col lg={12} md={24} sm={24} style={{ marginTop: 24 }}>
             <dl className="report-list rounded">
               <dt className="report-list__title">{t('Reports')}</dt>
               <dd className="report-list__items">
@@ -149,7 +149,9 @@ const Dashboard: FC = (props): JSX.Element => {
                 ))}
               </dd>
             </dl>
+          </Col>
 
+          <Col lg={12} md={24} style={{ marginTop: 24 }}>
             <dl className="rounded infringement-list">
               <dt className="infringement-list__title">{infringements?.title || t('Infringements')}</dt>
               <dd className="infringement-list__items">
