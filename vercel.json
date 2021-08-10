@@ -12,10 +12,6 @@
           "value": "same-origin"
         },
         {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
           "key": "Cache-Control",
           "value": "no-store"
         },
