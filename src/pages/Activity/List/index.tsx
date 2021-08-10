@@ -307,10 +307,16 @@ const ActivityList: FC = (): JSX.Element => {
         >
           {columnWithSearch('Title', 'title', true, 'r', 'i')}
 
-          <Column title={t('Type')} sorter={true} dataIndex="type" width={90} />
+          <Column title={t('Type')} sorter={true} dataIndex="type" width={80} />
 
-          <Column title={t('Language')} dataIndex="lang" width={90} sorter={true} />
+          <Column title={t('Language')} dataIndex="lang" width={80} sorter={true} />
 
+          <Column
+            title={t('Unique')}
+            dataIndex="unique"
+            width={70}
+            render={(_: string, item: Activity) => (item.unique ? t('Yes') : t('No'))}
+          />
           <Column
             title={t('Active')}
             dataIndex="active"

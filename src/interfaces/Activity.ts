@@ -11,6 +11,7 @@ export interface Activity {
   image?: string;
   company?: any;
   data?: any;
+  unique?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
