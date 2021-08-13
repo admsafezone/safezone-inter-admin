@@ -3,12 +3,10 @@ import { sls } from 'utils/StorageUtils';
 import Constants from 'utils/Constants';
 import i18n, { getCurrentLang } from 'i18n';
 
-const { token } = sls.getItem(Constants.storage.TOKEN) || {};
-
 const api: AxiosInstance = axios.create({
   baseURL: `${process.env.REACT_APP_API_ROOT}/api`,
+  withCredentials: true,
   headers: {
-    Authorization: `Bearer ${token}`,
     locale: getCurrentLang(),
   },
 });
@@ -26,18 +24,8 @@ const refreshToken = async () => {
 
 api.interceptors.request.use(
   function (config) {
-    const { token } = sls.getItem(Constants.storage.TOKEN) || {};
-
-    if (!config.headers.noToken) {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } else {
-      config.headers.Authorization = '';
-    }
-
+    config.withCredentials = !config.headers.noToken;
     config.headers.locale = getCurrentLang();
-
     return config;
   },
   function (error) {

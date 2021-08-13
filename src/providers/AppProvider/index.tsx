@@ -58,16 +58,20 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
     }
   };
 
-  const changeLogged = (_user?: User) => {
+  const changeLogged = async (_user?: User) => {
     setUser(_user);
     if (_user) {
       changeOptions(_user?.options || options);
+    } else {
+      await defaultService.get(`${api.AUTH}/logout`, {}, { withCredentials: false });
     }
   };
 
   const getCompany = async () => {
     const response = await defaultService.get(
       `${api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
+      {},
+      { withCredentials: false },
     );
     sls.setItem(storage.COMPANY, response);
     setCompany(response);
@@ -77,7 +81,7 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
     let languages = sls.getItem(storage.LANGUAGES) || [];
 
     if (!languages.length) {
-      const response = await defaultService.get(`${api.LANGUAGES}/start/?origin=admin`);
+      const response = await defaultService.get(`${api.LANGUAGES}/start/?origin=admin`, {}, { withCredentials: false });
 
       if (Object.keys(response).length) {
         sls.setItem(storage.LANGUAGES, response);

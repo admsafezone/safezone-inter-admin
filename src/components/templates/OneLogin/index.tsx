@@ -24,7 +24,7 @@ interface LoginProps {
 }
 
 export const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement => {
-  const { t } = useAppContext();
+  const { t, changeLogged } = useAppContext();
   const [loading, setLoading] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [form] = Form.useForm();
@@ -36,14 +36,14 @@ export const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement 
     values.recaptchaToken = token;
 
     const requestConfig = {
-      url: `${defaultService.api.defaults.baseURL}/${Constants.api.AUTH}`,
+      url: `/${Constants.api.AUTH}`,
       data: values,
       method: 'post',
       headers: {
         locale: getCurrentLang(),
-        Authorization: '',
       },
     };
+
     const response = await defaultService.request(requestConfig);
 
     if (response.error) {
@@ -51,6 +51,9 @@ export const OneLogin: FC<LoginProps> = ({ onLogin }: LoginProps): ReactElement 
       setLoading(false);
       if (recaptchaRef.current) {
         recaptchaRef.current.reset();
+      }
+      if (response.error.includes('Invalid token')) {
+        changeLogged();
       }
     } else {
       sls.setItem(Constants.storage.TOKEN, response);

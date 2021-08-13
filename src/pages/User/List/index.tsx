@@ -250,6 +250,13 @@ const UserList: FC = (): JSX.Element => {
           )}
 
           <Column
+            title={t('Blocked')}
+            dataIndex="loginBlocked"
+            width={90}
+            sorter={true}
+            render={(_: string, item: User) => (item.loginBlocked ? t('Yes') : t('No'))}
+          />
+          <Column
             title={t('Active')}
             dataIndex="active"
             width={90}
