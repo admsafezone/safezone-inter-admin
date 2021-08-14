@@ -29,7 +29,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "*.portalsafezone.com.br, *.safezone.net.br"
+          "value": "*.safezone.net.br"
         },
         {
           "key": "Strict-Transport-Security",
