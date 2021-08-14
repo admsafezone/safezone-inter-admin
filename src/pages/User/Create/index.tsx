@@ -244,7 +244,7 @@ const UserCreate: FC<UserCreateProps> = (props: UserCreateProps): ReactElement =
               </Form.Item>
             </Col>
             <Col md={8}>
-              <Form.Item label={t('Blocked user')} name="loginBlocked">
+              <Form.Item label={t('Blocked user login')} name="loginBlocked">
                 <Switch defaultChecked={user?.loginBlocked} />
               </Form.Item>
             </Col>
