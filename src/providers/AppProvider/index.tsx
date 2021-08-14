@@ -63,16 +63,28 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
     if (_user) {
       changeOptions(_user?.options || options);
     } else {
-      await defaultService.get(`${api.AUTH}/logout`, {}, { withCredentials: false });
+      const requestConfig = {
+        url: `${api.AUTH}/logout`,
+        method: 'get',
+        withCredentials: false,
+        headers: {
+          noToken: true,
+        },
+      };
+      await defaultService.request(requestConfig);
     }
   };
 
   const getCompany = async () => {
-    const response = await defaultService.get(
-      `${api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
-      {},
-      { withCredentials: false },
-    );
+    const requestConfig = {
+      url: `${api.COMPANIES}/start/${user?.company?._id}?select=name theme identifier`,
+      method: 'get',
+      withCredentials: false,
+      headers: {
+        noToken: true,
+      },
+    };
+    const response = await defaultService.request(requestConfig);
     sls.setItem(storage.COMPANY, response);
     setCompany(response);
   };
@@ -81,7 +93,15 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
     let languages = sls.getItem(storage.LANGUAGES) || [];
 
     if (!languages.length) {
-      const response = await defaultService.get(`${api.LANGUAGES}/start/?origin=admin`, {}, { withCredentials: false });
+      const requestConfig = {
+        url: `${defaultService.api.defaults.baseURL}/${api.LANGUAGES}/start/?origin=admin`,
+        method: 'get',
+        withCredentials: false,
+        headers: {
+          noToken: true,
+        },
+      };
+      const response = await defaultService.request(requestConfig);
 
       if (Object.keys(response).length) {
         sls.setItem(storage.LANGUAGES, response);
