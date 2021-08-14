@@ -6,9 +6,7 @@ import i18n, { getCurrentLang } from 'i18n';
 const api: AxiosInstance = axios.create({
   baseURL: `${process.env.REACT_APP_API_ROOT}/api`,
   withCredentials: true,
-  headers: {
-    locale: getCurrentLang(),
-  },
+  headers: { locale: getCurrentLang() },
 });
 
 const refreshToken = async () => {
