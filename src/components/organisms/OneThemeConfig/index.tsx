@@ -30,7 +30,7 @@ export const OneThemeConfig: FC = (): JSX.Element => {
     const config = {
       url: `${defaultService.api.defaults.baseURL}/${Constants.api.REFRESH}`,
       method: 'post',
-      headers: { ...defaultService.api.defaults.headers, like: identifier },
+      headers: { ...defaultService.api.defaults.headers, identifier },
     };
     const response = await defaultService.request(config);
     sls.setItem(Constants.storage.TOKEN, response);
