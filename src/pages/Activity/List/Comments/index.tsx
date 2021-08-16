@@ -116,14 +116,9 @@ const Comments: FC<CommentsProps> = ({ activity }: CommentsProps) => {
           title={t('User')}
           dataIndex="user"
           width={140}
-          render={(_, comment: Comment) => `${comment.user?.name} ${comment.user?.surname} (${comment.user?.email})`}
-        />
-        <Column
-          title={t('Created At')}
-          dataIndex="createdAt"
-          width={90}
-          sorter={true}
-          render={(_: string, item: Comment) => formatDate(item.createdAt)}
+          render={(_, comment: Comment) =>
+            comment.user ? `${comment.user?.name} ${comment.user?.surname}` : t('Not found')
+          }
         />
         <Column
           title={t('Active')}
@@ -136,6 +131,13 @@ const Comments: FC<CommentsProps> = ({ activity }: CommentsProps) => {
             { text: t('No'), value: false },
           ]}
           render={(_: string, item: Comment) => (item.active ? t('Yes') : t('No'))}
+        />
+        <Column
+          title={t('Created At')}
+          dataIndex="createdAt"
+          width={100}
+          sorter={true}
+          render={(_: string, item: Comment) => formatDate(item.createdAt)}
         />
         <Column title={t('Comment')} dataIndex="text" width={600} />
       </Table>
