@@ -344,7 +344,7 @@ const ActivityList: FC = (): JSX.Element => {
             render={(_: string, item: Activity) => formatDate(item.updatedAt)}
           />
 
-          <Column
+          {/* <Column
             title={t('Preview')}
             dataIndex="preview"
             width={50}
@@ -360,7 +360,7 @@ const ActivityList: FC = (): JSX.Element => {
                 }}
               ></OneButton>
             )}
-          />
+          /> */}
 
           {checkACL(acl.ACTIVITIES, permissions.W) ? (
             <Column
