@@ -5,7 +5,7 @@ import i18n, { getCurrentLang } from 'i18n';
 
 const csrfMethods = ['post', 'put', 'delete'];
 const api: AxiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_ROOT}/api`,
+  baseURL: `${process.env.REACT_APP_API_ROOT}${process.env.REACT_APP_API_PATH}`,
   withCredentials: true,
   headers: { locale: getCurrentLang() },
 });
