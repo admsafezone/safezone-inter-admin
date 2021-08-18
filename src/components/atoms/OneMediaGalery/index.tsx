@@ -14,8 +14,6 @@ import OneLoader from 'components/atoms/OneLoader';
 import defaultService from 'services/defaultService';
 import { Media } from 'interfaces';
 import Constants from 'utils/Constants';
-import api from 'services/api';
-import { sls } from 'utils/StorageUtils';
 import './style.less';
 
 const { Title } = Typography;
@@ -37,7 +35,6 @@ export const OneMediaGalery: FC<OneMediaGaleryProps> = ({
   const [loading, setLoading] = useState(false);
   const [medias, setMedias] = useState<Media[]>([]);
   const [selectMadia, setSelectMadia] = useState<Media>();
-  const { token } = sls.getItem(Constants.storage.TOKEN);
   let isMounted = true;
 
   const getMedias = async () => {
@@ -49,6 +46,23 @@ export const OneMediaGalery: FC<OneMediaGaleryProps> = ({
     setLoading(true);
     await defaultService.delete(`${Constants.api.MEDIA}/${id}`);
     await getMedias();
+    setLoading(false);
+  };
+
+  const uploadAction = async (data) => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('file', data.file);
+    const config = {
+      url: `${Constants.api.MEDIA}`,
+      method: 'post',
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      data: formData,
+    };
+    await defaultService.request(config);
+    getMedias();
     setLoading(false);
   };
 
@@ -82,24 +96,6 @@ export const OneMediaGalery: FC<OneMediaGaleryProps> = ({
         </div>
       </div>
     );
-  };
-
-  const onUploadHandler = (info) => {
-    switch (info.file.status) {
-      case 'uploading':
-        setLoading(true);
-        break;
-
-      case 'error':
-        setLoading(false);
-        break;
-
-      case 'done':
-      default:
-        getMedias();
-        setLoading(false);
-        break;
-    }
   };
 
   useEffect(() => {
@@ -147,16 +143,7 @@ export const OneMediaGalery: FC<OneMediaGaleryProps> = ({
               {selectMadia?.url ? t('Set') : t('None')}
             </Button>
 
-            <Upload
-              name="file"
-              action={`${api.defaults.baseURL}/${Constants.api.MEDIA}`}
-              headers={{
-                authorization: `Bearer ${token}`,
-              }}
-              onChange={onUploadHandler}
-              itemRender={() => null}
-              className="one-galery-upload"
-            >
+            <Upload name="file" customRequest={uploadAction} itemRender={() => null} className="one-galery-upload">
               <Button type="primary" loading={loading} icon={<UploadOutlined />}>
                 {t('Upload')}
               </Button>

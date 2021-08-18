@@ -94,7 +94,7 @@ export const AppProvider: FC = ({ children }: any): JSX.Element => {
 
     if (!languages.length) {
       const requestConfig = {
-        url: `${defaultService.api.defaults.baseURL}/${api.LANGUAGES}/start/?origin=admin`,
+        url: `${api.LANGUAGES}/start/?origin=admin`,
         method: 'get',
         withCredentials: false,
         headers: {
