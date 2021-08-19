@@ -13,7 +13,7 @@ import {
   // EyeOutlined,
 } from '@ant-design/icons';
 import { OneButton, OnePageTitle } from 'components/atoms';
-import ActivityPreview from './Preview';
+// import ActivityPreview from './Preview';
 import Comments from './Comments';
 import { Activity } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
@@ -35,8 +35,8 @@ const ActivityList: FC = (): JSX.Element => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [activityEdit, setActivityEdit] = useState<Activity>();
   const [createVisible, setCreateVisible] = useState(false);
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const [activityPreview, setActivityPreview] = useState<Activity>();
+  // const [previewVisible, setPreviewVisible] = useState(false);
+  // const [activityPreview, setActivityPreview] = useState<Activity>();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [reload, setReload] = useState('');
@@ -385,7 +385,7 @@ const ActivityList: FC = (): JSX.Element => {
         </Table>
       </Content>
 
-      <ActivityPreview activity={activityPreview} setVisible={setPreviewVisible} visible={previewVisible} />
+      {/* <ActivityPreview activity={activityPreview} setVisible={setPreviewVisible} visible={previewVisible} /> */}
 
       <ActivityCreate
         visible={createVisible}
