@@ -10,7 +10,7 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   CopyOutlined,
-  EyeOutlined,
+  // EyeOutlined,
 } from '@ant-design/icons';
 import { OneButton, OnePageTitle } from 'components/atoms';
 import ActivityPreview from './Preview';
