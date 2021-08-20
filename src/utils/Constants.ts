@@ -13,6 +13,7 @@ const Constants = {
   },
   api: {
     AUTH: 'auth',
+    CSRF: 'csrftoken',
     ACTIVITIES: 'activities',
     COMPANIES: 'companies',
     COMMENTS: 'comments',

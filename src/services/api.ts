@@ -3,14 +3,11 @@ import { sls } from 'utils/StorageUtils';
 import Constants from 'utils/Constants';
 import i18n, { getCurrentLang } from 'i18n';
 
-const { token } = sls.getItem(Constants.storage.TOKEN) || {};
-
+const csrfMethods = ['post', 'put', 'delete'];
 const api: AxiosInstance = axios.create({
-  baseURL: `${process.env.REACT_APP_API_ROOT}/api`,
-  headers: {
-    Authorization: `Bearer ${token}`,
-    locale: getCurrentLang(),
-  },
+  baseURL: `${process.env.REACT_APP_API_ROOT}${process.env.REACT_APP_API_PATH}`,
+  withCredentials: true,
+  headers: { locale: getCurrentLang() },
 });
 
 const refreshToken = async () => {
@@ -24,19 +21,28 @@ const refreshToken = async () => {
   }
 };
 
+const getCsrfToken = async (request) => {
+  try {
+    const response = await api.post(Constants.api.CSRF, { url: request.url, method: request.method });
+    return response.headers['x-csrf-token'];
+  } catch (error) {
+    return '';
+  }
+};
+
 api.interceptors.request.use(
-  function (config) {
-    const { token } = sls.getItem(Constants.storage.TOKEN) || {};
-
-    if (!config.headers.noToken) {
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    } else {
-      config.headers.Authorization = '';
-    }
-
+  async function (config) {
+    config.withCredentials = !config.headers.noToken;
     config.headers.locale = getCurrentLang();
+
+    if (
+      csrfMethods.includes(config.method || '') &&
+      !config.url?.includes(Constants.api.CSRF) &&
+      !config.url?.includes(Constants.api.AUTH) &&
+      !config.url?.includes(Constants.api.REFRESH)
+    ) {
+      config.headers['x-xsrf-token'] = await getCsrfToken(config);
+    }
 
     return config;
   },

@@ -10,10 +10,10 @@ import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   CopyOutlined,
-  EyeOutlined,
+  // EyeOutlined,
 } from '@ant-design/icons';
 import { OneButton, OnePageTitle } from 'components/atoms';
-import ActivityPreview from './Preview';
+// import ActivityPreview from './Preview';
 import Comments from './Comments';
 import { Activity } from 'interfaces';
 import { formatDate } from 'utils/DateUtils';
@@ -35,8 +35,8 @@ const ActivityList: FC = (): JSX.Element => {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [activityEdit, setActivityEdit] = useState<Activity>();
   const [createVisible, setCreateVisible] = useState(false);
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const [activityPreview, setActivityPreview] = useState<Activity>();
+  // const [previewVisible, setPreviewVisible] = useState(false);
+  // const [activityPreview, setActivityPreview] = useState<Activity>();
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState<FilterItem[]>([]);
   const [reload, setReload] = useState('');
@@ -89,7 +89,7 @@ const ActivityList: FC = (): JSX.Element => {
     }
   };
 
-  const searchHandler = (key, values, type = '', options = '', page: Pager = { current: 1 }) => {
+  const searchHandler = (key, values, type = '', options = '', page: Pager = { current: 1, limit: pager.limit }) => {
     const otherFilters = filters.filter((f) => f.key !== key);
     let _filters: any = [];
 
@@ -344,7 +344,7 @@ const ActivityList: FC = (): JSX.Element => {
             render={(_: string, item: Activity) => formatDate(item.updatedAt)}
           />
 
-          <Column
+          {/* <Column
             title={t('Preview')}
             dataIndex="preview"
             width={50}
@@ -360,7 +360,7 @@ const ActivityList: FC = (): JSX.Element => {
                 }}
               ></OneButton>
             )}
-          />
+          /> */}
 
           {checkACL(acl.ACTIVITIES, permissions.W) ? (
             <Column
@@ -385,7 +385,7 @@ const ActivityList: FC = (): JSX.Element => {
         </Table>
       </Content>
 
-      <ActivityPreview activity={activityPreview} setVisible={setPreviewVisible} visible={previewVisible} />
+      {/* <ActivityPreview activity={activityPreview} setVisible={setPreviewVisible} visible={previewVisible} /> */}
 
       <ActivityCreate
         visible={createVisible}
