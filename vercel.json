@@ -9,11 +9,11 @@
         },
         {
           "key": "Referrer-Policy",
-          "value": "unsafe-url"
+          "value": "same-origin"
         },
         {
           "key": "X-Frame-Options",
-          "value": ""
+          "value": "SAMEORIGIN"
         },
         {
           "key": "Cache-Control",
@@ -29,7 +29,7 @@
         },
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "*.safezone.net.br"
+          "value": "*.portalsafezone.com.br"
         },
         {
           "key": "Strict-Transport-Security",
