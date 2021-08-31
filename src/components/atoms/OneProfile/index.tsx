@@ -13,10 +13,10 @@ export const OneProfile: FC = (): ReactElement => {
   const { profiles } = user || { profiles: [] };
   const history = useHistory();
 
-  const logout = () => {
+  const logout = async () => {
     sls.clear();
+    await changeLogged();
     history.push('/');
-    changeLogged();
   };
 
   return (

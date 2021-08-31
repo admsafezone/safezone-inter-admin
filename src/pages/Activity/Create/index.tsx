@@ -45,7 +45,6 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
       if (data.data && data.data.header) {
         data.data.header = data.data.header.toHTML();
       }
-      data.company = company?._id;
 
       setLoading(true);
       let result;
@@ -66,6 +65,7 @@ const ActivityCreate: FC<ArticleCreateProps> = (props: ArticleCreateProps): Reac
 
         result = await defaultService.put(`${Constants.api.ACTIVITIES}/${activity._id}`, dataPut);
       } else {
+        data.company = company?._id;
         result = await defaultService.post(Constants.api.ACTIVITIES, data);
       }
 

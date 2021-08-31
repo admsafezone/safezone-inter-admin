@@ -9,7 +9,7 @@ const { Content } = Layout;
 
 const Queue: FC = (): JSX.Element => {
   const { t } = useAppContext();
-  const url = `${process.env.REACT_APP_API_ROOT}/${Constants.api.QUEUES}/queue/sendMail`;
+  const url = `${process.env.REACT_APP_API_ROOT}/api/${Constants.api.QUEUES}/queue/sendMail`;
 
   return (
     <>

@@ -28,7 +28,7 @@ export const OneThemeConfig: FC = (): JSX.Element => {
   const onChangeCompany = async (identifier) => {
     setValue(identifier);
     const config = {
-      url: `${defaultService.api.defaults.baseURL}/${Constants.api.REFRESH}`,
+      url: `${Constants.api.REFRESH}`,
       method: 'post',
       headers: { ...defaultService.api.defaults.headers, identifier },
     };

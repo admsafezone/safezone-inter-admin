@@ -64,7 +64,7 @@ const UserList: FC = (): JSX.Element => {
     }
   };
 
-  const searchHandler = (key, values, type = '', options = '', page: Pager = { current: 1 }) => {
+  const searchHandler = (key, values, type = '', options = '', page: Pager = { current: 1, limit: pager.limit }) => {
     const otherFilters = filters.filter((f) => f.key !== key);
     let _filters: any = [];
 
@@ -249,6 +249,13 @@ const UserList: FC = (): JSX.Element => {
             />
           )}
 
+          <Column
+            title={t('Blocked')}
+            dataIndex="loginBlocked"
+            width={90}
+            sorter={true}
+            render={(_: string, item: User) => (item.loginBlocked ? t('Yes') : t('No'))}
+          />
           <Column
             title={t('Active')}
             dataIndex="active"

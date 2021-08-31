@@ -34,6 +34,7 @@ export interface User {
   email: string;
   active: boolean;
   confirmed: boolean;
+  loginBlocked: boolean;
   profiles: any[];
   options?: ThemeOptions;
   company?: Company;
