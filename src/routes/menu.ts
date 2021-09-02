@@ -17,6 +17,7 @@ import Dashboard from 'pages/Dashboard';
 import ProfileManager from 'pages/Profile/Manager';
 import UserList from 'pages/User/List';
 import ReportList from 'pages/Report/List';
+import ReportListDPA from 'pages/ReportDPA/List';
 import GraphicList from 'pages/Graphic/List';
 import LanguageList from 'pages/Language/List';
 import Queue from 'pages/Queue';
@@ -78,6 +79,15 @@ const menus: MenuItem[] = [
     subTitle: 'Manager portal reports',
     icon: AuditOutlined,
     component: ReportList,
+    exact: true,
+    aclResource: 'reports',
+  },
+  {
+    path: '/reportsdpa',
+    title: 'Reports DPA',
+    subTitle: 'Manager DPA reports',
+    icon: AuditOutlined,
+    component: ReportListDPA,
     exact: true,
     aclResource: 'reports',
   },
