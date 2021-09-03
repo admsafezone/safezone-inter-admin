@@ -87,7 +87,7 @@ const Quiz: FC<QuizProps> = ({ data, updateField, setGaleryVisible }: QuizProps)
     if (quizType === 'test') {
       return (
         <>
-          <Form.List name={['data', quizType.toLowerCase()]}>
+          <Form.List name={['data', 'questions']}>
             {(fields, { add, remove }) => (
               <>
                 <Collapse
