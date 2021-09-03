@@ -17,7 +17,6 @@ import Dashboard from 'pages/Dashboard';
 import ProfileManager from 'pages/Profile/Manager';
 import UserList from 'pages/User/List';
 import ReportList from 'pages/Report/List';
-import ReportListDPA from 'pages/ReportDPA/List';
 import GraphicList from 'pages/Graphic/List';
 import LanguageList from 'pages/Language/List';
 import Queue from 'pages/Queue';
