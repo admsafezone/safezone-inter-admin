@@ -83,15 +83,6 @@ const menus: MenuItem[] = [
     aclResource: 'reports',
   },
   {
-    path: '/reportsdpa',
-    title: 'Reports DPA',
-    subTitle: 'Manager DPA reports',
-    icon: AuditOutlined,
-    component: ReportListDPA,
-    exact: true,
-    aclResource: 'reports',
-  },
-  {
     path: '/languages',
     title: 'Languages',
     subTitle: 'Manager site language translation',
