@@ -10,7 +10,7 @@ variables:
   AWS_REGION: us-east-1
   BUCKET_NAME: inter-frontend-admin
   REACT_APP_NAME: "Cyber Week"
-  REACT_APP_DOMAI: https://di83fvjc07vmh.cloudfront.net/
+  REACT_APP_DOMAIN: cloudfront.net
   REACT_APP_STORAGE_KEY: 87C74EC62C98DFF67B9F3BECB8599231
   REACT_APP_ACL: "true"
   REACT_APP_API_ROOT: https://teste.portalsafezone.com.br
