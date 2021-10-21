@@ -1,0 +1,50 @@
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - deploy
+
+variables:
+  AWS_REGION: us-east-1
+  BUCKET_NAME: inter-frontend-admin
+  REACT_APP_NAME: Safezone
+  REACT_APP_DOMAI: safezone.net.br
+  REACT_APP_STORAGE_KEY: 87C74EC62C98DFF67B9F3BECB8599231
+  REACT_APP_ACL: true
+  REACT_APP_API_ROOT: https://teste.portalsafezone.com.br
+  REACT_APP_API_PATH: /api
+  REACT_APP_CLIENT_HOST: https://[identifier].portalsafezone.com.br
+  REACT_APP_TZ: America/Sao_Paulo
+  REACT_APP_PAGER_SIZE: 50
+  REACT_APP_DEFAULT_IDENTIFIER: admin
+  REACT_APP_DEFAULT_PREVIEW: infunsec
+  REACT_APP_MEDIA_TYPE: "image/jpeg;image/png;image/svg+xml;image/gif"
+  REACT_APP_REPORT_CREATE_TIMEOUT: 3000
+  REACT_APP_RECAPTCHA_KEY: 6Lc7MqgaAAAAAN-09ymvTNy0CdkTnNMeiluizvhG
+
+build site:
+  image: node:14
+  stage: build
+  script:
+    - yarn
+    - yarn build
+  artifacts:    
+    paths:      
+      - ./build     
+
+deploy to s3:
+  image: 
+    name: amazon/aws-cli
+    entrypoint: [""]
+  stage: deploy
+  script:
+    - aws --version
+    - ls -l
+    - aws s3 rm --recursive s3://$BUCKET_NAME/
+    - aws s3 sync ./build s3://$BUCKET_NAME/
+    - aws cloudfront create-invalidation --distribution-id E1V3CRL7W5I4RB --paths "/*"
+  only:
+    - master
+  when: manual
