@@ -22,7 +22,7 @@ variables:
   REACT_APP_DEFAULT_PREVIEW: infunsec
   REACT_APP_MEDIA_TYPE: "image/jpeg;image/png;image/svg+xml;image/gif"
   REACT_APP_REPORT_CREATE_TIMEOUT: "3000"
-  REACT_APP_RECAPTCHA_KEY: 6Lc7MqgaAAAAAN-09ymvTNy0CdkTnNMeiluizvhG
+  REACT_APP_RECAPTCHA_KEY: 6Lebtm8bAAAAABqCBzsDkmjLRP2zuu8InOI0uHdm
 
 build site:
   image: node:14
