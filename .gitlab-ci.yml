@@ -13,9 +13,9 @@ variables:
   REACT_APP_DOMAIN: cloudfront.net
   REACT_APP_STORAGE_KEY: 87C74EC62C98DFF67B9F3BECB8599231
   REACT_APP_ACL: "true"
-  REACT_APP_API_ROOT: https://teste.portalsafezone.com.br
+  REACT_APP_API_ROOT: https://api.cyberatitudeinter.com.br
   REACT_APP_API_PATH: /api
-  REACT_APP_CLIENT_HOST: https://[identifier].portalsafezone.com.br
+  REACT_APP_CLIENT_HOST: https://[identifier].cyberatitudeinter.com.br
   REACT_APP_TZ: America/Sao_Paulo
   REACT_APP_PAGER_SIZE: "50"
   REACT_APP_DEFAULT_IDENTIFIER: admin
