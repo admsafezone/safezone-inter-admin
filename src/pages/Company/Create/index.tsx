@@ -304,10 +304,15 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                         <Input type="number" placeholder={t('Type the max number of site activities')} />
                       </Form.Item>
                     </Col>
+                    <Col md={8}>
+                      <Form.Item label={t('Disable ranking om site')} name="options.disabledRanking">
+                        <Switch />
+                      </Form.Item>
+                    </Col>
                   </Row>
                 </>
               ) : (
-                <Form.Item name="options.activity.limit" hidden>
+                <Form.Item name="options.disabledRanking" hidden>
                   <Input type="hidden" />
                 </Form.Item>
               )}
