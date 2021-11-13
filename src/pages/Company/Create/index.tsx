@@ -384,6 +384,16 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                       <OneInputColor name="theme.public.backgroundColor" />
                     </Form.Item>
                   </Col>
+                  <Col md={12}>
+                    <Form.Item label={t('Sign in text button color')} name={'theme.public.buttonTextColor'}>
+                      <OneInputColor name="theme.public.buttonTextColor" />
+                    </Form.Item>
+                  </Col>
+                  <Col md={12}>
+                    <Form.Item label={t('Sign in button color')} name={'theme.public.buttonColor'}>
+                      <OneInputColor name="theme.public.buttonColor" />
+                    </Form.Item>
+                  </Col>
                 </Col>
                 <Col md={6}>
                   <Form.Item label={t('Sign in logo')} name="theme.public.logo">
