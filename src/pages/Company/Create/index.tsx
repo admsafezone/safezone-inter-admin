@@ -106,6 +106,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
     if (company) {
       const fields = form.getFieldsValue();
       const flatCompany = objectToFields(company, fields);
+      console.log(flatCompany);
       form.setFieldsValue(flatCompany);
       setCompanyDomain(`${company.identifier}.${szDomain}`);
     } else {
@@ -312,9 +313,14 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                   </Row>
                 </>
               ) : (
-                <Form.Item name="options.disabledRanking" hidden>
-                  <Input type="hidden" />
-                </Form.Item>
+                <>
+                  <Form.Item name="options.activity.limit" hidden>
+                    <Input type="hidden" />
+                  </Form.Item>
+                  <Form.Item name="options.disabledRanking" hidden>
+                    <Input type="hidden" />
+                  </Form.Item>
+                </>
               )}
             </Col>
 
