@@ -201,6 +201,17 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
             </Col>
 
             <Col md={12}>
+              <Form.Item
+                label={t('Site host')}
+                name="host"
+                required
+                rules={[{ required: true, message: t('Please type the company site host') }]}
+              >
+                <Input placeholder={t('Type the company site host')} />
+              </Form.Item>
+            </Col>
+
+            <Col md={12}>
               <Form.Item label={t('Active company')} name="active" valuePropName="checked">
                 <Switch />
               </Form.Item>
