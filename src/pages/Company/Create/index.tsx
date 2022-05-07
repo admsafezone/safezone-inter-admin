@@ -111,7 +111,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
       const flatCompany = objectToFields(company, fields);
       form.setFieldsValue(flatCompany);
       setCompanyDomain(`${company.identifier}.${szDomain}`);
-      setUsePhone(company.options.loginPhone);
+      setUsePhone(company.options?.loginPhone);
       setUseSso(company.options?.sso?.enabled);
     } else {
       setCompanyDomain('');
