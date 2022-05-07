@@ -6,6 +6,7 @@ import { DownOutlined, CommentOutlined, UsergroupAddOutlined, UserOutlined, Sche
 import { useAppContext } from 'providers/AppProvider';
 import OneCard from 'components/atoms/OneCard';
 import OneReportItem from 'components/atoms/OneReportItem';
+import OneRakingItem from 'components/atoms/OneRakingItem';
 
 import { ReportDashboard } from 'interfaces/Report';
 import defaultService from 'services/defaultService';
@@ -22,11 +23,17 @@ const Dashboard: FC = (props): JSX.Element => {
   const [activityParticipation, setActivityParticipation] = useState<any>(null);
   const [activityByDay, setActivityByDay] = useState<any>(null);
   const [infringements, setInfringements] = useState<any>([]);
+  const [fullRanking, setFullRanking] = useState<any>([]);
   const [totals, setTotals] = useState<any>({});
 
   async function getReports() {
     const reports = await defaultService.get('/reports/dashboard', []);
     setReports(reports);
+  }
+
+  async function getFullRanking() {
+    const ranking = await defaultService.get('/dashboard/ranking-home');
+    setFullRanking(ranking.results || []);
   }
 
   async function getGraphicActivityParticipation() {
@@ -63,6 +70,7 @@ const Dashboard: FC = (props): JSX.Element => {
     getGraphicActivityByDay();
     getGraphicTotals();
     getInfringements();
+    getFullRanking();
   }, []);
 
   const { t } = useAppContext();
@@ -140,7 +148,17 @@ const Dashboard: FC = (props): JSX.Element => {
             </Row>
           </Col>
 
-          <Col lg={12} md={24} style={{ marginTop: 24 }}>
+          <Col lg={8} md={24} sm={24} style={{ marginTop: 24 }}>
+            <dl className="report-list rounded">
+              <dt className="report-list__title">{t('Ranking')}</dt>
+              <dd className="report-list__items">
+                {!!fullRanking.length &&
+                  fullRanking.map((item, index) => <OneRakingItem key={item._id} position={index + 1} {...item} />)}
+              </dd>
+            </dl>
+          </Col>
+
+          <Col lg={8} md={24} style={{ marginTop: 24 }}>
             <dl className="rounded infringement-list">
               <dt className="infringement-list__title">{infringements?.title || t('Infringements')}</dt>
               <dd className="infringement-list__items">
@@ -181,7 +199,7 @@ const Dashboard: FC = (props): JSX.Element => {
             </dl>
           </Col>
 
-          <Col lg={12} md={24} sm={24} style={{ marginTop: 24 }}>
+          <Col lg={8} md={24} sm={24} style={{ marginTop: 24 }}>
             <dl className="report-list rounded">
               <dt className="report-list__title">{t('Reports')}</dt>
               <dd className="report-list__items">
