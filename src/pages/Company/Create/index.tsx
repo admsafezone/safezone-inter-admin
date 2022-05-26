@@ -310,7 +310,7 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                     </Col>
                   </Row>
 
-                  {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) ? (
+                  {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) && (
                     <>
                       <h2 style={{ borderBottom: '1px solid #ccc', display: 'block', width: '100%' }}>
                         {t('Single Sign On options')}
@@ -440,15 +440,6 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                         </Col>
                       </Row>
                     </>
-                  ) : (
-                    <>
-                      <Form.Item name="options.activity.limit" hidden>
-                        <Input type="hidden" />
-                      </Form.Item>
-                      <Form.Item name="options.disabledRanking" hidden>
-                        <Input type="hidden" />
-                      </Form.Item>
-                    </>
                   )}
                 </Panel>
 
@@ -516,12 +507,22 @@ const CompanyCreate: FC<CompanyCreateProps> = (props: CompanyCreateProps): React
                           <Input type="number" placeholder={t('Type the max number of site activities')} />
                         </Form.Item>
                       </Col>
+                      <Col md={8}>
+                        <Form.Item label={t('Disabled ranking')} name="options.disabledRanking" valuePropName="checked">
+                          <Switch />
+                        </Form.Item>
+                      </Col>
                     </Row>
                   </Panel>
                 ) : (
-                  <Form.Item name="options.activity.limit" hidden>
-                    <Input type="hidden" />
-                  </Form.Item>
+                  <>
+                    <Form.Item name="options.activity.limit" hidden>
+                      <Input type="hidden" />
+                    </Form.Item>
+                    <Form.Item name="options.disabledRanking" hidden>
+                      <Input type="hidden" />
+                    </Form.Item>
+                  </>
                 )}
 
                 {checkACL(Constants.acl.COMPANIES, Constants.permissions.M) ? (
